@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { Menu, X } from "lucide-react";
+import { Menu, X, ArrowRight } from "lucide-react";
 
 const navLinks = [
   { href: "#que-hacemos", label: "Qué hacemos" },
@@ -22,7 +22,7 @@ const Header = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const whatsappNumber = "5491112345678";
+  const whatsappNumber = "50686425281";
   const whatsappMessage = encodeURIComponent("Hola, me interesa conocer más sobre sus soluciones digitales.");
   const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${whatsappMessage}`;
 
@@ -33,7 +33,7 @@ const Header = () => {
       transition={{ duration: 0.5 }}
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         isScrolled
-          ? "bg-background/95 backdrop-blur-md shadow-sm border-b border-border/50"
+          ? "bg-background/90 backdrop-blur-xl border-b border-border/50"
           : "bg-transparent"
       }`}
     >
@@ -55,9 +55,10 @@ const Header = () => {
                 {link.label}
               </a>
             ))}
-            <Button variant="default" size="sm" asChild>
+            <Button variant="hero" size="sm" asChild>
               <a href={whatsappUrl} target="_blank" rel="noopener noreferrer">
                 Contactar
+                <ArrowRight className="ml-1 h-4 w-4" />
               </a>
             </Button>
           </div>
@@ -88,15 +89,16 @@ const Header = () => {
                     key={link.href}
                     href={link.href}
                     onClick={() => setIsMobileMenuOpen(false)}
-                    className="block px-4 py-2 text-foreground hover:bg-accent rounded-lg transition-colors duration-200"
+                    className="block px-4 py-2 text-foreground hover:bg-muted rounded-lg transition-colors duration-200"
                   >
                     {link.label}
                   </a>
                 ))}
                 <div className="px-4 pt-2">
-                  <Button variant="default" size="default" asChild className="w-full">
+                  <Button variant="hero" size="default" asChild className="w-full">
                     <a href={whatsappUrl} target="_blank" rel="noopener noreferrer">
                       Contactar
+                      <ArrowRight className="ml-1 h-4 w-4" />
                     </a>
                   </Button>
                 </div>

@@ -30,7 +30,7 @@ const Process = () => {
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
   return (
-    <section id="proceso" className="py-24 bg-secondary/30" ref={ref}>
+    <section id="proceso" className="py-24 bg-background" ref={ref}>
       <div className="container">
         <motion.div
           initial={{ opacity: 0, y: 40 }}
@@ -38,14 +38,11 @@ const Process = () => {
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <span className="inline-block px-4 py-2 mb-6 text-sm font-medium rounded-full bg-accent text-accent-foreground">
-            Proceso
-          </span>
           <h2 className="text-3xl sm:text-4xl font-bold font-display mb-6 text-foreground">
             Cómo trabajamos
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Un proceso estructurado que garantiza resultados predecibles y entregas a tiempo.
+            Un proceso simple y transparente para que te enfoques en tu negocio.
           </p>
         </motion.div>
 
@@ -58,7 +55,7 @@ const Process = () => {
               transition={{ duration: 0.5, delay: index * 0.15 }}
               className="relative"
             >
-              <div className="p-6 rounded-2xl bg-card border border-border h-full">
+              <div className="p-6 rounded-2xl glass-card h-full">
                 <span className="text-5xl font-bold font-display gradient-text opacity-80">
                   {step.number}
                 </span>
