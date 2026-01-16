@@ -2,17 +2,21 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Menu, X, ArrowRight } from "lucide-react";
-
-const navLinks = [
-  { href: "#que-hacemos", label: "Qué hacemos" },
-  { href: "#servicios", label: "Servicios" },
-  { href: "#proceso", label: "Proceso" },
-  { href: "#por-que", label: "Por qué nosotros" },
-];
+import { useTranslation } from "@/hooks/useTranslation";
+import LanguageSwitcher from "@/components/LanguageSwitcher";
 
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const { t } = useTranslation();
+
+  const navLinks = [
+    { href: "#que-hacemos", label: t('nav.whatWeDo') },
+    { href: "#servicios", label: t('nav.services') },
+    { href: "#proceso", label: t('nav.process') },
+    { href: "#por-que", label: t('nav.whyUs') },
+    { href: "#faq", label: "FAQ" },
+  ];
 
   useEffect(() => {
     const handleScroll = () => {
@@ -55,22 +59,26 @@ const Header = () => {
                 {link.label}
               </a>
             ))}
+            <LanguageSwitcher />
             <Button variant="hero" size="sm" asChild>
               <a href={whatsappUrl} target="_blank" rel="noopener noreferrer">
-                Contactar
+                {t('nav.contact')}
                 <ArrowRight className="ml-1 h-4 w-4" />
               </a>
             </Button>
           </div>
 
           {/* Mobile Menu Button */}
-          <button
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="md:hidden p-2 text-foreground"
-            aria-label="Toggle menu"
-          >
-            {isMobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
-          </button>
+          <div className="md:hidden flex items-center gap-2">
+            <LanguageSwitcher />
+            <button
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              className="p-2 text-foreground"
+              aria-label="Toggle menu"
+            >
+              {isMobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+            </button>
+          </div>
         </nav>
 
         {/* Mobile Menu */}
@@ -97,7 +105,7 @@ const Header = () => {
                 <div className="px-4 pt-2">
                   <Button variant="hero" size="default" asChild className="w-full">
                     <a href={whatsappUrl} target="_blank" rel="noopener noreferrer">
-                      Contactar
+                      {t('nav.contact')}
                       <ArrowRight className="ml-1 h-4 w-4" />
                     </a>
                   </Button>
