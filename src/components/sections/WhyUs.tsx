@@ -1,33 +1,28 @@
 import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
 import { useRef } from "react";
-import { Cpu, Lightbulb, Target, MessageCircle, Rocket } from "lucide-react";
+import { Building2, DollarSign, HeadphonesIcon, Rocket } from "lucide-react";
 
 const reasons = [
   {
-    icon: Cpu,
-    title: "Tecnología moderna y escalable",
-    description: "Usamos las herramientas más actuales para construir soluciones que crecen contigo.",
+    icon: Building2,
+    title: "Marca tecnológica seria",
+    description: "Empresa estructurada con procesos claros y profesionales.",
   },
   {
-    icon: Lightbulb,
-    title: "Soluciones prácticas, no complicadas",
-    description: "Simplificamos la tecnología para que sea fácil de usar y mantener.",
+    icon: DollarSign,
+    title: "Precios transparentes",
+    description: "Catálogo de servicios con precios definidos para facilitar la decisión.",
   },
   {
-    icon: Target,
-    title: "Enfoque en resultados",
-    description: "Cada proyecto se mide por el impacto real en tu negocio.",
-  },
-  {
-    icon: MessageCircle,
-    title: "Comunicación directa",
-    description: "Acceso directo al equipo sin intermediarios ni burocracia.",
+    icon: HeadphonesIcon,
+    title: "Soporte continuo",
+    description: "Te apoyamos con respuestas técnicas y acompañamiento durante todo el proyecto.",
   },
   {
     icon: Rocket,
     title: "Implementación eficiente",
-    description: "Entregamos rápido sin sacrificar calidad ni atención al detalle.",
+    description: "Qubesight ejecuta el proyecto. Tú te enfocas en hacer crecer tu negocio.",
   },
 ];
 
@@ -36,49 +31,42 @@ const WhyUs = () => {
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
   return (
-    <section id="por-que" className="py-24 bg-background" ref={ref}>
+    <section id="por-que" className="py-24 bg-secondary/30" ref={ref}>
       <div className="container">
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
-          <motion.div
-            initial={{ opacity: 0, x: -40 }}
-            animate={isInView ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.6 }}
-          >
-            <span className="inline-block px-4 py-2 mb-6 text-sm font-medium rounded-full bg-accent text-accent-foreground">
-              Por qué Qubesight
-            </span>
-            <h2 className="text-3xl sm:text-4xl font-bold font-display mb-6 text-foreground">
-              La tecnología debe ser una <span className="gradient-text">ventaja competitiva</span>, no un dolor de cabeza.
-            </h2>
-            <p className="text-lg text-muted-foreground leading-relaxed">
-              Nos enfocamos en entender tu negocio antes de escribir una línea de código. Esto nos permite crear soluciones que realmente resuelven problemas y generan valor.
-            </p>
-          </motion.div>
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.6 }}
+          className="text-center mb-16"
+        >
+          <h2 className="text-3xl sm:text-4xl font-bold font-display mb-6 text-foreground">
+            ¿Por qué Qubesight?
+          </h2>
+          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+            Una empresa que respalda tu proyecto con tecnología seria.
+          </p>
+        </motion.div>
 
-          <motion.div
-            initial={{ opacity: 0, x: 40 }}
-            animate={isInView ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.6 }}
-            className="space-y-4"
-          >
-            {reasons.map((reason, index) => (
-              <motion.div
-                key={reason.title}
-                initial={{ opacity: 0, y: 20 }}
-                animate={isInView ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.4, delay: 0.2 + index * 0.1 }}
-                className="flex gap-4 p-4 rounded-xl bg-card border border-border hover:border-primary/20 transition-colors duration-300"
-              >
-                <div className="w-10 h-10 rounded-lg bg-accent flex items-center justify-center shrink-0">
-                  <reason.icon className="h-5 w-5 text-primary" />
-                </div>
-                <div>
-                  <h3 className="font-semibold text-foreground mb-1">{reason.title}</h3>
-                  <p className="text-sm text-muted-foreground">{reason.description}</p>
-                </div>
-              </motion.div>
-            ))}
-          </motion.div>
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          {reasons.map((reason, index) => (
+            <motion.div
+              key={reason.title}
+              initial={{ opacity: 0, y: 40 }}
+              animate={isInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.5, delay: index * 0.1 }}
+              className="p-6 rounded-2xl glass-card text-center hover:border-primary/30 transition-all duration-300"
+            >
+              <div className="w-14 h-14 rounded-xl gradient-bg flex items-center justify-center mb-5 mx-auto">
+                <reason.icon className="h-7 w-7 text-primary-foreground" />
+              </div>
+              <h3 className="text-lg font-semibold font-display mb-3 text-foreground">
+                {reason.title}
+              </h3>
+              <p className="text-sm text-muted-foreground leading-relaxed">
+                {reason.description}
+              </p>
+            </motion.div>
+          ))}
         </div>
       </div>
     </section>
