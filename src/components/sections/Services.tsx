@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
 import { useRef } from "react";
-import { Globe, ShoppingCart, Bot, Workflow, Smartphone, Settings } from "lucide-react";
+import { Globe, ShoppingCart, Bot, Workflow, Smartphone, Settings, Headphones } from "lucide-react";
 
 const services = [
   {
@@ -18,6 +18,11 @@ const services = [
     icon: Bot,
     title: "Chatbots con IA",
     description: "Asistentes virtuales inteligentes para atención al cliente 24/7.",
+  },
+  {
+    icon: Headphones,
+    title: "Call Center con IA",
+    description: "Centros de llamadas automatizados con inteligencia artificial para atención telefónica 24/7.",
   },
   {
     icon: Workflow,
