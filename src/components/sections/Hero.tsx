@@ -2,18 +2,21 @@ import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Check } from "lucide-react";
 import heroVideo from "@/assets/hero-video.mp4";
-
-const features = [
-  "Desarrollo a la medida",
-  "Automatización con IA",
-  "Implementación rápida",
-  "Soporte directo",
-];
+import { useTranslation } from "@/hooks/useTranslation";
 
 const Hero = () => {
+  const { t, language } = useTranslation();
   const whatsappNumber = "50686425281";
-  const whatsappMessage = encodeURIComponent("Hola, me interesa conocer más sobre sus soluciones digitales.");
+  const whatsappMessage = encodeURIComponent(
+    language === 'es' 
+      ? "Hola, me interesa conocer más sobre sus soluciones digitales."
+      : "Hello, I'm interested in learning more about your digital solutions."
+  );
   const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${whatsappMessage}`;
+
+  const features = language === 'es' 
+    ? ["Desarrollo a la medida", "Automatización con IA", "Implementación rápida", "Soporte directo"]
+    : ["Custom Development", "AI Automation", "Fast Implementation", "Direct Support"];
 
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
@@ -39,7 +42,7 @@ const Hero = () => {
           >
             <span className="inline-flex items-center gap-2 px-4 py-2 mb-6 text-sm font-medium rounded-full bg-muted/80 text-foreground border border-border/50">
               <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
-              Soluciones Digitales con IA
+              {t('hero.badge')}
             </span>
           </motion.div>
 
@@ -49,9 +52,9 @@ const Hero = () => {
             transition={{ duration: 0.6, delay: 0.1 }}
             className="text-4xl sm:text-5xl lg:text-6xl font-bold font-display leading-tight mb-6 text-foreground"
           >
-            Soluciones digitales y{" "}
-            <span className="gradient-text">automatización con IA</span>
-            {" "}para tu negocio
+            {t('hero.title1')}{" "}
+            <span className="gradient-text">{language === 'es' ? 'y automatización con IA' : 'and AI Automation'}</span>
+            {" "}{t('hero.title2')}
           </motion.h1>
 
           <motion.p
@@ -60,7 +63,7 @@ const Hero = () => {
             transition={{ duration: 0.6, delay: 0.2 }}
             className="text-lg sm:text-xl text-muted-foreground mb-8 max-w-2xl mx-auto leading-relaxed"
           >
-            Diseñamos, desarrollamos e implementamos tecnología a la medida que optimiza procesos y aumenta resultados.
+            {t('hero.description')}
           </motion.p>
 
           <motion.div
@@ -91,13 +94,13 @@ const Hero = () => {
           >
             <Button variant="hero" size="lg" asChild>
               <a href={whatsappUrl} target="_blank" rel="noopener noreferrer">
-                Hablar con un asesor
+                {t('hero.cta')}
                 <ArrowRight className="ml-2 h-5 w-5" />
               </a>
             </Button>
             <Button variant="heroOutline" size="lg" asChild>
               <a href="#servicios">
-                Ver servicios
+                {t('hero.secondary')}
               </a>
             </Button>
           </motion.div>
