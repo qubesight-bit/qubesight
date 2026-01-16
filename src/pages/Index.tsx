@@ -9,6 +9,7 @@ import FAQ from "@/components/sections/FAQ";
 import CTA from "@/components/sections/CTA";
 import Footer from "@/components/sections/Footer";
 import WhatsAppButton from "@/components/WhatsAppButton";
+import BackgroundMusic from "@/components/BackgroundMusic";
 
 const Index = () => {
   return (
@@ -26,6 +27,7 @@ const Index = () => {
       </main>
       <Footer />
       <WhatsAppButton />
+      <BackgroundMusic />
     </div>
   );
 };
