@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { MessageCircle } from "lucide-react";
+import logo from "@/assets/logo.png";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -16,9 +17,9 @@ const Footer = () => {
             transition={{ duration: 0.5 }}
             className="text-center md:text-left"
           >
-            <h3 className="text-2xl font-bold font-display text-foreground mb-2">
-              Qubesight
-            </h3>
+            <a href="#" className="inline-block mb-3">
+              <img src={logo} alt="Qubesight" className="h-12 w-auto" />
+            </a>
             <p className="text-sm text-muted-foreground">
               Soluciones digitales y automatización con IA
             </p>
