@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Menu, X, ArrowRight } from "lucide-react";
 import { useTranslation } from "@/hooks/useTranslation";
 import LanguageSwitcher from "@/components/LanguageSwitcher";
+import logo from "@/assets/logo.png";
 
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -44,8 +45,8 @@ const Header = () => {
       <div className="container">
         <nav className="flex items-center justify-between h-20">
           {/* Logo */}
-          <a href="#" className="text-2xl font-bold font-display text-foreground">
-            Qubesight
+          <a href="#" className="flex items-center">
+            <img src={logo} alt="Qubesight" className="h-10 w-auto" />
           </a>
 
           {/* Desktop Navigation */}
