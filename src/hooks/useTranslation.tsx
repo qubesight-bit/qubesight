@@ -15,6 +15,7 @@ export const translations: Translations = {
   'nav.services': { es: 'Servicios', en: 'Services' },
   'nav.process': { es: 'Proceso', en: 'Process' },
   'nav.whyUs': { es: 'Por Qué Nosotros', en: 'Why Us' },
+  'nav.portfolio': { es: 'Portafolio', en: 'Portfolio' },
   'nav.contact': { es: 'Contacto', en: 'Contact' },
   'nav.getQuote': { es: 'Cotizar', en: 'Get Quote' },
 
@@ -89,6 +90,24 @@ export const translations: Translations = {
   'useCases.badge': { es: 'Casos de Uso', en: 'Use Cases' },
   'useCases.title': { es: 'Soluciones para Cada Industria', en: 'Solutions for Every Industry' },
   'useCases.description': { es: 'Adaptamos nuestras soluciones a las necesidades específicas de tu sector.', en: 'We adapt our solutions to the specific needs of your sector.' },
+
+  // Portfolio
+  'portfolio.title': { es: 'Nuestro Portafolio', en: 'Our Portfolio' },
+  'portfolio.description': { es: 'Proyectos reales que demuestran nuestra experiencia y compromiso.', en: 'Real projects that demonstrate our experience and commitment.' },
+  'portfolio.temteaching': { es: 'TemTeaching', en: 'TemTeaching' },
+  'portfolio.temteaching.desc': { es: 'Plataforma educativa profesional con experiencia de aprendizaje moderna.', en: 'Professional educational platform with a modern learning experience.' },
+  'portfolio.overstop': { es: 'Overstop', en: 'Overstop' },
+  'portfolio.overstop.desc': { es: 'Tienda e-commerce con diseño atractivo y funcionalidades avanzadas.', en: 'E-commerce store with attractive design and advanced features.' },
+  'portfolio.timAutomation': { es: 'TIM Automation', en: 'TIM Automation' },
+  'portfolio.timAutomation.desc': { es: 'Sistema de automatización inteligente para optimización de procesos empresariales.', en: 'Intelligent automation system for business process optimization.' },
+  'portfolio.timVoice': { es: 'TIM AI Voice Agent', en: 'TIM AI Voice Agent' },
+  'portfolio.timVoice.desc': { es: 'Agente de voz con IA para atención telefónica automatizada 24/7.', en: 'AI voice agent for automated 24/7 phone support.' },
+  'portfolio.qubesight': { es: 'Qubesight Website', en: 'Qubesight Website' },
+  'portfolio.qubesight.desc': { es: 'Sitio web corporativo con diseño moderno y optimizado para conversión.', en: 'Corporate website with modern design optimized for conversion.' },
+  'portfolio.ajhb1': { es: 'AJHB Sistema', en: 'AJHB System' },
+  'portfolio.ajhb1.desc': { es: 'Sistema empresarial personalizado para gestión y control de operaciones.', en: 'Custom business system for operations management and control.' },
+  'portfolio.ajhb2': { es: 'AJHB Sistema V2', en: 'AJHB System V2' },
+  'portfolio.ajhb2.desc': { es: 'Segunda versión del sistema empresarial con funcionalidades mejoradas.', en: 'Second version of the business system with enhanced features.' },
 
   // CTA
   'cta.badge': { es: 'Comienza hoy mismo', en: 'Start today' },

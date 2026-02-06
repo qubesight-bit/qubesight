@@ -16,6 +16,7 @@ const Header = () => {
     { href: "#servicios", label: t('nav.services') },
     { href: "#proceso", label: t('nav.process') },
     { href: "#por-que", label: t('nav.whyUs') },
+    { href: "#portafolio", label: t('nav.portfolio') },
     { href: "#faq", label: "FAQ" },
   ];
 
