@@ -10,7 +10,7 @@ import imgTimAutomation from "@/assets/portfolio/tim-automation.png";
 import imgTimVoice from "@/assets/portfolio/tim-voice.png";
 import imgQubesight from "@/assets/portfolio/qubesight.png";
 import imgAjhb1 from "@/assets/portfolio/ajhb1.png";
-import imgAjhb2 from "@/assets/portfolio/ajhb2.png";
+
 
 const projects = [
   {
@@ -52,14 +52,7 @@ const projects = [
     titleKey: "portfolio.ajhb1",
     descriptionKey: "portfolio.ajhb1.desc",
     image: imgAjhb1,
-    url: "https://ajhbsistema.lovable.app/",
-    tags: ["Web App", "System"],
-  },
-  {
-    titleKey: "portfolio.ajhb2",
-    descriptionKey: "portfolio.ajhb2.desc",
-    image: imgAjhb2,
-    url: "https://ajhbsistema2.base44.app/",
+    url: "https://ajhbsistemademo.lovable.app",
     tags: ["Web App", "System"],
   },
 ];
