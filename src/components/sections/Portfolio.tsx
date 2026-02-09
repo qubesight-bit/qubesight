@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
 import { useRef, useState } from "react";
-import { ExternalLink } from "lucide-react";
+import { ExternalLink, Maximize2 } from "lucide-react";
 import { useTranslation } from "@/hooks/useTranslation";
 import {
   Dialog,
@@ -151,6 +151,17 @@ const Portfolio = () => {
       <Dialog open={!!embedUrl} onOpenChange={(open) => !open && setEmbedUrl(null)}>
         <DialogContent className="max-w-[95vw] w-[95vw] h-[90vh] p-0 gap-0">
           <DialogTitle className="sr-only">AJHB Sistema Demo</DialogTitle>
+          <div className="absolute top-3 right-12 z-10">
+            <a
+              href={embedUrl || '#'}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 px-3 py-1.5 rounded-md bg-primary text-primary-foreground text-sm font-medium hover:bg-primary/90 transition-colors"
+            >
+              <Maximize2 className="h-4 w-4" />
+              Abrir en nueva pestaña
+            </a>
+          </div>
           {embedUrl && (
             <iframe
               src={embedUrl}
