@@ -23,6 +23,7 @@ const projects = [
     descriptionKey: "portfolio.temteaching.desc",
     image: imgTemteaching,
     url: "https://temteaching.com",
+    embed: true,
     tags: ["Website", "Education"],
   },
   {
