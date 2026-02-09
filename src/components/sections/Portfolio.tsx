@@ -30,6 +30,7 @@ const projects = [
     descriptionKey: "portfolio.overstop.desc",
     image: imgOverstop,
     url: "https://overstop.lat",
+    embed: true,
     tags: ["Website", "E-commerce"],
   },
   {
