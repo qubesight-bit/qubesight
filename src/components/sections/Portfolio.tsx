@@ -1,8 +1,13 @@
 import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { ExternalLink } from "lucide-react";
 import { useTranslation } from "@/hooks/useTranslation";
+import {
+  Dialog,
+  DialogContent,
+  DialogTitle,
+} from "@/components/ui/dialog";
 
 import imgTemteaching from "@/assets/portfolio/temteaching.png";
 import imgOverstop from "@/assets/portfolio/overstop.png";
@@ -53,6 +58,7 @@ const projects = [
     descriptionKey: "portfolio.ajhb1.desc",
     image: imgAjhb1,
     url: "https://ajhbsistemademo.lovable.app",
+    embed: true,
     tags: ["Web App", "System"],
   },
 ];
@@ -61,6 +67,13 @@ const Portfolio = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
   const { t } = useTranslation();
+  const [embedUrl, setEmbedUrl] = useState<string | null>(null);
+
+  const handleProjectClick = (project: typeof projects[0]) => {
+    if (project.embed && project.url) {
+      setEmbedUrl(project.url);
+    }
+  };
 
   return (
     <section id="portafolio" className="py-24 bg-secondary/30" ref={ref}>
@@ -86,7 +99,8 @@ const Portfolio = () => {
               initial={{ opacity: 0, y: 40 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.5, delay: index * 0.1 }}
-              className="group rounded-2xl glass-card hover:border-primary/30 hover:bg-card/80 transition-all duration-300 overflow-hidden"
+              className={`group rounded-2xl glass-card hover:border-primary/30 hover:bg-card/80 transition-all duration-300 overflow-hidden ${project.embed ? 'cursor-pointer' : ''}`}
+              onClick={() => handleProjectClick(project)}
             >
               {/* Screenshot */}
               <div className="relative overflow-hidden aspect-video">
@@ -97,7 +111,7 @@ const Portfolio = () => {
                   loading="lazy"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-card via-transparent to-transparent opacity-60" />
-                {project.url && (
+                {project.url && !project.embed && (
                   <a
                     href={project.url}
                     target="_blank"
@@ -133,6 +147,20 @@ const Portfolio = () => {
           ))}
         </div>
       </div>
+
+      <Dialog open={!!embedUrl} onOpenChange={(open) => !open && setEmbedUrl(null)}>
+        <DialogContent className="max-w-[95vw] w-[95vw] h-[90vh] p-0 gap-0">
+          <DialogTitle className="sr-only">AJHB Sistema Demo</DialogTitle>
+          {embedUrl && (
+            <iframe
+              src={embedUrl}
+              className="w-full h-full rounded-lg"
+              title="AJHB Sistema Demo"
+              allow="fullscreen"
+            />
+          )}
+        </DialogContent>
+      </Dialog>
     </section>
   );
 };
