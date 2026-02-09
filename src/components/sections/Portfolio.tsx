@@ -22,7 +22,7 @@ const projects = [
     titleKey: "portfolio.temteaching",
     descriptionKey: "portfolio.temteaching.desc",
     image: imgTemteaching,
-    url: "https://temteaching.com",
+    url: "https://temteaching.lovable.app/demo-login",
     embed: true,
     tags: ["Website", "Education"],
   },
