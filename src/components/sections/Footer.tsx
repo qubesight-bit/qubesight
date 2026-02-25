@@ -1,11 +1,13 @@
 import { motion } from "framer-motion";
 import { MessageCircle } from "lucide-react";
 import logo from "@/assets/logo.png";
+import { useTranslation } from "@/hooks/useTranslation";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
   const whatsappNumber = "50686425281";
   const whatsappUrl = `https://wa.me/${whatsappNumber}`;
+  const { t } = useTranslation();
 
   return (
     <footer className="py-12 bg-card border-t border-border">
@@ -21,7 +23,7 @@ const Footer = () => {
               <img src={logo} alt="Qubesight" className="h-12 w-auto" />
             </a>
             <p className="text-sm text-muted-foreground">
-              Soluciones digitales y automatización con IA
+              {t('footer.description')}
             </p>
           </motion.div>
 
@@ -38,15 +40,15 @@ const Footer = () => {
               className="flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors duration-200"
             >
               <MessageCircle className="h-5 w-5" />
-              <span>Contactar por WhatsApp</span>
+              <span>{t('footer.whatsapp')}</span>
             </a>
             <div className="hidden sm:block w-px h-6 bg-border" />
             <div className="flex gap-6 text-sm">
               <a href="#" className="text-muted-foreground hover:text-foreground transition-colors duration-200">
-                Aviso legal
+                {t('footer.legal')}
               </a>
               <a href="#" className="text-muted-foreground hover:text-foreground transition-colors duration-200">
-                Privacidad
+                {t('footer.privacy')}
               </a>
             </div>
           </motion.div>
@@ -59,7 +61,7 @@ const Footer = () => {
           className="mt-8 pt-8 border-t border-border text-center"
         >
           <p className="text-sm text-muted-foreground">
-            © {currentYear} Qubesight. Todos los derechos reservados.
+            © {currentYear} Qubesight. {t('footer.rights')}
           </p>
         </motion.div>
       </div>

@@ -161,7 +161,7 @@ const Portfolio = () => {
               className="inline-flex items-center gap-2 px-3 py-1.5 rounded-md bg-primary text-primary-foreground text-sm font-medium hover:bg-primary/90 transition-colors"
             >
               <Maximize2 className="h-4 w-4" />
-              Abrir en nueva pestaña
+              {t('portfolio.openTab')}
             </a>
           </div>
           {embedUrl && (
