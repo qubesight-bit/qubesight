@@ -2,28 +2,18 @@ import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
 import { useRef } from "react";
 import { MessageSquare, ShoppingBag, BarChart3 } from "lucide-react";
-
-const useCases = [
-  {
-    icon: MessageSquare,
-    title: "Atención al cliente automatizada",
-    description: "Negocios que implementan chatbots y flujos automatizados para responder consultas 24/7.",
-  },
-  {
-    icon: ShoppingBag,
-    title: "Ventas online optimizadas",
-    description: "Empresas que migran sus ventas al mundo digital con tiendas e-commerce robustas.",
-  },
-  {
-    icon: BarChart3,
-    title: "Procesos internos eficientes",
-    description: "Equipos que eliminan hojas de cálculo y procesos manuales con sistemas a medida.",
-  },
-];
+import { useTranslation } from "@/hooks/useTranslation";
 
 const UseCases = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const { t } = useTranslation();
+
+  const useCases = [
+    { icon: MessageSquare, titleKey: "useCases.case1.title", descKey: "useCases.case1.desc" },
+    { icon: ShoppingBag, titleKey: "useCases.case2.title", descKey: "useCases.case2.desc" },
+    { icon: BarChart3, titleKey: "useCases.case3.title", descKey: "useCases.case3.desc" },
+  ];
 
   return (
     <section id="casos" className="py-24 bg-background" ref={ref}>
@@ -35,17 +25,17 @@ const UseCases = () => {
           className="text-center mb-16"
         >
           <h2 className="text-3xl sm:text-4xl font-bold font-display mb-6 text-foreground">
-            Casos de uso
+            {t('useCases.title2')}
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Soluciones aplicables a distintos sectores.
+            {t('useCases.description2')}
           </p>
         </motion.div>
 
         <div className="grid md:grid-cols-3 gap-6">
           {useCases.map((useCase, index) => (
             <motion.div
-              key={useCase.title}
+              key={useCase.titleKey}
               initial={{ opacity: 0, y: 40 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.5, delay: index * 0.15 }}
@@ -55,10 +45,10 @@ const UseCases = () => {
                 <useCase.icon className="h-6 w-6 text-primary-foreground" />
               </div>
               <h3 className="text-xl font-semibold font-display mb-3 text-foreground">
-                {useCase.title}
+                {t(useCase.titleKey)}
               </h3>
               <p className="text-muted-foreground leading-relaxed">
-                {useCase.description}
+                {t(useCase.descKey)}
               </p>
             </motion.div>
           ))}

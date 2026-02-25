@@ -1,10 +1,12 @@
 import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
 import { useRef } from "react";
+import { useTranslation } from "@/hooks/useTranslation";
 
 const WhatWeDo = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const { t } = useTranslation();
 
   return (
     <section id="que-hacemos" className="py-24 bg-background" ref={ref}>
@@ -16,11 +18,9 @@ const WhatWeDo = () => {
           className="max-w-3xl mx-auto text-center"
         >
           <h2 className="text-3xl sm:text-4xl font-bold font-display mb-6 text-foreground">
-            Qué hacemos
+            {t('whatWeDo.title2')}
           </h2>
-          <p className="text-lg text-muted-foreground leading-relaxed">
-            En Qubesight ayudamos a empresas a <strong className="text-foreground">digitalizar, automatizar y escalar</strong> sus operaciones mediante soluciones tecnológicas modernas y personalizadas. No usamos soluciones genéricas. Cada proyecto se adapta al negocio.
-          </p>
+          <p className="text-lg text-muted-foreground leading-relaxed" dangerouslySetInnerHTML={{ __html: t('whatWeDo.description2') }} />
         </motion.div>
       </div>
     </section>

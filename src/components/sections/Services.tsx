@@ -2,48 +2,22 @@ import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
 import { useRef } from "react";
 import { Globe, ShoppingCart, Bot, Workflow, Smartphone, Settings, Headphones } from "lucide-react";
-
-const services = [
-  {
-    icon: Globe,
-    title: "Websites profesionales",
-    description: "Sitios web corporativos, landing pages y portafolios de alto impacto.",
-  },
-  {
-    icon: ShoppingCart,
-    title: "Tiendas e-commerce",
-    description: "Tiendas online completas con pasarelas de pago y gestión de inventario.",
-  },
-  {
-    icon: Bot,
-    title: "Chatbots con IA",
-    description: "Asistentes virtuales inteligentes para atención al cliente 24/7.",
-  },
-  {
-    icon: Headphones,
-    title: "Call Center con IA",
-    description: "Centros de llamadas automatizados con inteligencia artificial para atención telefónica 24/7.",
-  },
-  {
-    icon: Workflow,
-    title: "Automatizaciones inteligentes",
-    description: "Flujos automatizados que optimizan procesos y reducen trabajo manual.",
-  },
-  {
-    icon: Smartphone,
-    title: "Apps empresariales",
-    description: "Aplicaciones móviles y web diseñadas para las necesidades de tu equipo.",
-  },
-  {
-    icon: Settings,
-    title: "Sistemas a la medida",
-    description: "Software empresarial personalizado según las necesidades del negocio.",
-  },
-];
+import { useTranslation } from "@/hooks/useTranslation";
 
 const Services = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const { t } = useTranslation();
+
+  const services = [
+    { icon: Globe, titleKey: "services.websites.title2", descKey: "services.websites.desc2" },
+    { icon: ShoppingCart, titleKey: "services.ecommerce.title2", descKey: "services.ecommerce.desc2" },
+    { icon: Bot, titleKey: "services.chatbots.title2", descKey: "services.chatbots.desc2" },
+    { icon: Headphones, titleKey: "services.callcenter.title2", descKey: "services.callcenter.desc2" },
+    { icon: Workflow, titleKey: "services.automations.title2", descKey: "services.automations.desc2" },
+    { icon: Smartphone, titleKey: "services.apps.title2", descKey: "services.apps.desc2" },
+    { icon: Settings, titleKey: "services.systems.title", descKey: "services.systems.desc" },
+  ];
 
   return (
     <section id="servicios" className="py-24 bg-secondary/30" ref={ref}>
@@ -55,17 +29,17 @@ const Services = () => {
           className="text-center mb-16"
         >
           <h2 className="text-3xl sm:text-4xl font-bold font-display mb-6 text-foreground">
-            Servicios
+            {t('services.title2')}
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Soluciones reales para negocios, no productos genéricos.
+            {t('services.description2')}
           </p>
         </motion.div>
 
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {services.map((service, index) => (
             <motion.div
-              key={service.title}
+              key={service.titleKey}
               initial={{ opacity: 0, y: 40 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.5, delay: index * 0.1 }}
@@ -75,10 +49,10 @@ const Services = () => {
                 <service.icon className="h-6 w-6 text-primary-foreground" />
               </div>
               <h3 className="text-xl font-semibold font-display mb-3 text-foreground">
-                {service.title}
+                {t(service.titleKey)}
               </h3>
               <p className="text-muted-foreground leading-relaxed">
-                {service.description}
+                {t(service.descKey)}
               </p>
             </motion.div>
           ))}

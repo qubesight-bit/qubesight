@@ -1,33 +1,19 @@
 import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
 import { useRef } from "react";
-
-const steps = [
-  {
-    number: "01",
-    title: "Diagnóstico del negocio",
-    description: "Analizamos tus procesos actuales, identificamos oportunidades de mejora y definimos objetivos claros.",
-  },
-  {
-    number: "02",
-    title: "Propuesta clara",
-    description: "Diseñamos una solución específica con alcance, tiempos y costos definidos desde el inicio.",
-  },
-  {
-    number: "03",
-    title: "Desarrollo e implementación",
-    description: "Construimos e integramos la solución con entregas incrementales para que veas el progreso.",
-  },
-  {
-    number: "04",
-    title: "Soporte y optimización",
-    description: "Te acompañamos después del lanzamiento para asegurar que todo funcione y evolucione contigo.",
-  },
-];
+import { useTranslation } from "@/hooks/useTranslation";
 
 const Process = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const { t } = useTranslation();
+
+  const steps = [
+    { number: "01", titleKey: "process.step1.title2", descKey: "process.step1.desc2" },
+    { number: "02", titleKey: "process.step2.title2", descKey: "process.step2.desc2" },
+    { number: "03", titleKey: "process.step3.title2", descKey: "process.step3.desc2" },
+    { number: "04", titleKey: "process.step4.title2", descKey: "process.step4.desc2" },
+  ];
 
   return (
     <section id="proceso" className="py-24 bg-background" ref={ref}>
@@ -39,10 +25,10 @@ const Process = () => {
           className="text-center mb-16"
         >
           <h2 className="text-3xl sm:text-4xl font-bold font-display mb-6 text-foreground">
-            Cómo trabajamos
+            {t('process.title2')}
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Un proceso simple y transparente para que te enfoques en tu negocio.
+            {t('process.description2')}
           </p>
         </motion.div>
 
@@ -60,13 +46,12 @@ const Process = () => {
                   {step.number}
                 </span>
                 <h3 className="text-xl font-semibold font-display mt-4 mb-3 text-foreground">
-                  {step.title}
+                  {t(step.titleKey)}
                 </h3>
                 <p className="text-muted-foreground leading-relaxed">
-                  {step.description}
+                  {t(step.descKey)}
                 </p>
               </div>
-              {/* Connector line */}
               {index < steps.length - 1 && (
                 <div className="hidden lg:block absolute top-1/2 -right-3 w-6 h-0.5 bg-border" />
               )}
