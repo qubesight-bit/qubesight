@@ -91,7 +91,7 @@ export const caseStudies: CaseStudy[] = [
       },
       {
         name: { es: "IA/NLP", en: "AI/NLP" },
-        rationale: { es: "[Plataforma de IA] — Seleccionada por su robusto reconocimiento de intenciones e integración sencilla.", en: "[AI Platform] — Selected for its robust intent matching and easy integration." },
+        rationale: { es: "Dialogflow CX — Seleccionada por su robusto reconocimiento de intenciones e integración sencilla con telefonía.", en: "Dialogflow CX — Selected for its robust intent matching and easy telephony integration." },
       },
       {
         name: { es: "Base de Datos", en: "Database" },
