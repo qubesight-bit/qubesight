@@ -206,11 +206,11 @@ export const caseStudies: CaseStudy[] = [
     categoryTag: { es: "Plataforma Educativa", en: "Education Platform" },
     image: imgTemteaching,
     summary: {
-      es: "Plataforma educativa integral que digitalizó la gestión académica de una institución, conectando a más de 500 estudiantes y 40 educadores en un solo ecosistema.",
-      en: "Comprehensive education platform that digitized academic management for an institution, connecting over 500 students and 40 educators in a single ecosystem.",
+      es: "Plataforma educativa integral que digitalizó la gestión académica de una institución, conectando a 15 estudiantes y 4 educadores en un solo ecosistema.",
+      en: "Comprehensive education platform that digitized academic management for an institution, connecting 15 students and 4 educators in a single ecosystem.",
     },
     heroStat: {
-      value: "500+",
+      value: "15",
       label: { es: "Usuarios Activos", en: "Active Users" },
     },
     clientProblem: {
