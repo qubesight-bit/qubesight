@@ -189,9 +189,9 @@ export const caseStudies: CaseStudy[] = [
       { title: { es: "Dashboard de Rendimiento", en: "Performance Dashboard" }, description: { es: "Panel en tiempo real con KPIs operativos, tiempos de respuesta y productividad por equipo para decisiones basadas en datos.", en: "Real-time dashboard with operational KPIs, response times, and team productivity for data-driven decisions." }, icon: "BarChart3" },
     ],
     metrics: [
-      { value: "120h", label: { es: "Horas manuales eliminadas al mes", en: "Manual hours eliminated per month" } },
-      { value: "45%", label: { es: "Reducción en errores de facturación", en: "Reduction in billing errors" } },
-      { value: "3x", label: { es: "Aumento en velocidad de procesamiento de órdenes", en: "Increase in order processing speed" } },
+      { value: "35h", label: { es: "Horas manuales eliminadas al mes", en: "Manual hours eliminated per month" } },
+      { value: "30%", label: { es: "Reducción en errores de facturación", en: "Reduction in billing errors" } },
+      { value: "2x", label: { es: "Aumento en velocidad de procesamiento de órdenes", en: "Increase in order processing speed" } },
     ],
     testimonial: {
       quote: { es: "Antes tardábamos días en procesar una orden completa. Ahora el sistema lo hace en minutos. Qubesight entendió nuestro negocio y automatizó exactamente lo que necesitábamos.", en: "We used to take days to process a complete order. Now the system does it in minutes. Qubesight understood our business and automated exactly what we needed." },
