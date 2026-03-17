@@ -142,7 +142,7 @@ export const caseStudies: CaseStudy[] = [
         label: { es: "Consultas resueltas completamente por IA", en: "Inquiries resolved entirely by AI" },
       },
       {
-        value: "$18,500",
+        value: "$4,200",
         label: { es: "Ahorro anual estimado vs turno nocturno", en: "Estimated annual savings vs night shift" },
       },
     ],
