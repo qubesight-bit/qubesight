@@ -278,9 +278,9 @@ export const caseStudies: CaseStudy[] = [
       { title: { es: "Gestión de Inventario en Tiempo Real", en: "Real-Time Inventory Management" }, description: { es: "Panel administrativo que muestra stock actualizado, alertas de bajo inventario y reportes de productos más vendidos.", en: "Admin panel showing updated stock, low inventory alerts, and best-selling product reports." }, icon: "Package" },
     ],
     metrics: [
-      { value: "210%", label: { es: "Incremento en ventas online en 4 meses", en: "Online sales increase in 4 months" } },
-      { value: "40%", label: { es: "Reducción en abandono de carrito", en: "Reduction in cart abandonment" } },
-      { value: "2.1s", label: { es: "Tiempo de carga promedio en móvil", en: "Average mobile load time" } },
+      { value: "85%", label: { es: "Incremento en ventas online en 4 meses", en: "Online sales increase in 4 months" } },
+      { value: "25%", label: { es: "Reducción en abandono de carrito", en: "Reduction in cart abandonment" } },
+      { value: "2.4s", label: { es: "Tiempo de carga promedio en móvil", en: "Average mobile load time" } },
     ],
     testimonial: {
       quote: { es: "Pasamos de vender por WhatsApp a tener una tienda online profesional que nuestros clientes aman. Las ventas se triplicaron y ahora gestionamos todo desde un solo lugar.", en: "We went from selling via WhatsApp to having a professional online store our customers love. Sales tripled and now we manage everything from one place." },
