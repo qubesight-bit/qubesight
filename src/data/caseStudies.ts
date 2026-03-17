@@ -342,16 +342,16 @@ export const caseStudies: CaseStudy[] = [
     categoryTag: { es: "Sistema Empresarial", en: "Business System" },
     image: imgAjhb1,
     summary: {
-      es: "Sistema empresarial a medida que centralizó la gestión de proyectos, clientes y finanzas de una constructora, aumentando su eficiencia operativa en un 75%.",
-      en: "Custom business system that centralized project, client, and financial management for a construction firm, increasing operational efficiency by 75%.",
+      es: "Sistema empresarial a medida que centralizó la gestión de proyectos, clientes y finanzas de una constructora, aumentando su eficiencia operativa en un 45%.",
+      en: "Custom business system that centralized project, client, and financial management for a construction firm, increasing operational efficiency by 45%.",
     },
     heroStat: {
-      value: "75%",
+      value: "45%",
       label: { es: "Eficiencia Operativa", en: "Operational Efficiency" },
     },
     clientProblem: {
-      es: "AJHB Construcciones, una empresa constructora con más de 15 proyectos simultáneos, gestionaba sus operaciones con hojas de cálculo de Excel y comunicación por WhatsApp. Los presupuestos contenían errores frecuentes, el seguimiento de avances de obra era inconsistente, y la facturación tardaba semanas en consolidarse. Necesitaban un sistema centralizado que conectara todas las áreas del negocio.",
-      en: "AJHB Construction, a building company with over 15 simultaneous projects, managed operations with Excel spreadsheets and WhatsApp communication. Budgets had frequent errors, construction progress tracking was inconsistent, and invoicing took weeks to consolidate. They needed a centralized system connecting all business areas.",
+      es: "AJHB Construcciones, una empresa constructora con 6 proyectos simultáneos, gestionaba sus operaciones con hojas de cálculo de Excel y comunicación por WhatsApp. Los presupuestos contenían errores frecuentes, el seguimiento de avances de obra era inconsistente, y la facturación tardaba semanas en consolidarse. Necesitaban un sistema centralizado que conectara todas las áreas del negocio.",
+      en: "AJHB Construction, a building company with 6 simultaneous projects, managed operations with Excel spreadsheets and WhatsApp communication. Budgets had frequent errors, construction progress tracking was inconsistent, and invoicing took weeks to consolidate. They needed a centralized system connecting all business areas.",
     },
     techStack: [
       { name: { es: "Frontend", en: "Frontend" }, rationale: { es: "React + shadcn/ui — Interfaces profesionales con componentes accesibles y consistentes para usuarios no técnicos.", en: "React + shadcn/ui — Professional interfaces with accessible, consistent components for non-technical users." } },
