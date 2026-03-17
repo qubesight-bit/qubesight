@@ -297,8 +297,8 @@ export const caseStudies: CaseStudy[] = [
     categoryTag: { es: "Sitio Corporativo", en: "Corporate Website" },
     image: imgQubesight,
     summary: {
-      es: "Sitio web corporativo de alto rendimiento que posicionó a Qubesight como referente tecnológico, logrando un 340% de incremento en leads cualificados desde su lanzamiento.",
-      en: "High-performance corporate website that positioned Qubesight as a tech leader, achieving a 340% increase in qualified leads since launch.",
+      es: "Sitio web corporativo de alto rendimiento que posicionó a Qubesight como referente tecnológico, logrando un 60% de incremento en leads cualificados desde su lanzamiento.",
+      en: "High-performance corporate website that positioned Qubesight as a tech leader, achieving a 60% increase in qualified leads since launch.",
     },
     heroStat: {
       value: "1.2s",
