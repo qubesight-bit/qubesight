@@ -324,9 +324,9 @@ export const caseStudies: CaseStudy[] = [
       { title: { es: "Bilingüe Nativo", en: "Native Bilingual" }, description: { es: "Cambio instantáneo entre español e inglés sin recarga de página, con contenido localizado para mercados latinoamericanos y globales.", en: "Instant switching between Spanish and English without page reload, with localized content for Latin American and global markets." }, icon: "Languages" },
     ],
     metrics: [
-      { value: "340%", label: { es: "Aumento en leads cualificados", en: "Increase in qualified leads" } },
+      { value: "60%", label: { es: "Aumento en leads cualificados", en: "Increase in qualified leads" } },
       { value: "95+", label: { es: "Score en Google Lighthouse", en: "Google Lighthouse score" } },
-      { value: "4.2min", label: { es: "Tiempo promedio en el sitio", en: "Average time on site" } },
+      { value: "2.8min", label: { es: "Tiempo promedio en el sitio", en: "Average time on site" } },
     ],
     testimonial: {
       quote: { es: "Nuestro nuevo sitio web no solo se ve increíble, sino que genera resultados reales. Los clientes nos dicen que el portafolio los convenció antes de la primera llamada.", en: "Our new website doesn't just look incredible — it generates real results. Clients tell us the portfolio convinced them before the first call." },
