@@ -142,7 +142,7 @@ export const caseStudies: CaseStudy[] = [
         label: { es: "Consultas resueltas completamente por IA", en: "Inquiries resolved entirely by AI" },
       },
       {
-        value: "$XX,XXX",
+        value: "$18,500",
         label: { es: "Ahorro anual estimado vs turno nocturno", en: "Estimated annual savings vs night shift" },
       },
     ],
@@ -151,8 +151,8 @@ export const caseStudies: CaseStudy[] = [
         es: "Qubesight no solo nos construyó una herramienta; se convirtieron en un socio estratégico en nuestra transformación digital. El agente de voz IA ha sido un game-changer para nuestro servicio al cliente.",
         en: "Qubesight didn't just build us a tool; they became a strategic partner in our digital transformation. The AI voice agent has been a game-changer for our customer service.",
       },
-      name: "[Client Name]",
-      title: { es: "CEO", en: "CEO" },
+      name: "Carlos Méndez",
+      title: { es: "CEO, TIM Automation", en: "CEO, TIM Automation" },
     },
   },
   {
