@@ -369,8 +369,8 @@ export const caseStudies: CaseStudy[] = [
       { title: { es: "Control de Acceso por Rol", en: "Role-Based Access Control" }, description: { es: "Sistema de permisos granular donde gerentes, supervisores y contadores ven exactamente la información relevante para su función.", en: "Granular permission system where managers, supervisors, and accountants see exactly the information relevant to their role." }, icon: "Shield" },
     ],
     metrics: [
-      { value: "75%", label: { es: "Aumento en eficiencia operativa", en: "Increase in operational efficiency" } },
-      { value: "90%", label: { es: "Reducción en errores de presupuesto", en: "Reduction in budget errors" } },
+      { value: "45%", label: { es: "Aumento en eficiencia operativa", en: "Increase in operational efficiency" } },
+      { value: "60%", label: { es: "Reducción en errores de presupuesto", en: "Reduction in budget errors" } },
       { value: "2 sem", label: { es: "Tiempo de facturación reducido de semanas a días", en: "Invoicing time reduced from weeks to days" } },
     ],
     testimonial: {
