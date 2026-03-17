@@ -283,7 +283,7 @@ export const caseStudies: CaseStudy[] = [
       { value: "2.4s", label: { es: "Tiempo de carga promedio en móvil", en: "Average mobile load time" } },
     ],
     testimonial: {
-      quote: { es: "Pasamos de vender por WhatsApp a tener una tienda online profesional que nuestros clientes aman. Las ventas se triplicaron y ahora gestionamos todo desde un solo lugar.", en: "We went from selling via WhatsApp to having a professional online store our customers love. Sales tripled and now we manage everything from one place." },
+      quote: { es: "Pasamos de vender por WhatsApp a tener una tienda online profesional que nuestros clientes aman. Las ventas casi se duplicaron y ahora gestionamos todo desde un solo lugar.", en: "We went from selling via WhatsApp to having a professional online store our customers love. Sales nearly doubled and now we manage everything from one place." },
       name: "Daniela Rojas",
       title: { es: "Fundadora, Overstop", en: "Founder, Overstop" },
     },
