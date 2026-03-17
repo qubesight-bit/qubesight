@@ -251,11 +251,11 @@ export const caseStudies: CaseStudy[] = [
     categoryTag: { es: "E-commerce", en: "E-commerce" },
     image: imgOverstop,
     summary: {
-      es: "Tienda e-commerce de moda urbana que triplicó las ventas online en 4 meses con una experiencia de compra optimizada para móvil y estrategia de conversión integrada.",
-      en: "Urban fashion e-commerce store that tripled online sales in 4 months with a mobile-optimized shopping experience and integrated conversion strategy.",
+      es: "Tienda e-commerce de moda urbana que duplicó las ventas online en 4 meses con una experiencia de compra optimizada para móvil y estrategia de conversión integrada.",
+      en: "Urban fashion e-commerce store that doubled online sales in 4 months with a mobile-optimized shopping experience and integrated conversion strategy.",
     },
     heroStat: {
-      value: "210%",
+      value: "85%",
       label: { es: "Aumento en Ventas", en: "Sales Increase" },
     },
     clientProblem: {
