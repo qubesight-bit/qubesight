@@ -162,16 +162,16 @@ export const caseStudies: CaseStudy[] = [
     categoryTag: { es: "Automatización IA", en: "AI Automation" },
     image: imgTimAutomation,
     summary: {
-      es: "Sistema de automatización inteligente que eliminó el 65% de tareas manuales repetitivas, liberando al equipo para enfocarse en trabajo estratégico de alto valor.",
-      en: "Intelligent automation system that eliminated 65% of repetitive manual tasks, freeing the team to focus on high-value strategic work.",
+      es: "Sistema de automatización inteligente que eliminó el 40% de tareas manuales repetitivas, liberando al equipo para enfocarse en trabajo estratégico de alto valor.",
+      en: "Intelligent automation system that eliminated 40% of repetitive manual tasks, freeing the team to focus on high-value strategic work.",
     },
     heroStat: {
-      value: "65%",
+      value: "40%",
       label: { es: "Reducción de Costos", en: "Cost Reduction" },
     },
     clientProblem: {
-      es: "TIM Automation, una empresa de servicios industriales con más de 50 empleados, dependía de procesos manuales para gestionar órdenes de trabajo, facturación y seguimiento de clientes. Los errores humanos generaban retrabajos costosos y el equipo administrativo dedicaba más del 60% de su tiempo a tareas repetitivas.",
-      en: "TIM Automation, an industrial services company with over 50 employees, relied on manual processes for work order management, invoicing, and client follow-up. Human errors caused costly rework and the admin team spent over 60% of their time on repetitive tasks.",
+      es: "TIM Automation, una empresa de servicios industriales con 12 empleados, dependía de procesos manuales para gestionar órdenes de trabajo, facturación y seguimiento de clientes. Los errores humanos generaban retrabajos costosos y el equipo administrativo dedicaba más del 60% de su tiempo a tareas repetitivas.",
+      en: "TIM Automation, an industrial services company with 12 employees, relied on manual processes for work order management, invoicing, and client follow-up. Human errors caused costly rework and the admin team spent over 60% of their time on repetitive tasks.",
     },
     techStack: [
       { name: { es: "Frontend", en: "Frontend" }, rationale: { es: "React — Interfaces dinámicas con actualización en tiempo real de estados de órdenes.", en: "React — Dynamic interfaces with real-time work order status updates." } },
