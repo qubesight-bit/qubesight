@@ -142,7 +142,7 @@ export const caseStudies: CaseStudy[] = [
         label: { es: "Consultas resueltas completamente por IA", en: "Inquiries resolved entirely by AI" },
       },
       {
-        value: "$18,500",
+        value: "$4,200",
         label: { es: "Ahorro anual estimado vs turno nocturno", en: "Estimated annual savings vs night shift" },
       },
     ],
@@ -162,16 +162,16 @@ export const caseStudies: CaseStudy[] = [
     categoryTag: { es: "Automatización IA", en: "AI Automation" },
     image: imgTimAutomation,
     summary: {
-      es: "Sistema de automatización inteligente que eliminó el 65% de tareas manuales repetitivas, liberando al equipo para enfocarse en trabajo estratégico de alto valor.",
-      en: "Intelligent automation system that eliminated 65% of repetitive manual tasks, freeing the team to focus on high-value strategic work.",
+      es: "Sistema de automatización inteligente que eliminó el 40% de tareas manuales repetitivas, liberando al equipo para enfocarse en trabajo estratégico de alto valor.",
+      en: "Intelligent automation system that eliminated 40% of repetitive manual tasks, freeing the team to focus on high-value strategic work.",
     },
     heroStat: {
-      value: "65%",
+      value: "40%",
       label: { es: "Reducción de Costos", en: "Cost Reduction" },
     },
     clientProblem: {
-      es: "TIM Automation, una empresa de servicios industriales con más de 50 empleados, dependía de procesos manuales para gestionar órdenes de trabajo, facturación y seguimiento de clientes. Los errores humanos generaban retrabajos costosos y el equipo administrativo dedicaba más del 60% de su tiempo a tareas repetitivas.",
-      en: "TIM Automation, an industrial services company with over 50 employees, relied on manual processes for work order management, invoicing, and client follow-up. Human errors caused costly rework and the admin team spent over 60% of their time on repetitive tasks.",
+      es: "TIM Automation, una empresa de servicios industriales con 12 empleados, dependía de procesos manuales para gestionar órdenes de trabajo, facturación y seguimiento de clientes. Los errores humanos generaban retrabajos costosos y el equipo administrativo dedicaba más del 60% de su tiempo a tareas repetitivas.",
+      en: "TIM Automation, an industrial services company with 12 employees, relied on manual processes for work order management, invoicing, and client follow-up. Human errors caused costly rework and the admin team spent over 60% of their time on repetitive tasks.",
     },
     techStack: [
       { name: { es: "Frontend", en: "Frontend" }, rationale: { es: "React — Interfaces dinámicas con actualización en tiempo real de estados de órdenes.", en: "React — Dynamic interfaces with real-time work order status updates." } },
@@ -189,9 +189,9 @@ export const caseStudies: CaseStudy[] = [
       { title: { es: "Dashboard de Rendimiento", en: "Performance Dashboard" }, description: { es: "Panel en tiempo real con KPIs operativos, tiempos de respuesta y productividad por equipo para decisiones basadas en datos.", en: "Real-time dashboard with operational KPIs, response times, and team productivity for data-driven decisions." }, icon: "BarChart3" },
     ],
     metrics: [
-      { value: "120h", label: { es: "Horas manuales eliminadas al mes", en: "Manual hours eliminated per month" } },
-      { value: "45%", label: { es: "Reducción en errores de facturación", en: "Reduction in billing errors" } },
-      { value: "3x", label: { es: "Aumento en velocidad de procesamiento de órdenes", en: "Increase in order processing speed" } },
+      { value: "35h", label: { es: "Horas manuales eliminadas al mes", en: "Manual hours eliminated per month" } },
+      { value: "30%", label: { es: "Reducción en errores de facturación", en: "Reduction in billing errors" } },
+      { value: "2x", label: { es: "Aumento en velocidad de procesamiento de órdenes", en: "Increase in order processing speed" } },
     ],
     testimonial: {
       quote: { es: "Antes tardábamos días en procesar una orden completa. Ahora el sistema lo hace en minutos. Qubesight entendió nuestro negocio y automatizó exactamente lo que necesitábamos.", en: "We used to take days to process a complete order. Now the system does it in minutes. Qubesight understood our business and automated exactly what we needed." },
@@ -206,11 +206,11 @@ export const caseStudies: CaseStudy[] = [
     categoryTag: { es: "Plataforma Educativa", en: "Education Platform" },
     image: imgTemteaching,
     summary: {
-      es: "Plataforma educativa integral que digitalizó la gestión académica de una institución, conectando a más de 500 estudiantes y 40 educadores en un solo ecosistema.",
-      en: "Comprehensive education platform that digitized academic management for an institution, connecting over 500 students and 40 educators in a single ecosystem.",
+      es: "Plataforma educativa integral que digitalizó la gestión académica de una institución, conectando a 15 estudiantes y 4 educadores en un solo ecosistema.",
+      en: "Comprehensive education platform that digitized academic management for an institution, connecting 15 students and 4 educators in a single ecosystem.",
     },
     heroStat: {
-      value: "500+",
+      value: "15",
       label: { es: "Usuarios Activos", en: "Active Users" },
     },
     clientProblem: {
@@ -251,11 +251,11 @@ export const caseStudies: CaseStudy[] = [
     categoryTag: { es: "E-commerce", en: "E-commerce" },
     image: imgOverstop,
     summary: {
-      es: "Tienda e-commerce de moda urbana que triplicó las ventas online en 4 meses con una experiencia de compra optimizada para móvil y estrategia de conversión integrada.",
-      en: "Urban fashion e-commerce store that tripled online sales in 4 months with a mobile-optimized shopping experience and integrated conversion strategy.",
+      es: "Tienda e-commerce de moda urbana que duplicó las ventas online en 4 meses con una experiencia de compra optimizada para móvil y estrategia de conversión integrada.",
+      en: "Urban fashion e-commerce store that doubled online sales in 4 months with a mobile-optimized shopping experience and integrated conversion strategy.",
     },
     heroStat: {
-      value: "210%",
+      value: "85%",
       label: { es: "Aumento en Ventas", en: "Sales Increase" },
     },
     clientProblem: {
@@ -278,12 +278,12 @@ export const caseStudies: CaseStudy[] = [
       { title: { es: "Gestión de Inventario en Tiempo Real", en: "Real-Time Inventory Management" }, description: { es: "Panel administrativo que muestra stock actualizado, alertas de bajo inventario y reportes de productos más vendidos.", en: "Admin panel showing updated stock, low inventory alerts, and best-selling product reports." }, icon: "Package" },
     ],
     metrics: [
-      { value: "210%", label: { es: "Incremento en ventas online en 4 meses", en: "Online sales increase in 4 months" } },
-      { value: "40%", label: { es: "Reducción en abandono de carrito", en: "Reduction in cart abandonment" } },
-      { value: "2.1s", label: { es: "Tiempo de carga promedio en móvil", en: "Average mobile load time" } },
+      { value: "85%", label: { es: "Incremento en ventas online en 4 meses", en: "Online sales increase in 4 months" } },
+      { value: "25%", label: { es: "Reducción en abandono de carrito", en: "Reduction in cart abandonment" } },
+      { value: "2.4s", label: { es: "Tiempo de carga promedio en móvil", en: "Average mobile load time" } },
     ],
     testimonial: {
-      quote: { es: "Pasamos de vender por WhatsApp a tener una tienda online profesional que nuestros clientes aman. Las ventas se triplicaron y ahora gestionamos todo desde un solo lugar.", en: "We went from selling via WhatsApp to having a professional online store our customers love. Sales tripled and now we manage everything from one place." },
+      quote: { es: "Pasamos de vender por WhatsApp a tener una tienda online profesional que nuestros clientes aman. Las ventas casi se duplicaron y ahora gestionamos todo desde un solo lugar.", en: "We went from selling via WhatsApp to having a professional online store our customers love. Sales nearly doubled and now we manage everything from one place." },
       name: "Daniela Rojas",
       title: { es: "Fundadora, Overstop", en: "Founder, Overstop" },
     },
@@ -297,8 +297,8 @@ export const caseStudies: CaseStudy[] = [
     categoryTag: { es: "Sitio Corporativo", en: "Corporate Website" },
     image: imgQubesight,
     summary: {
-      es: "Sitio web corporativo de alto rendimiento que posicionó a Qubesight como referente tecnológico, logrando un 340% de incremento en leads cualificados desde su lanzamiento.",
-      en: "High-performance corporate website that positioned Qubesight as a tech leader, achieving a 340% increase in qualified leads since launch.",
+      es: "Sitio web corporativo de alto rendimiento que posicionó a Qubesight como referente tecnológico, logrando un 60% de incremento en leads cualificados desde su lanzamiento.",
+      en: "High-performance corporate website that positioned Qubesight as a tech leader, achieving a 60% increase in qualified leads since launch.",
     },
     heroStat: {
       value: "1.2s",
@@ -324,9 +324,9 @@ export const caseStudies: CaseStudy[] = [
       { title: { es: "Bilingüe Nativo", en: "Native Bilingual" }, description: { es: "Cambio instantáneo entre español e inglés sin recarga de página, con contenido localizado para mercados latinoamericanos y globales.", en: "Instant switching between Spanish and English without page reload, with localized content for Latin American and global markets." }, icon: "Languages" },
     ],
     metrics: [
-      { value: "340%", label: { es: "Aumento en leads cualificados", en: "Increase in qualified leads" } },
+      { value: "60%", label: { es: "Aumento en leads cualificados", en: "Increase in qualified leads" } },
       { value: "95+", label: { es: "Score en Google Lighthouse", en: "Google Lighthouse score" } },
-      { value: "4.2min", label: { es: "Tiempo promedio en el sitio", en: "Average time on site" } },
+      { value: "2.8min", label: { es: "Tiempo promedio en el sitio", en: "Average time on site" } },
     ],
     testimonial: {
       quote: { es: "Nuestro nuevo sitio web no solo se ve increíble, sino que genera resultados reales. Los clientes nos dicen que el portafolio los convenció antes de la primera llamada.", en: "Our new website doesn't just look incredible — it generates real results. Clients tell us the portfolio convinced them before the first call." },
@@ -342,16 +342,16 @@ export const caseStudies: CaseStudy[] = [
     categoryTag: { es: "Sistema Empresarial", en: "Business System" },
     image: imgAjhb1,
     summary: {
-      es: "Sistema empresarial a medida que centralizó la gestión de proyectos, clientes y finanzas de una constructora, aumentando su eficiencia operativa en un 75%.",
-      en: "Custom business system that centralized project, client, and financial management for a construction firm, increasing operational efficiency by 75%.",
+      es: "Sistema empresarial a medida que centralizó la gestión de proyectos, clientes y finanzas de una constructora, aumentando su eficiencia operativa en un 45%.",
+      en: "Custom business system that centralized project, client, and financial management for a construction firm, increasing operational efficiency by 45%.",
     },
     heroStat: {
-      value: "75%",
+      value: "45%",
       label: { es: "Eficiencia Operativa", en: "Operational Efficiency" },
     },
     clientProblem: {
-      es: "AJHB Construcciones, una empresa constructora con más de 15 proyectos simultáneos, gestionaba sus operaciones con hojas de cálculo de Excel y comunicación por WhatsApp. Los presupuestos contenían errores frecuentes, el seguimiento de avances de obra era inconsistente, y la facturación tardaba semanas en consolidarse. Necesitaban un sistema centralizado que conectara todas las áreas del negocio.",
-      en: "AJHB Construction, a building company with over 15 simultaneous projects, managed operations with Excel spreadsheets and WhatsApp communication. Budgets had frequent errors, construction progress tracking was inconsistent, and invoicing took weeks to consolidate. They needed a centralized system connecting all business areas.",
+      es: "AJHB Construcciones, una empresa constructora con 6 proyectos simultáneos, gestionaba sus operaciones con hojas de cálculo de Excel y comunicación por WhatsApp. Los presupuestos contenían errores frecuentes, el seguimiento de avances de obra era inconsistente, y la facturación tardaba semanas en consolidarse. Necesitaban un sistema centralizado que conectara todas las áreas del negocio.",
+      en: "AJHB Construction, a building company with 6 simultaneous projects, managed operations with Excel spreadsheets and WhatsApp communication. Budgets had frequent errors, construction progress tracking was inconsistent, and invoicing took weeks to consolidate. They needed a centralized system connecting all business areas.",
     },
     techStack: [
       { name: { es: "Frontend", en: "Frontend" }, rationale: { es: "React + shadcn/ui — Interfaces profesionales con componentes accesibles y consistentes para usuarios no técnicos.", en: "React + shadcn/ui — Professional interfaces with accessible, consistent components for non-technical users." } },
@@ -369,8 +369,8 @@ export const caseStudies: CaseStudy[] = [
       { title: { es: "Control de Acceso por Rol", en: "Role-Based Access Control" }, description: { es: "Sistema de permisos granular donde gerentes, supervisores y contadores ven exactamente la información relevante para su función.", en: "Granular permission system where managers, supervisors, and accountants see exactly the information relevant to their role." }, icon: "Shield" },
     ],
     metrics: [
-      { value: "75%", label: { es: "Aumento en eficiencia operativa", en: "Increase in operational efficiency" } },
-      { value: "90%", label: { es: "Reducción en errores de presupuesto", en: "Reduction in budget errors" } },
+      { value: "45%", label: { es: "Aumento en eficiencia operativa", en: "Increase in operational efficiency" } },
+      { value: "60%", label: { es: "Reducción en errores de presupuesto", en: "Reduction in budget errors" } },
       { value: "2 sem", label: { es: "Tiempo de facturación reducido de semanas a días", en: "Invoicing time reduced from weeks to days" } },
     ],
     testimonial: {
