@@ -203,11 +203,11 @@ export const caseStudies: CaseStudy[] = [
   {
     slug: "temteaching",
     title: { es: "TemTeaching", en: "TemTeaching" },
-    category: "web",
-    categoryTag: { es: "Plataforma Educativa", en: "Education Platform" },
+    category: "edtech",
+    categoryTag: { es: "Enseñanza de Inglés", en: "English Teaching" },
     image: imgTemteaching,
     summary: {
-      es: "Plataforma educativa integral que digitalizó la gestión académica de una institución, conectando a 15 estudiantes y 4 educadores en un solo ecosistema.",
+      es: "Plataforma de enseñanza de inglés que digitalizó la gestión académica, conectando a 15 estudiantes y 4 educadores en un ecosistema diseñado para el aprendizaje de idiomas.",
       en: "Comprehensive education platform that digitized academic management for an institution, connecting 15 students and 4 educators in a single ecosystem.",
     },
     heroStat: {
