@@ -56,6 +56,7 @@ export interface CaseStudy {
 export const categories = [
   { key: 'all', label: { es: 'Todos', en: 'All' } },
   { key: 'ai', label: { es: 'IA & Automatización', en: 'AI & Automation' } },
+  { key: 'edtech', label: { es: 'Plataformas Educativas', en: 'EdTech' } },
   { key: 'web', label: { es: 'Desarrollo Web', en: 'Web Development' } },
   { key: 'ecommerce', label: { es: 'E-commerce', en: 'E-commerce' } },
   { key: 'systems', label: { es: 'Sistemas Empresariales', en: 'Business Systems' } },
