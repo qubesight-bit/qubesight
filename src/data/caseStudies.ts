@@ -56,6 +56,7 @@ export interface CaseStudy {
 export const categories = [
   { key: 'all', label: { es: 'Todos', en: 'All' } },
   { key: 'ai', label: { es: 'IA & Automatización', en: 'AI & Automation' } },
+  { key: 'edtech', label: { es: 'Plataformas Educativas', en: 'EdTech' } },
   { key: 'web', label: { es: 'Desarrollo Web', en: 'Web Development' } },
   { key: 'ecommerce', label: { es: 'E-commerce', en: 'E-commerce' } },
   { key: 'systems', label: { es: 'Sistemas Empresariales', en: 'Business Systems' } },
@@ -202,20 +203,20 @@ export const caseStudies: CaseStudy[] = [
   {
     slug: "temteaching",
     title: { es: "TemTeaching", en: "TemTeaching" },
-    category: "web",
-    categoryTag: { es: "Plataforma Educativa", en: "Education Platform" },
+    category: "edtech",
+    categoryTag: { es: "Enseñanza de Inglés", en: "English Teaching" },
     image: imgTemteaching,
     summary: {
-      es: "Plataforma educativa integral que digitalizó la gestión académica de una institución, conectando a 15 estudiantes y 4 educadores en un solo ecosistema.",
-      en: "Comprehensive education platform that digitized academic management for an institution, connecting 15 students and 4 educators in a single ecosystem.",
+      es: "Plataforma de enseñanza de inglés que digitalizó la gestión académica, conectando a 15 estudiantes y 4 educadores en un ecosistema diseñado para el aprendizaje de idiomas.",
+      en: "English teaching platform that digitized academic management, connecting 15 students and 4 educators in an ecosystem designed for language learning.",
     },
     heroStat: {
       value: "15",
-      label: { es: "Usuarios Activos", en: "Active Users" },
+      label: { es: "Estudiantes de Inglés", en: "English Students" },
     },
     clientProblem: {
-      es: "TemTeaching, una institución educativa en crecimiento, gestionaba inscripciones, calificaciones y comunicaciones con padres mediante hojas de cálculo y correos electrónicos. Los profesores perdían horas semanales en tareas administrativas en lugar de enfocarse en la enseñanza, y los padres carecían de visibilidad sobre el progreso de sus hijos.",
-      en: "TemTeaching, a growing educational institution, managed enrollments, grades, and parent communications through spreadsheets and emails. Teachers lost hours each week on administrative tasks instead of focusing on teaching, and parents lacked visibility into their children's progress.",
+      es: "TemTeaching, una academia de inglés en crecimiento, gestionaba inscripciones, niveles de idioma, calificaciones y comunicaciones con padres mediante hojas de cálculo y correos electrónicos. Los profesores perdían horas semanales en tareas administrativas en lugar de enfocarse en la enseñanza del idioma, y los padres carecían de visibilidad sobre el progreso de sus hijos.",
+      en: "TemTeaching, a growing English language academy, managed enrollments, language levels, grades, and parent communications through spreadsheets and emails. Teachers lost hours each week on administrative tasks instead of focusing on language instruction, and parents lacked visibility into their children's progress.",
     },
     techStack: [
       { name: { es: "Frontend", en: "Frontend" }, rationale: { es: "React + TypeScript — Tipado seguro para formularios complejos y paneles multi-rol.", en: "React + TypeScript — Type-safe forms and complex multi-role dashboards." } },
