@@ -2,6 +2,7 @@ import Header from "@/components/layout/Header";
 import Hero from "@/components/sections/Hero";
 import Problem from "@/components/sections/Problem";
 import Assistant from "@/components/sections/Assistant";
+import VoiceBot from "@/components/sections/VoiceBot";
 import PropIA from "@/components/sections/PropIA";
 import Industries from "@/components/sections/Industries";
 import DemoNiches from "@/components/sections/DemoNiches";
@@ -19,6 +20,7 @@ const Index = () => {
         <Hero />
         <Problem />
         <Assistant />
+        <VoiceBot />
         <PropIA />
         <Industries />
         <DemoNiches />

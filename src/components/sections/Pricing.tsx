@@ -159,6 +159,131 @@ const Pricing = () => {
             </motion.div>
           ))}
         </div>
+
+        {/* Voice Bot AI plans */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="max-w-3xl mx-auto text-center mt-24 mb-10"
+        >
+          <h3 className="text-2xl sm:text-4xl font-bold font-display leading-tight">
+            {t("pricing.voice.title")}
+          </h3>
+          <p className="mt-3 text-muted-foreground">
+            {t("pricing.voice.subtitle")}
+          </p>
+        </motion.div>
+
+        <div className="grid md:grid-cols-3 gap-6 max-w-6xl mx-auto">
+          {[
+            {
+              name: t("pricing.voice.bronze.name"),
+              desc: t("pricing.voice.bronze.desc"),
+              price: fmt(199),
+              tier: "bronze" as const,
+              popular: false,
+              features: [
+                t("pricing.voice.bronze.f1"),
+                t("pricing.voice.bronze.f2"),
+                t("pricing.voice.bronze.f3"),
+                t("pricing.voice.bronze.f4"),
+              ],
+            },
+            {
+              name: t("pricing.voice.silver.name"),
+              desc: t("pricing.voice.silver.desc"),
+              price: fmt(399),
+              tier: "silver" as const,
+              popular: true,
+              features: [
+                t("pricing.voice.silver.f1"),
+                t("pricing.voice.silver.f2"),
+                t("pricing.voice.silver.f3"),
+                t("pricing.voice.silver.f4"),
+                t("pricing.voice.silver.f5"),
+              ],
+            },
+            {
+              name: t("pricing.voice.gold.name"),
+              desc: t("pricing.voice.gold.desc"),
+              price: fmt(799),
+              tier: "gold" as const,
+              popular: false,
+              features: [
+                t("pricing.voice.gold.f1"),
+                t("pricing.voice.gold.f2"),
+                t("pricing.voice.gold.f3"),
+                t("pricing.voice.gold.f4"),
+                t("pricing.voice.gold.f5"),
+              ],
+            },
+          ].map((plan, i) => (
+            <motion.div
+              key={i}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: i * 0.1 }}
+              className={`relative glass-card rounded-3xl p-8 flex flex-col ${
+                plan.popular ? "border-primary/40 shadow-glow scale-100 md:scale-105" : ""
+              }`}
+            >
+              {plan.popular && (
+                <span className="absolute -top-3 left-1/2 -translate-x-1/2 inline-flex items-center gap-1 px-3 py-1 rounded-full gradient-bg text-primary-foreground text-xs font-bold uppercase tracking-wider shadow-glow">
+                  <Sparkles className="h-3 w-3" />
+                  {t("pricing.popular")}
+                </span>
+              )}
+
+              <div className="flex items-center gap-2 mb-1">
+                <span
+                  className={`h-2.5 w-2.5 rounded-full ${
+                    plan.tier === "bronze"
+                      ? "bg-amber-700"
+                      : plan.tier === "silver"
+                      ? "bg-slate-300"
+                      : "bg-yellow-400"
+                  }`}
+                />
+                <h3 className="text-xl font-bold font-display">Voice Bot {plan.name}</h3>
+              </div>
+              <p className="text-sm text-muted-foreground mb-6">{plan.desc}</p>
+
+              <div className="mb-6">
+                <div className="flex items-baseline gap-1">
+                  <span className="text-5xl font-bold font-display">${plan.price}</span>
+                  <span className="text-muted-foreground">{t("pricing.month")}</span>
+                </div>
+              </div>
+
+              <ul className="space-y-3 mb-8 flex-grow">
+                {plan.features.map((f, idx) => (
+                  <li key={idx} className="flex items-start gap-3 text-sm">
+                    <Check className="h-4 w-4 text-primary flex-shrink-0 mt-0.5" />
+                    <span>{f}</span>
+                  </li>
+                ))}
+              </ul>
+
+              <Button
+                variant={plan.popular ? "hero" : "outline"}
+                size="lg"
+                asChild
+                className="w-full min-h-[48px]"
+              >
+                <a
+                  href={whatsapp(`Voice Bot ${plan.name}`)}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  {t("pricing.cta")}
+                </a>
+              </Button>
+            </motion.div>
+          ))}
+        </div>
       </div>
     </section>
   );
