@@ -536,6 +536,8 @@ export function ChatEmbedded({ nicheKey }) {
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState("");
   const [typing, setTyping] = useState(false);
+  const [showLeadForm, setShowLeadForm] = useState(false);
+  const [leadSubmitted, setLeadSubmitted] = useState(false);
   const bottomRef = useRef(null);
   const hasWelcomed = useRef(false);
 
@@ -544,7 +546,7 @@ export function ChatEmbedded({ nicheKey }) {
 
   useEffect(() => {
     if (bottomRef.current) bottomRef.current.scrollIntoView({ behavior: "smooth" });
-  }, [messages, typing]);
+  }, [messages, typing, showLeadForm]);
 
   // Auto-welcome on mount
   useEffect(() => {
@@ -561,17 +563,112 @@ export function ChatEmbedded({ nicheKey }) {
     return () => clearTimeout(t1);
   }, [niche.autoWelcome]);
 
-  const send = (text) => {
+  const HUMAN_TRIGGERS = ["asesor", "humano", "persona", "hablar con", "agente", "contactar", "llamame", "llámame"];
+  const looksLikeHumanRequest = (msg) => {
+    const m = msg.toLowerCase();
+    return HUMAN_TRIGGERS.some((t) => m.includes(t));
+  };
+
+  const callAI = async (history, userMsg) => {
+    try {
+      const apiMessages = history
+        .filter((m) => m.role === "user" || m.role === "bot")
+        .map((m) => ({
+          role: m.role === "bot" ? "assistant" : "user",
+          content: m.text,
+        }));
+      apiMessages.push({ role: "user", content: userMsg });
+
+      const url = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/chat-niche`;
+      const res = await fetch(url, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY}`,
+        },
+        body: JSON.stringify({ messages: apiMessages, nicheKey }),
+      });
+      if (!res.ok) {
+        if (res.status === 429) return "⏳ Estoy recibiendo muchas consultas. Intenta en unos segundos.";
+        if (res.status === 402) return "⚠️ Servicio de IA temporalmente no disponible. Escribe *menú* para ver opciones.";
+        return null;
+      }
+      const data = await res.json();
+      return data.reply || null;
+    } catch (e) {
+      console.error("AI fallback error:", e);
+      return null;
+    }
+  };
+
+  const send = async (text) => {
     const msg = (text || input).trim();
     if (!msg) return;
     setInput("");
     setMessages((prev) => [...prev, { role: "user", text: msg, time: now() }]);
     setTyping(true);
+
+    // Hybrid: try scripted first
+    const scripted = getScriptedReply(nicheKey, msg);
+    const wantsHuman = looksLikeHumanRequest(msg);
+
+    if (scripted && !wantsHuman) {
+      setTimeout(() => {
+        setTyping(false);
+        setMessages((prev) => [...prev, { role: "bot", text: scripted, time: now() }]);
+      }, 700 + Math.random() * 400);
+      return;
+    }
+
+    // If wants human → trigger lead form
+    if (wantsHuman) {
+      setTimeout(() => {
+        setTyping(false);
+        setMessages((prev) => [
+          ...prev,
+          {
+            role: "bot",
+            text: `¡Claro! Déjame tus datos y un asesor humano de *${niche.bizName}* te contactará por WhatsApp en minutos.`,
+            time: now(),
+          },
+        ]);
+        setShowLeadForm(true);
+      }, 800);
+      return;
+    }
+
+    // Otherwise → fallback to AI
+    const aiReply = await callAI(messages, msg);
+    setTyping(false);
+    if (aiReply) {
+      setMessages((prev) => [...prev, { role: "bot", text: aiReply, time: now() }]);
+    } else {
+      setMessages((prev) => [...prev, { role: "bot", text: niche.defaultResponse, time: now() }]);
+    }
+  };
+
+  const submitLead = (name, phone) => {
+    setShowLeadForm(false);
+    setLeadSubmitted(true);
+    setMessages((prev) => [
+      ...prev,
+      {
+        role: "user",
+        text: `📋 Soy ${name} · 📱 ${phone}`,
+        time: now(),
+      },
+      {
+        role: "bot",
+        text: `¡Listo, ${name.split(" ")[0]}! ✅ Te abriré WhatsApp para que un asesor humano te atienda directamente.`,
+        time: now(),
+      },
+    ]);
+    const text = encodeURIComponent(
+      `Hola, soy ${name} (${phone}). Me interesa ${niche.bizName} (demo desde QubeSight).`
+    );
     setTimeout(() => {
-      const reply = getResponse(nicheKey, msg);
-      setTyping(false);
-      setMessages((prev) => [...prev, { role: "bot", text: reply, time: now() }]);
-    }, 900 + Math.random() * 600);
+      window.open(`https://wa.me/50686425281?text=${text}`, "_blank", "noopener,noreferrer");
+    }, 1200);
   };
 
   // Slightly darker shade of niche.color for gradient
