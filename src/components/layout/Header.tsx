@@ -1,22 +1,41 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { Link, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Menu, X, ArrowRight } from "lucide-react";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { Menu, X, ArrowRight, ChevronDown, Sparkles } from "lucide-react";
 import { useTranslation } from "@/hooks/useTranslation";
 import LanguageSwitcher from "@/components/LanguageSwitcher";
 import logo from "@/assets/logo.png";
 
+const demoLinks = [
+  { to: "/restaurantes", emoji: "🍽️", label: "Restaurantes" },
+  { to: "/salones", emoji: "💇", label: "Salones" },
+  { to: "/dental", emoji: "🦷", label: "Clínicas dentales" },
+  { to: "/gimnasios", emoji: "💪", label: "Gimnasios" },
+  { to: "/inmobiliarias", emoji: "🏠", label: "Inmobiliarias" },
+];
+
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isMobileDemosOpen, setIsMobileDemosOpen] = useState(false);
   const { t, language } = useTranslation();
+  const location = useLocation();
+  const isHome = location.pathname === "/";
+  const sectionHref = (id: string) => (isHome ? `#${id}` : `/#${id}`);
 
   const navLinks = [
-    { href: "#problem", label: t("nav.problem") },
-    { href: "#assistant", label: t("nav.assistant") },
-    { href: "#propia", label: t("nav.propia") },
-    { href: "#industries", label: t("nav.industries") },
-    { href: "#pricing", label: t("nav.pricing") },
+    { href: sectionHref("problem"), label: t("nav.problem") },
+    { href: sectionHref("assistant"), label: t("nav.assistant") },
+    { href: sectionHref("propia"), label: t("nav.propia") },
+    { href: sectionHref("industries"), label: t("nav.industries") },
+    { href: sectionHref("pricing"), label: t("nav.pricing") },
   ];
 
   useEffect(() => {
@@ -31,6 +50,8 @@ const Header = () => {
       : "Hi, I want to get started with QubeSight."
   )}`;
 
+  const demosLabel = language === "es" ? "Demos en vivo" : "Live demos";
+
   return (
     <motion.header
       initial={{ y: -100 }}
@@ -42,11 +63,11 @@ const Header = () => {
     >
       <div className="container">
         <nav className="flex items-center justify-between h-20">
-          <a href="#" className="flex items-center">
+          <Link to="/" className="flex items-center">
             <img src={logo} alt="QubeSight" className="h-9 w-auto" />
-          </a>
+          </Link>
 
-          <div className="hidden lg:flex items-center gap-8">
+          <div className="hidden lg:flex items-center gap-7">
             {navLinks.map((link) => (
               <a
                 key={link.href}
@@ -56,6 +77,31 @@ const Header = () => {
                 {link.label}
               </a>
             ))}
+
+            <DropdownMenu>
+              <DropdownMenuTrigger className="group inline-flex items-center gap-1.5 text-sm font-semibold text-primary hover:text-primary/80 transition-colors duration-200 outline-none">
+                <Sparkles className="h-3.5 w-3.5" />
+                {demosLabel}
+                <ChevronDown className="h-3.5 w-3.5 transition-transform group-data-[state=open]:rotate-180" />
+              </DropdownMenuTrigger>
+              <DropdownMenuContent
+                align="end"
+                className="w-64 glass-card border-white/10 mt-2"
+              >
+                {demoLinks.map((d) => (
+                  <DropdownMenuItem key={d.to} asChild className="cursor-pointer">
+                    <Link
+                      to={d.to}
+                      className="flex items-center gap-3 py-2.5 px-3 text-sm"
+                    >
+                      <span className="text-lg">{d.emoji}</span>
+                      <span className="flex-1">{d.label}</span>
+                      <ArrowRight className="h-3.5 w-3.5 opacity-50" />
+                    </Link>
+                  </DropdownMenuItem>
+                ))}
+              </DropdownMenuContent>
+            </DropdownMenu>
           </div>
 
           <div className="hidden lg:flex items-center gap-3">
@@ -100,6 +146,52 @@ const Header = () => {
                     {link.label}
                   </a>
                 ))}
+
+                <button
+                  onClick={() => setIsMobileDemosOpen((v) => !v)}
+                  className="w-full flex items-center justify-between px-4 py-3 text-primary hover:bg-secondary rounded-lg transition-colors"
+                >
+                  <span className="flex items-center gap-2 font-semibold">
+                    <Sparkles className="h-4 w-4" />
+                    {demosLabel}
+                  </span>
+                  <ChevronDown
+                    className={`h-4 w-4 transition-transform ${
+                      isMobileDemosOpen ? "rotate-180" : ""
+                    }`}
+                  />
+                </button>
+
+                <AnimatePresence initial={false}>
+                  {isMobileDemosOpen && (
+                    <motion.div
+                      initial={{ opacity: 0, height: 0 }}
+                      animate={{ opacity: 1, height: "auto" }}
+                      exit={{ opacity: 0, height: 0 }}
+                      transition={{ duration: 0.2 }}
+                      className="overflow-hidden"
+                    >
+                      <div className="pl-4 space-y-1 pt-1">
+                        {demoLinks.map((d) => (
+                          <Link
+                            key={d.to}
+                            to={d.to}
+                            onClick={() => {
+                              setIsMobileMenuOpen(false);
+                              setIsMobileDemosOpen(false);
+                            }}
+                            className="flex items-center gap-3 px-4 py-3 text-foreground hover:bg-secondary rounded-lg transition-colors"
+                          >
+                            <span className="text-lg">{d.emoji}</span>
+                            <span className="flex-1 text-sm">{d.label}</span>
+                            <ArrowRight className="h-3.5 w-3.5 opacity-50" />
+                          </Link>
+                        ))}
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+
                 <div className="px-4 pt-3">
                   <Button variant="hero" size="lg" asChild className="w-full min-h-[48px]">
                     <a href={whatsappUrl} target="_blank" rel="noopener noreferrer">
