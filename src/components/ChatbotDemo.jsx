@@ -557,6 +557,16 @@ export function ChatEmbedded({ nicheKey }) {
     }, 900 + Math.random() * 600);
   };
 
+  // Slightly darker shade of niche.color for gradient
+  const darken = (hex, amt = 0.18) => {
+    const h = hex.replace("#", "");
+    const r = Math.max(0, Math.round(parseInt(h.slice(0, 2), 16) * (1 - amt)));
+    const g = Math.max(0, Math.round(parseInt(h.slice(2, 4), 16) * (1 - amt)));
+    const b = Math.max(0, Math.round(parseInt(h.slice(4, 6), 16) * (1 - amt)));
+    return `rgb(${r},${g},${b})`;
+  };
+  const headerGradient = `linear-gradient(135deg, ${niche.color} 0%, ${darken(niche.color, 0.22)} 100%)`;
+
   return (
     <>
       <style>{`
@@ -564,166 +574,270 @@ export function ChatEmbedded({ nicheKey }) {
           0%,60%,100%{transform:translateY(0)}
           30%{transform:translateY(-5px)}
         }
+        @keyframes qs-pulse {
+          0%,100% { box-shadow: 0 0 0 0 rgba(74,222,128,0.55); }
+          50% { box-shadow: 0 0 0 6px rgba(74,222,128,0); }
+        }
+        @keyframes qs-float {
+          0%,100% { transform: translateY(0); }
+          50% { transform: translateY(-4px); }
+        }
+        .qs-embedded-shell {
+          width: 100%;
+          max-width: 480px;
+          height: 600px;
+        }
+        @media (min-width: 1280px) {
+          .qs-embedded-shell {
+            max-width: 560px;
+            height: 700px;
+          }
+        }
+        .qs-quick-btn {
+          background: #fff;
+          border-radius: 999px;
+          padding: 7px 14px;
+          font-size: 12.5px;
+          cursor: pointer;
+          font-weight: 600;
+          transition: all .18s ease;
+          box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+        }
+        .qs-quick-btn:hover {
+          transform: translateY(-1px);
+          box-shadow: 0 4px 12px rgba(0,0,0,0.10);
+        }
+        .qs-send-btn {
+          transition: transform .15s ease, box-shadow .15s ease;
+        }
+        .qs-send-btn:hover {
+          transform: scale(1.06);
+        }
+        .qs-send-btn:active {
+          transform: scale(0.96);
+        }
+        .qs-input::placeholder { color: #9ca3af; }
       `}</style>
 
-      <div
-        style={{
-          width: "100%",
-          maxWidth: 480,
-          height: 600,
-          margin: "0 auto",
-          borderRadius: 20,
-          background: "#f5f5f5",
-          display: "flex",
-          flexDirection: "column",
-          boxShadow: "0 12px 48px rgba(0,0,0,0.35)",
-          overflow: "hidden",
-          fontFamily: "'Segoe UI', system-ui, sans-serif",
-          border: "1px solid rgba(255,255,255,0.08)",
-        }}
-      >
-        {/* Header */}
+      <div style={{ position: "relative", width: "100%", display: "flex", justifyContent: "center" }}>
+        {/* Glow halo */}
         <div
+          aria-hidden
           style={{
-            background: niche.color,
-            color: "#fff",
-            padding: "16px 18px",
+            position: "absolute",
+            inset: "-40px",
+            background: `radial-gradient(60% 50% at 50% 40%, ${niche.color}55 0%, transparent 70%)`,
+            filter: "blur(40px)",
+            opacity: 0.7,
+            pointerEvents: "none",
+            zIndex: 0,
+          }}
+        />
+
+        <div
+          className="qs-embedded-shell"
+          style={{
+            position: "relative",
+            zIndex: 1,
+            margin: "0 auto",
+            borderRadius: 28,
+            background: "#f5f5f7",
             display: "flex",
-            alignItems: "center",
-            gap: 12,
+            flexDirection: "column",
+            boxShadow:
+              "0 30px 80px -20px rgba(0,0,0,0.55), 0 8px 24px -8px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.06)",
+            overflow: "hidden",
+            fontFamily: "'Segoe UI', system-ui, -apple-system, sans-serif",
+            border: "1px solid rgba(255,255,255,0.10)",
           }}
         >
+          {/* Header */}
           <div
             style={{
-              width: 42,
-              height: 42,
-              borderRadius: "50%",
-              background: "rgba(255,255,255,0.25)",
+              background: headerGradient,
+              color: "#fff",
+              padding: "18px 20px",
               display: "flex",
               alignItems: "center",
-              justifyContent: "center",
-              fontSize: 20,
+              gap: 14,
+              position: "relative",
+              overflow: "hidden",
             }}
           >
-            {niche.emoji}
-          </div>
-          <div style={{ flex: 1 }}>
-            <div style={{ fontWeight: 700, fontSize: 15 }}>{niche.bizName}</div>
-            <div style={{ fontSize: 12, opacity: 0.9 }}>
+            {/* Subtle shine overlay */}
+            <div
+              aria-hidden
+              style={{
+                position: "absolute",
+                top: 0,
+                left: 0,
+                right: 0,
+                height: "60%",
+                background:
+                  "linear-gradient(180deg, rgba(255,255,255,0.18) 0%, rgba(255,255,255,0) 100%)",
+                pointerEvents: "none",
+              }}
+            />
+            <div
+              style={{
+                position: "relative",
+                width: 48,
+                height: 48,
+                borderRadius: "50%",
+                background: "rgba(255,255,255,0.22)",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                fontSize: 22,
+                border: "1.5px solid rgba(255,255,255,0.35)",
+                animation: "qs-float 4s ease-in-out infinite",
+              }}
+            >
+              {niche.emoji}
               <span
                 style={{
-                  display: "inline-block",
-                  width: 7,
-                  height: 7,
+                  position: "absolute",
+                  bottom: 1,
+                  right: 1,
+                  width: 12,
+                  height: 12,
                   borderRadius: "50%",
                   background: "#4ade80",
-                  marginRight: 5,
-                  verticalAlign: "middle",
-                  boxShadow: "0 0 0 2px rgba(74,222,128,0.25)",
+                  border: "2px solid #fff",
+                  animation: "qs-pulse 2s ease-out infinite",
                 }}
               />
-              En línea ahora · Responde al instante
+            </div>
+            <div style={{ flex: 1, position: "relative" }}>
+              <div style={{ fontWeight: 700, fontSize: 16, letterSpacing: "-0.01em" }}>
+                {niche.bizName}
+              </div>
+              <div style={{ fontSize: 12.5, opacity: 0.92, marginTop: 2 }}>
+                En línea ahora · Responde al instante
+              </div>
+            </div>
+            <div
+              style={{
+                position: "relative",
+                fontSize: 11,
+                fontWeight: 600,
+                padding: "5px 10px",
+                borderRadius: 999,
+                background: "rgba(255,255,255,0.18)",
+                border: "1px solid rgba(255,255,255,0.25)",
+                letterSpacing: "0.04em",
+                textTransform: "uppercase",
+              }}
+            >
+              Demo
             </div>
           </div>
-        </div>
 
-        {/* Messages */}
-        <div
-          style={{
-            flex: 1,
-            overflowY: "auto",
-            padding: "14px 14px 6px",
-            background: niche.bgLight,
-          }}
-        >
-          {messages.map((msg, i) => (
-            <Bubble key={i} msg={msg} color={niche.color} />
-          ))}
-          {typing && <TypingIndicator color={niche.color} />}
-          <div ref={bottomRef} />
-        </div>
-
-        {/* Quick replies */}
-        {messages.length > 0 && !typing && (
+          {/* Messages */}
           <div
             style={{
-              padding: "8px 12px",
-              background: niche.bgLight,
-              display: "flex",
-              gap: 6,
-              flexWrap: "wrap",
-              borderTop: "1px solid rgba(0,0,0,0.06)",
-            }}
-          >
-            {QUICK_REPLIES[nicheKey].map((q) => (
-              <button
-                key={q}
-                onClick={() => send(q.toLowerCase())}
-                style={{
-                  background: "#fff",
-                  border: `1px solid ${niche.color}`,
-                  color: niche.color,
-                  borderRadius: 20,
-                  padding: "5px 13px",
-                  fontSize: 12,
-                  cursor: "pointer",
-                  fontWeight: 500,
-                }}
-              >
-                {q}
-              </button>
-            ))}
-          </div>
-        )}
-
-        {/* Input */}
-        <div
-          style={{
-            display: "flex",
-            padding: "12px 14px",
-            background: "#fff",
-            borderTop: "1px solid #e8e8e8",
-            gap: 8,
-            alignItems: "center",
-          }}
-        >
-          <input
-            value={input}
-            onChange={(e) => setInput(e.target.value)}
-            onKeyDown={(e) => e.key === "Enter" && send()}
-            placeholder="Escribe tu mensaje..."
-            style={{
               flex: 1,
-              border: "1.5px solid #e0e0e0",
-              borderRadius: 24,
-              padding: "10px 16px",
-              fontSize: 14,
-              background: "#fafafa",
-              outline: "none",
-              color: "#1a1a1a",
-            }}
-            onFocus={(e) => (e.target.style.borderColor = niche.color)}
-            onBlur={(e) => (e.target.style.borderColor = "#e0e0e0")}
-          />
-          <button
-            onClick={() => send()}
-            style={{
-              width: 42,
-              height: 42,
-              borderRadius: "50%",
-              background: niche.color,
-              border: "none",
-              color: "#fff",
-              cursor: "pointer",
-              fontSize: 17,
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              flexShrink: 0,
+              overflowY: "auto",
+              padding: "18px 16px 8px",
+              background: `linear-gradient(180deg, ${niche.bgLight} 0%, #ffffff 100%)`,
             }}
           >
-            ➤
-          </button>
+            {messages.map((msg, i) => (
+              <Bubble key={i} msg={msg} color={niche.color} />
+            ))}
+            {typing && <TypingIndicator color={niche.color} />}
+            <div ref={bottomRef} />
+          </div>
+
+          {/* Quick replies */}
+          {messages.length > 0 && !typing && (
+            <div
+              style={{
+                padding: "10px 14px",
+                background: "rgba(255,255,255,0.7)",
+                backdropFilter: "blur(8px)",
+                display: "flex",
+                gap: 8,
+                flexWrap: "wrap",
+                borderTop: "1px solid rgba(0,0,0,0.05)",
+              }}
+            >
+              {QUICK_REPLIES[nicheKey].map((q) => (
+                <button
+                  key={q}
+                  className="qs-quick-btn"
+                  onClick={() => send(q.toLowerCase())}
+                  style={{
+                    border: `1.5px solid ${niche.color}`,
+                    color: niche.color,
+                  }}
+                >
+                  {q}
+                </button>
+              ))}
+            </div>
+          )}
+
+          {/* Input */}
+          <div
+            style={{
+              display: "flex",
+              padding: "14px 16px",
+              background: "#fff",
+              borderTop: "1px solid #ececec",
+              gap: 10,
+              alignItems: "center",
+            }}
+          >
+            <input
+              className="qs-input"
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
+              onKeyDown={(e) => e.key === "Enter" && send()}
+              placeholder="Escribe tu mensaje..."
+              style={{
+                flex: 1,
+                border: "1.5px solid #e5e7eb",
+                borderRadius: 999,
+                padding: "12px 18px",
+                fontSize: 14,
+                background: "#f9fafb",
+                outline: "none",
+                color: "#111827",
+                transition: "border-color .15s ease, background .15s ease",
+              }}
+              onFocus={(e) => {
+                e.target.style.borderColor = niche.color;
+                e.target.style.background = "#fff";
+              }}
+              onBlur={(e) => {
+                e.target.style.borderColor = "#e5e7eb";
+                e.target.style.background = "#f9fafb";
+              }}
+            />
+            <button
+              className="qs-send-btn"
+              onClick={() => send()}
+              style={{
+                width: 46,
+                height: 46,
+                borderRadius: "50%",
+                background: headerGradient,
+                border: "none",
+                color: "#fff",
+                cursor: "pointer",
+                fontSize: 18,
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                flexShrink: 0,
+                boxShadow: `0 6px 18px -4px ${niche.color}88`,
+              }}
+              aria-label="Enviar"
+            >
+              ➤
+            </button>
+          </div>
         </div>
       </div>
     </>
