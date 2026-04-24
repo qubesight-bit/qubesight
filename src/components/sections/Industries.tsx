@@ -1,6 +1,8 @@
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Building2, UtensilsCrossed, Stethoscope, Dumbbell, Check } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Building2, UtensilsCrossed, Stethoscope, Dumbbell, Check, ArrowRight } from "lucide-react";
 import { useTranslation } from "@/hooks/useTranslation";
 
 const Industries = () => {
@@ -12,24 +14,28 @@ const Industries = () => {
       icon: Building2,
       title: t("industries.realestate.title"),
       bullets: [t("industries.realestate.b1"), t("industries.realestate.b2"), t("industries.realestate.b3")],
+      demoTo: "/inmobiliarias",
     },
     {
       key: "restaurants",
       icon: UtensilsCrossed,
       title: t("industries.restaurants.title"),
       bullets: [t("industries.restaurants.b1"), t("industries.restaurants.b2"), t("industries.restaurants.b3")],
+      demoTo: "/restaurantes",
     },
     {
       key: "clinics",
       icon: Stethoscope,
       title: t("industries.clinics.title"),
       bullets: [t("industries.clinics.b1"), t("industries.clinics.b2"), t("industries.clinics.b3")],
+      demoTo: "/dental",
     },
     {
       key: "gyms",
       icon: Dumbbell,
       title: t("industries.gyms.title"),
       bullets: [t("industries.gyms.b1"), t("industries.gyms.b2"), t("industries.gyms.b3")],
+      demoTo: "/gimnasios",
     },
   ];
 
@@ -77,7 +83,7 @@ const Industries = () => {
                   </div>
                   <h3 className="text-2xl sm:text-3xl font-bold font-display leading-tight">{ind.title}</h3>
                 </div>
-                <ul className="grid sm:grid-cols-3 gap-4">
+                <ul className="grid sm:grid-cols-3 gap-4 mb-8">
                   {ind.bullets.map((b, i) => (
                     <li key={i} className="flex items-start gap-3 p-4 rounded-xl bg-background/40 border border-white/5">
                       <Check className="h-5 w-5 text-primary flex-shrink-0 mt-0.5" />
@@ -85,6 +91,12 @@ const Industries = () => {
                     </li>
                   ))}
                 </ul>
+                <Button variant="hero" size="lg" asChild className="min-h-[52px]">
+                  <Link to={ind.demoTo}>
+                    Probar demo en vivo
+                    <ArrowRight className="ml-1 h-5 w-5" />
+                  </Link>
+                </Button>
               </motion.div>
             </TabsContent>
           ))}

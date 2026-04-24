@@ -270,6 +270,23 @@ function getResponse(nicheKey, message) {
   return niche.defaultResponse;
 }
 
+// Returns scripted reply if a strong match, otherwise null (fall back to AI)
+function getScriptedReply(nicheKey, message) {
+  const niche = NICHES[nicheKey];
+  const msg = message.toLowerCase().trim();
+  for (const [, flow] of Object.entries(niche.flows)) {
+    if (flow.triggers.some((t) => msg === t || msg.includes(t))) {
+      if (typeof flow.response === "function") {
+        const result = flow.response(msg);
+        if (result) return result;
+      } else {
+        return flow.response;
+      }
+    }
+  }
+  return null;
+}
+
 function formatMessage(text) {
   const parts = text.split(/(\*[^*]+\*)/g);
   return parts.map((part, i) =>
@@ -519,6 +536,8 @@ export function ChatEmbedded({ nicheKey }) {
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState("");
   const [typing, setTyping] = useState(false);
+  const [showLeadForm, setShowLeadForm] = useState(false);
+  const [leadSubmitted, setLeadSubmitted] = useState(false);
   const bottomRef = useRef(null);
   const hasWelcomed = useRef(false);
 
@@ -527,7 +546,7 @@ export function ChatEmbedded({ nicheKey }) {
 
   useEffect(() => {
     if (bottomRef.current) bottomRef.current.scrollIntoView({ behavior: "smooth" });
-  }, [messages, typing]);
+  }, [messages, typing, showLeadForm]);
 
   // Auto-welcome on mount
   useEffect(() => {
@@ -544,17 +563,112 @@ export function ChatEmbedded({ nicheKey }) {
     return () => clearTimeout(t1);
   }, [niche.autoWelcome]);
 
-  const send = (text) => {
+  const HUMAN_TRIGGERS = ["asesor", "humano", "persona", "hablar con", "agente", "contactar", "llamame", "llámame"];
+  const looksLikeHumanRequest = (msg) => {
+    const m = msg.toLowerCase();
+    return HUMAN_TRIGGERS.some((t) => m.includes(t));
+  };
+
+  const callAI = async (history, userMsg) => {
+    try {
+      const apiMessages = history
+        .filter((m) => m.role === "user" || m.role === "bot")
+        .map((m) => ({
+          role: m.role === "bot" ? "assistant" : "user",
+          content: m.text,
+        }));
+      apiMessages.push({ role: "user", content: userMsg });
+
+      const url = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/chat-niche`;
+      const res = await fetch(url, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY}`,
+        },
+        body: JSON.stringify({ messages: apiMessages, nicheKey }),
+      });
+      if (!res.ok) {
+        if (res.status === 429) return "⏳ Estoy recibiendo muchas consultas. Intenta en unos segundos.";
+        if (res.status === 402) return "⚠️ Servicio de IA temporalmente no disponible. Escribe *menú* para ver opciones.";
+        return null;
+      }
+      const data = await res.json();
+      return data.reply || null;
+    } catch (e) {
+      console.error("AI fallback error:", e);
+      return null;
+    }
+  };
+
+  const send = async (text) => {
     const msg = (text || input).trim();
     if (!msg) return;
     setInput("");
     setMessages((prev) => [...prev, { role: "user", text: msg, time: now() }]);
     setTyping(true);
+
+    // Hybrid: try scripted first
+    const scripted = getScriptedReply(nicheKey, msg);
+    const wantsHuman = looksLikeHumanRequest(msg);
+
+    if (scripted && !wantsHuman) {
+      setTimeout(() => {
+        setTyping(false);
+        setMessages((prev) => [...prev, { role: "bot", text: scripted, time: now() }]);
+      }, 700 + Math.random() * 400);
+      return;
+    }
+
+    // If wants human → trigger lead form
+    if (wantsHuman) {
+      setTimeout(() => {
+        setTyping(false);
+        setMessages((prev) => [
+          ...prev,
+          {
+            role: "bot",
+            text: `¡Claro! Déjame tus datos y un asesor humano de *${niche.bizName}* te contactará por WhatsApp en minutos.`,
+            time: now(),
+          },
+        ]);
+        setShowLeadForm(true);
+      }, 800);
+      return;
+    }
+
+    // Otherwise → fallback to AI
+    const aiReply = await callAI(messages, msg);
+    setTyping(false);
+    if (aiReply) {
+      setMessages((prev) => [...prev, { role: "bot", text: aiReply, time: now() }]);
+    } else {
+      setMessages((prev) => [...prev, { role: "bot", text: niche.defaultResponse, time: now() }]);
+    }
+  };
+
+  const submitLead = (name, phone) => {
+    setShowLeadForm(false);
+    setLeadSubmitted(true);
+    setMessages((prev) => [
+      ...prev,
+      {
+        role: "user",
+        text: `📋 Soy ${name} · 📱 ${phone}`,
+        time: now(),
+      },
+      {
+        role: "bot",
+        text: `¡Listo, ${name.split(" ")[0]}! ✅ Te abriré WhatsApp para que un asesor humano te atienda directamente.`,
+        time: now(),
+      },
+    ]);
+    const text = encodeURIComponent(
+      `Hola, soy ${name} (${phone}). Me interesa ${niche.bizName} (demo desde QubeSight).`
+    );
     setTimeout(() => {
-      const reply = getResponse(nicheKey, msg);
-      setTyping(false);
-      setMessages((prev) => [...prev, { role: "bot", text: reply, time: now() }]);
-    }, 900 + Math.random() * 600);
+      window.open(`https://wa.me/50686425281?text=${text}`, "_blank", "noopener,noreferrer");
+    }, 1200);
   };
 
   // Slightly darker shade of niche.color for gradient
@@ -749,8 +863,18 @@ export function ChatEmbedded({ nicheKey }) {
             <div ref={bottomRef} />
           </div>
 
+          {/* Lead form */}
+          {showLeadForm && (
+            <LeadForm
+              color={niche.color}
+              gradient={headerGradient}
+              onSubmit={submitLead}
+              onCancel={() => setShowLeadForm(false)}
+            />
+          )}
+
           {/* Quick replies */}
-          {messages.length > 0 && !typing && (
+          {messages.length > 0 && !typing && !showLeadForm && (
             <div
               style={{
                 padding: "10px 14px",
@@ -775,6 +899,19 @@ export function ChatEmbedded({ nicheKey }) {
                   {q}
                 </button>
               ))}
+              {!leadSubmitted && (
+                <button
+                  className="qs-quick-btn"
+                  onClick={() => setShowLeadForm(true)}
+                  style={{
+                    border: `1.5px solid ${niche.color}`,
+                    background: niche.color,
+                    color: "#fff",
+                  }}
+                >
+                  💬 Contactar asesor
+                </button>
+              )}
             </div>
           )}
 
@@ -841,6 +978,112 @@ export function ChatEmbedded({ nicheKey }) {
         </div>
       </div>
     </>
+  );
+}
+
+// ─── LEAD FORM (inline, used by ChatEmbedded) ────────────────────────────────
+function LeadForm({ color, gradient, onSubmit, onCancel }) {
+  const [name, setName] = useState("");
+  const [phone, setPhone] = useState("");
+  const valid = name.trim().length >= 2 && phone.trim().length >= 7;
+
+  const handle = (e) => {
+    e.preventDefault();
+    if (!valid) return;
+    onSubmit(name.trim(), phone.trim());
+  };
+
+  return (
+    <form
+      onSubmit={handle}
+      style={{
+        padding: "14px 16px",
+        background: "rgba(255,255,255,0.92)",
+        backdropFilter: "blur(8px)",
+        borderTop: `2px solid ${color}`,
+        display: "flex",
+        flexDirection: "column",
+        gap: 8,
+      }}
+    >
+      <div style={{ fontSize: 12.5, fontWeight: 600, color: "#374151" }}>
+        Déjanos tus datos y un asesor te contactará
+      </div>
+      <input
+        autoFocus
+        value={name}
+        onChange={(e) => setName(e.target.value)}
+        placeholder="Tu nombre"
+        maxLength={60}
+        style={{
+          border: "1.5px solid #e5e7eb",
+          borderRadius: 12,
+          padding: "10px 14px",
+          fontSize: 13.5,
+          background: "#f9fafb",
+          outline: "none",
+          color: "#111827",
+        }}
+        onFocus={(e) => (e.target.style.borderColor = color)}
+        onBlur={(e) => (e.target.style.borderColor = "#e5e7eb")}
+      />
+      <input
+        value={phone}
+        onChange={(e) => setPhone(e.target.value.replace(/[^\d+\s-]/g, ""))}
+        placeholder="WhatsApp / Teléfono"
+        maxLength={20}
+        type="tel"
+        style={{
+          border: "1.5px solid #e5e7eb",
+          borderRadius: 12,
+          padding: "10px 14px",
+          fontSize: 13.5,
+          background: "#f9fafb",
+          outline: "none",
+          color: "#111827",
+        }}
+        onFocus={(e) => (e.target.style.borderColor = color)}
+        onBlur={(e) => (e.target.style.borderColor = "#e5e7eb")}
+      />
+      <div style={{ display: "flex", gap: 8 }}>
+        <button
+          type="button"
+          onClick={onCancel}
+          style={{
+            flex: "0 0 auto",
+            padding: "10px 14px",
+            borderRadius: 999,
+            border: "1.5px solid #e5e7eb",
+            background: "#fff",
+            color: "#6b7280",
+            fontSize: 13,
+            fontWeight: 500,
+            cursor: "pointer",
+          }}
+        >
+          Cancelar
+        </button>
+        <button
+          type="submit"
+          disabled={!valid}
+          style={{
+            flex: 1,
+            padding: "10px 14px",
+            borderRadius: 999,
+            border: "none",
+            background: valid ? gradient : "#cbd5e1",
+            color: "#fff",
+            fontSize: 13.5,
+            fontWeight: 700,
+            cursor: valid ? "pointer" : "not-allowed",
+            boxShadow: valid ? `0 6px 18px -4px ${color}88` : "none",
+            transition: "transform .15s ease",
+          }}
+        >
+          Enviar y abrir WhatsApp →
+        </button>
+      </div>
+    </form>
   );
 }
 
