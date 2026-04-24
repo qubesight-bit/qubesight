@@ -270,6 +270,23 @@ function getResponse(nicheKey, message) {
   return niche.defaultResponse;
 }
 
+// Returns scripted reply if a strong match, otherwise null (fall back to AI)
+function getScriptedReply(nicheKey, message) {
+  const niche = NICHES[nicheKey];
+  const msg = message.toLowerCase().trim();
+  for (const [, flow] of Object.entries(niche.flows)) {
+    if (flow.triggers.some((t) => msg === t || msg.includes(t))) {
+      if (typeof flow.response === "function") {
+        const result = flow.response(msg);
+        if (result) return result;
+      } else {
+        return flow.response;
+      }
+    }
+  }
+  return null;
+}
+
 function formatMessage(text) {
   const parts = text.split(/(\*[^*]+\*)/g);
   return parts.map((part, i) =>
