@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Check, Sparkles } from "lucide-react";
 import { useTranslation } from "@/hooks/useTranslation";
 
 const FinalCTA = () => {
@@ -11,10 +11,23 @@ const FinalCTA = () => {
       : "Hi, I want to talk to a QubeSight expert."
   )}`;
 
+  const bullets = [
+    t("final.bullet.1"),
+    t("final.bullet.2"),
+    t("final.bullet.3"),
+    t("final.bullet.4"),
+  ];
+
   return (
     <section className="py-24 sm:py-32 relative overflow-hidden">
       <div className="absolute inset-0 bg-grid opacity-30" />
       <div className="absolute inset-0 gradient-hero-bg opacity-60" />
+
+      {/* Floating glow orbs */}
+      <div className="absolute top-1/4 left-10 w-72 h-72 rounded-full blur-3xl opacity-40 pointer-events-none animate-pulse-glow"
+        style={{ background: "var(--gradient-glow)" }} />
+      <div className="absolute bottom-1/4 right-10 w-72 h-72 rounded-full blur-3xl opacity-30 pointer-events-none"
+        style={{ background: "radial-gradient(circle, hsl(217 91% 60% / 0.3), transparent 70%)" }} />
 
       <div className="container relative">
         <motion.div
@@ -22,19 +35,37 @@ const FinalCTA = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="max-w-4xl mx-auto text-center glass-card rounded-3xl p-10 sm:p-16 shadow-glow"
+          className="max-w-4xl mx-auto text-center glass-card rounded-3xl p-10 sm:p-16 shadow-glow border-primary/20 relative overflow-hidden"
         >
+          {/* Top glow accent */}
+          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-1/2 h-px bg-gradient-to-r from-transparent via-primary to-transparent" />
+
+          <span className="inline-flex items-center gap-2 px-3 py-1.5 mb-6 text-xs font-semibold uppercase tracking-wider rounded-full bg-primary/10 text-primary border border-primary/20">
+            <Sparkles className="h-3.5 w-3.5" />
+            {t("final.badge")}
+          </span>
+
           <h2 className="text-3xl sm:text-5xl lg:text-6xl font-bold font-display leading-tight mb-6 text-balance">
             {t("final.title")}{" "}
             <span className="gradient-text">{t("final.titleAccent")}</span>
           </h2>
-          <p className="text-lg text-muted-foreground mb-10 max-w-2xl mx-auto">
+          <p className="text-lg text-muted-foreground mb-8 max-w-2xl mx-auto">
             {t("final.description")}
           </p>
+
+          <ul className="grid sm:grid-cols-2 gap-3 max-w-2xl mx-auto mb-10 text-left">
+            {bullets.map((b, i) => (
+              <li key={i} className="flex items-start gap-3 text-sm sm:text-base">
+                <Check className="h-5 w-5 text-primary flex-shrink-0 mt-0.5" />
+                <span className="text-foreground/90">{b}</span>
+              </li>
+            ))}
+          </ul>
+
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
             <Button variant="hero" size="lg" asChild className="min-h-[56px] px-8">
               <a href="#demos">
-                Probar demo gratis
+                {t("final.cta.primary")}
                 <ArrowRight className="ml-1 h-5 w-5" />
               </a>
             </Button>
@@ -44,6 +75,10 @@ const FinalCTA = () => {
               </a>
             </Button>
           </div>
+
+          <p className="mt-6 text-xs text-muted-foreground">
+            {t("final.fineprint")}
+          </p>
         </motion.div>
       </div>
     </section>
