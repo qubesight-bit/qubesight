@@ -513,6 +513,224 @@ function ChatWidget({ nicheKey }) {
   );
 }
 
+// ─── EMBEDDED (INLINE) CHAT — full chat window rendered directly on page ──────
+export function ChatEmbedded({ nicheKey }) {
+  const niche = NICHES[nicheKey];
+  const [messages, setMessages] = useState([]);
+  const [input, setInput] = useState("");
+  const [typing, setTyping] = useState(false);
+  const bottomRef = useRef(null);
+  const hasWelcomed = useRef(false);
+
+  const now = () =>
+    new Date().toLocaleTimeString("es-CR", { hour: "2-digit", minute: "2-digit" });
+
+  useEffect(() => {
+    if (bottomRef.current) bottomRef.current.scrollIntoView({ behavior: "smooth" });
+  }, [messages, typing]);
+
+  // Auto-welcome on mount
+  useEffect(() => {
+    if (hasWelcomed.current) return;
+    hasWelcomed.current = true;
+    const t1 = setTimeout(() => {
+      setTyping(true);
+      const t2 = setTimeout(() => {
+        setTyping(false);
+        setMessages([{ role: "bot", text: niche.autoWelcome, time: now() }]);
+      }, 1200);
+      return () => clearTimeout(t2);
+    }, 400);
+    return () => clearTimeout(t1);
+  }, [niche.autoWelcome]);
+
+  const send = (text) => {
+    const msg = (text || input).trim();
+    if (!msg) return;
+    setInput("");
+    setMessages((prev) => [...prev, { role: "user", text: msg, time: now() }]);
+    setTyping(true);
+    setTimeout(() => {
+      const reply = getResponse(nicheKey, msg);
+      setTyping(false);
+      setMessages((prev) => [...prev, { role: "bot", text: reply, time: now() }]);
+    }, 900 + Math.random() * 600);
+  };
+
+  return (
+    <>
+      <style>{`
+        @keyframes bounce {
+          0%,60%,100%{transform:translateY(0)}
+          30%{transform:translateY(-5px)}
+        }
+      `}</style>
+
+      <div
+        style={{
+          width: "100%",
+          maxWidth: 480,
+          height: 600,
+          margin: "0 auto",
+          borderRadius: 20,
+          background: "#f5f5f5",
+          display: "flex",
+          flexDirection: "column",
+          boxShadow: "0 12px 48px rgba(0,0,0,0.35)",
+          overflow: "hidden",
+          fontFamily: "'Segoe UI', system-ui, sans-serif",
+          border: "1px solid rgba(255,255,255,0.08)",
+        }}
+      >
+        {/* Header */}
+        <div
+          style={{
+            background: niche.color,
+            color: "#fff",
+            padding: "16px 18px",
+            display: "flex",
+            alignItems: "center",
+            gap: 12,
+          }}
+        >
+          <div
+            style={{
+              width: 42,
+              height: 42,
+              borderRadius: "50%",
+              background: "rgba(255,255,255,0.25)",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              fontSize: 20,
+            }}
+          >
+            {niche.emoji}
+          </div>
+          <div style={{ flex: 1 }}>
+            <div style={{ fontWeight: 700, fontSize: 15 }}>{niche.bizName}</div>
+            <div style={{ fontSize: 12, opacity: 0.9 }}>
+              <span
+                style={{
+                  display: "inline-block",
+                  width: 7,
+                  height: 7,
+                  borderRadius: "50%",
+                  background: "#4ade80",
+                  marginRight: 5,
+                  verticalAlign: "middle",
+                  boxShadow: "0 0 0 2px rgba(74,222,128,0.25)",
+                }}
+              />
+              En línea ahora · Responde al instante
+            </div>
+          </div>
+        </div>
+
+        {/* Messages */}
+        <div
+          style={{
+            flex: 1,
+            overflowY: "auto",
+            padding: "14px 14px 6px",
+            background: niche.bgLight,
+          }}
+        >
+          {messages.map((msg, i) => (
+            <Bubble key={i} msg={msg} color={niche.color} />
+          ))}
+          {typing && <TypingIndicator color={niche.color} />}
+          <div ref={bottomRef} />
+        </div>
+
+        {/* Quick replies */}
+        {messages.length > 0 && !typing && (
+          <div
+            style={{
+              padding: "8px 12px",
+              background: niche.bgLight,
+              display: "flex",
+              gap: 6,
+              flexWrap: "wrap",
+              borderTop: "1px solid rgba(0,0,0,0.06)",
+            }}
+          >
+            {QUICK_REPLIES[nicheKey].map((q) => (
+              <button
+                key={q}
+                onClick={() => send(q.toLowerCase())}
+                style={{
+                  background: "#fff",
+                  border: `1px solid ${niche.color}`,
+                  color: niche.color,
+                  borderRadius: 20,
+                  padding: "5px 13px",
+                  fontSize: 12,
+                  cursor: "pointer",
+                  fontWeight: 500,
+                }}
+              >
+                {q}
+              </button>
+            ))}
+          </div>
+        )}
+
+        {/* Input */}
+        <div
+          style={{
+            display: "flex",
+            padding: "12px 14px",
+            background: "#fff",
+            borderTop: "1px solid #e8e8e8",
+            gap: 8,
+            alignItems: "center",
+          }}
+        >
+          <input
+            value={input}
+            onChange={(e) => setInput(e.target.value)}
+            onKeyDown={(e) => e.key === "Enter" && send()}
+            placeholder="Escribe tu mensaje..."
+            style={{
+              flex: 1,
+              border: "1.5px solid #e0e0e0",
+              borderRadius: 24,
+              padding: "10px 16px",
+              fontSize: 14,
+              background: "#fafafa",
+              outline: "none",
+              color: "#1a1a1a",
+            }}
+            onFocus={(e) => (e.target.style.borderColor = niche.color)}
+            onBlur={(e) => (e.target.style.borderColor = "#e0e0e0")}
+          />
+          <button
+            onClick={() => send()}
+            style={{
+              width: 42,
+              height: 42,
+              borderRadius: "50%",
+              background: niche.color,
+              border: "none",
+              color: "#fff",
+              cursor: "pointer",
+              fontSize: 17,
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              flexShrink: 0,
+            }}
+          >
+            ➤
+          </button>
+        </div>
+      </div>
+    </>
+  );
+}
+
+// Floating widget exports (kept intact)
 export function ChatRestaurante()  { return <ChatWidget nicheKey="restaurante" />; }
 export function ChatSalon()        { return <ChatWidget nicheKey="salon" />; }
 export function ChatDental()       { return <ChatWidget nicheKey="dental" />; }
