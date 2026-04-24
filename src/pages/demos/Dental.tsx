@@ -1,4 +1,4 @@
-import { ChatDental } from "@/components/ChatbotDemo";
+import { ChatEmbedded } from "@/components/ChatbotDemo";
 import NicheDemoPage from "@/pages/NicheDemoPage";
 
 const Dental = () => (
@@ -6,8 +6,9 @@ const Dental = () => (
     badge="🦷 Clínicas dentales"
     title="Pacientes atendidos al instante, día y noche."
     subtitle="Gestión de citas, tratamientos y consultas frecuentes sin saturar a tu recepción. Prueba la demo en vivo."
-    ChatComponent={ChatDental}
-  />
+  >
+    <ChatEmbedded nicheKey="dental" />
+  </NicheDemoPage>
 );
 
 export default Dental;
