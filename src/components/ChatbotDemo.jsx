@@ -981,6 +981,112 @@ export function ChatEmbedded({ nicheKey }) {
   );
 }
 
+// ─── LEAD FORM (inline, used by ChatEmbedded) ────────────────────────────────
+function LeadForm({ color, gradient, onSubmit, onCancel }) {
+  const [name, setName] = useState("");
+  const [phone, setPhone] = useState("");
+  const valid = name.trim().length >= 2 && phone.trim().length >= 7;
+
+  const handle = (e) => {
+    e.preventDefault();
+    if (!valid) return;
+    onSubmit(name.trim(), phone.trim());
+  };
+
+  return (
+    <form
+      onSubmit={handle}
+      style={{
+        padding: "14px 16px",
+        background: "rgba(255,255,255,0.92)",
+        backdropFilter: "blur(8px)",
+        borderTop: `2px solid ${color}`,
+        display: "flex",
+        flexDirection: "column",
+        gap: 8,
+      }}
+    >
+      <div style={{ fontSize: 12.5, fontWeight: 600, color: "#374151" }}>
+        Déjanos tus datos y un asesor te contactará
+      </div>
+      <input
+        autoFocus
+        value={name}
+        onChange={(e) => setName(e.target.value)}
+        placeholder="Tu nombre"
+        maxLength={60}
+        style={{
+          border: "1.5px solid #e5e7eb",
+          borderRadius: 12,
+          padding: "10px 14px",
+          fontSize: 13.5,
+          background: "#f9fafb",
+          outline: "none",
+          color: "#111827",
+        }}
+        onFocus={(e) => (e.target.style.borderColor = color)}
+        onBlur={(e) => (e.target.style.borderColor = "#e5e7eb")}
+      />
+      <input
+        value={phone}
+        onChange={(e) => setPhone(e.target.value.replace(/[^\d+\s-]/g, ""))}
+        placeholder="WhatsApp / Teléfono"
+        maxLength={20}
+        type="tel"
+        style={{
+          border: "1.5px solid #e5e7eb",
+          borderRadius: 12,
+          padding: "10px 14px",
+          fontSize: 13.5,
+          background: "#f9fafb",
+          outline: "none",
+          color: "#111827",
+        }}
+        onFocus={(e) => (e.target.style.borderColor = color)}
+        onBlur={(e) => (e.target.style.borderColor = "#e5e7eb")}
+      />
+      <div style={{ display: "flex", gap: 8 }}>
+        <button
+          type="button"
+          onClick={onCancel}
+          style={{
+            flex: "0 0 auto",
+            padding: "10px 14px",
+            borderRadius: 999,
+            border: "1.5px solid #e5e7eb",
+            background: "#fff",
+            color: "#6b7280",
+            fontSize: 13,
+            fontWeight: 500,
+            cursor: "pointer",
+          }}
+        >
+          Cancelar
+        </button>
+        <button
+          type="submit"
+          disabled={!valid}
+          style={{
+            flex: 1,
+            padding: "10px 14px",
+            borderRadius: 999,
+            border: "none",
+            background: valid ? gradient : "#cbd5e1",
+            color: "#fff",
+            fontSize: 13.5,
+            fontWeight: 700,
+            cursor: valid ? "pointer" : "not-allowed",
+            boxShadow: valid ? `0 6px 18px -4px ${color}88` : "none",
+            transition: "transform .15s ease",
+          }}
+        >
+          Enviar y abrir WhatsApp →
+        </button>
+      </div>
+    </form>
+  );
+}
+
 // Floating widget exports (kept intact)
 export function ChatRestaurante()  { return <ChatWidget nicheKey="restaurante" />; }
 export function ChatSalon()        { return <ChatWidget nicheKey="salon" />; }
