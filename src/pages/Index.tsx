@@ -4,6 +4,7 @@ import Problem from "@/components/sections/Problem";
 import Assistant from "@/components/sections/Assistant";
 import PropIA from "@/components/sections/PropIA";
 import Industries from "@/components/sections/Industries";
+import DemoNiches from "@/components/sections/DemoNiches";
 import Testimonials from "@/components/sections/Testimonials";
 import Pricing from "@/components/sections/Pricing";
 import FinalCTA from "@/components/sections/FinalCTA";
@@ -20,6 +21,7 @@ const Index = () => {
         <Assistant />
         <PropIA />
         <Industries />
+        <DemoNiches />
         <Testimonials />
         <Pricing />
         <FinalCTA />
