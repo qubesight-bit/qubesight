@@ -4,64 +4,61 @@
 
 @layer base {
   :root {
-    /* Dark theme - matching Qubesight logo blue tones */
-    --background: 230 25% 5%;
-    --foreground: 220 20% 95%;
+    /* QubeSight - Dark futuristic palette: Zinc-950 base + cyan/electric blue accents */
+    --background: 240 10% 4%;            /* zinc-950 */
+    --foreground: 210 40% 98%;
 
-    /* Card surfaces */
-    --card: 230 25% 8%;
-    --card-foreground: 220 20% 95%;
+    --card: 240 10% 7%;
+    --card-foreground: 210 40% 98%;
 
-    /* Popover */
-    --popover: 230 25% 8%;
-    --popover-foreground: 220 20% 95%;
+    --popover: 240 10% 7%;
+    --popover-foreground: 210 40% 98%;
 
-    /* Primary - Qubesight Blue (matching logo) */
-    --primary: 235 70% 55%;
-    --primary-foreground: 0 0% 100%;
+    /* Primary = Bright cyan */
+    --primary: 187 92% 55%;
+    --primary-foreground: 240 10% 4%;
 
-    /* Secondary */
-    --secondary: 230 25% 12%;
-    --secondary-foreground: 220 20% 95%;
+    /* Secondary = Slate-900 */
+    --secondary: 222 18% 12%;
+    --secondary-foreground: 210 40% 98%;
 
-    /* Muted */
-    --muted: 230 25% 15%;
-    --muted-foreground: 230 15% 60%;
+    --muted: 222 18% 14%;
+    --muted-foreground: 215 16% 65%;
 
-    /* Accent - Light blue from logo */
-    --accent: 235 70% 12%;
-    --accent-foreground: 235 70% 75%;
+    /* Accent = Electric blue */
+    --accent: 217 91% 60%;
+    --accent-foreground: 0 0% 100%;
 
-    /* Destructive */
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 100%;
 
-    /* Borders and Inputs */
-    --border: 235 30% 20%;
-    --input: 235 30% 20%;
-    --ring: 235 70% 55%;
+    --border: 222 18% 18%;
+    --input: 222 18% 18%;
+    --ring: 187 92% 55%;
 
-    --radius: 0.75rem;
+    --radius: 0.875rem;
 
-    /* Sidebar */
-    --sidebar-background: 230 25% 5%;
-    --sidebar-foreground: 230 15% 60%;
-    --sidebar-primary: 235 70% 55%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 230 25% 12%;
-    --sidebar-accent-foreground: 220 20% 95%;
-    --sidebar-border: 235 30% 20%;
-    --sidebar-ring: 235 70% 55%;
+    --sidebar-background: 240 10% 4%;
+    --sidebar-foreground: 215 16% 65%;
+    --sidebar-primary: 187 92% 55%;
+    --sidebar-primary-foreground: 240 10% 4%;
+    --sidebar-accent: 222 18% 12%;
+    --sidebar-accent-foreground: 210 40% 98%;
+    --sidebar-border: 222 18% 18%;
+    --sidebar-ring: 187 92% 55%;
 
-    /* Custom Qubesight tokens */
-    --gradient-primary: linear-gradient(135deg, hsl(235, 70%, 55%) 0%, hsl(220, 80%, 50%) 100%);
-    --gradient-dark: linear-gradient(180deg, hsl(230, 25%, 5%) 0%, hsl(230, 25%, 10%) 100%);
-    
-    --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.3);
-    --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.4), 0 2px 4px -2px rgb(0 0 0 / 0.3);
-    --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.4), 0 4px 6px -4px rgb(0 0 0 / 0.3);
-    --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.4), 0 8px 10px -6px rgb(0 0 0 / 0.3);
-    --shadow-glow: 0 0 40px -10px hsl(235 70% 55% / 0.5);
+    /* Brand tokens */
+    --gradient-primary: linear-gradient(135deg, hsl(187 92% 55%) 0%, hsl(217 91% 60%) 100%);
+    --gradient-hero: radial-gradient(ellipse at top, hsl(217 91% 25% / 0.4), transparent 60%), radial-gradient(ellipse at bottom, hsl(187 92% 25% / 0.3), transparent 60%), hsl(240 10% 4%);
+    --gradient-dark: linear-gradient(180deg, hsl(240 10% 4%) 0%, hsl(240 10% 7%) 100%);
+    --gradient-glow: radial-gradient(circle at center, hsl(187 92% 55% / 0.25), transparent 70%);
+
+    --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.4);
+    --shadow-md: 0 4px 12px -2px rgb(0 0 0 / 0.5);
+    --shadow-lg: 0 16px 40px -8px rgb(0 0 0 / 0.6);
+    --shadow-xl: 0 24px 60px -12px rgb(0 0 0 / 0.7);
+    --shadow-glow: 0 0 60px -10px hsl(187 92% 55% / 0.45);
+    --shadow-glow-blue: 0 0 60px -10px hsl(217 91% 60% / 0.45);
   }
 }
 
@@ -73,10 +70,14 @@
   body {
     @apply bg-background text-foreground antialiased;
     font-family: 'Inter', sans-serif;
+    background-image:
+      radial-gradient(ellipse 80% 50% at 50% -10%, hsl(217 91% 25% / 0.15), transparent),
+      radial-gradient(ellipse 60% 40% at 80% 110%, hsl(187 92% 25% / 0.1), transparent);
   }
 
   h1, h2, h3, h4, h5, h6 {
     font-family: 'Space Grotesk', sans-serif;
+    letter-spacing: -0.02em;
   }
 }
 
@@ -94,6 +95,10 @@
     background: var(--gradient-primary);
   }
 
+  .gradient-hero-bg {
+    background: var(--gradient-hero);
+  }
+
   .gradient-dark-bg {
     background: var(--gradient-dark);
   }
@@ -102,18 +107,38 @@
     box-shadow: var(--shadow-glow);
   }
 
+  .shadow-glow-blue {
+    box-shadow: var(--shadow-glow-blue);
+  }
+
+  /* Glassmorphism cards */
   .glass-card {
-    @apply bg-card/60 backdrop-blur-xl border border-border/50;
+    @apply bg-card/40 backdrop-blur-xl border border-white/5;
+    box-shadow: inset 0 1px 0 0 hsl(0 0% 100% / 0.04), 0 8px 32px -8px hsl(0 0% 0% / 0.5);
+  }
+
+  .glass-nav {
+    @apply bg-background/60 backdrop-blur-2xl border-b border-white/5;
+  }
+
+  /* Subtle grid pattern overlay */
+  .bg-grid {
+    background-image:
+      linear-gradient(to right, hsl(222 18% 18% / 0.4) 1px, transparent 1px),
+      linear-gradient(to bottom, hsl(222 18% 18% / 0.4) 1px, transparent 1px);
+    background-size: 56px 56px;
+  }
+
+  .glow-ring {
+    box-shadow: 0 0 0 1px hsl(187 92% 55% / 0.3), 0 0 30px -5px hsl(187 92% 55% / 0.4);
   }
 }
 
-/* Smooth scrolling */
 html {
   scroll-behavior: smooth;
 }
 
-/* Selection color */
 ::selection {
-  background-color: hsl(235 70% 55% / 0.3);
-  color: hsl(220 20% 95%);
+  background-color: hsl(187 92% 55% / 0.3);
+  color: hsl(210 40% 98%);
 }

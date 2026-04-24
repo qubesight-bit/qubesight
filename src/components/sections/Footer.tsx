@@ -1,69 +1,99 @@
 import { motion } from "framer-motion";
-import { MessageCircle } from "lucide-react";
+import { MessageCircle, Instagram, Facebook } from "lucide-react";
 import logo from "@/assets/logo.png";
 import { useTranslation } from "@/hooks/useTranslation";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
-  const whatsappNumber = "50686425281";
-  const whatsappUrl = `https://wa.me/${whatsappNumber}`;
   const { t } = useTranslation();
+  const whatsappUrl = "https://wa.me/50686425281";
+
+  const productLinks = [
+    { href: "#assistant", label: "QubeSight Assistant" },
+    { href: "#propia", label: "PropIA" },
+    { href: "#pricing", label: t("nav.pricing") },
+  ];
 
   return (
-    <footer className="py-12 bg-card border-t border-border">
+    <footer className="pt-20 pb-10 bg-card/50 border-t border-white/5 relative">
       <div className="container">
-        <div className="flex flex-col md:flex-row justify-between items-center gap-8">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-10 mb-12">
           <motion.div
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
             transition={{ duration: 0.5 }}
-            className="text-center md:text-left"
+            className="col-span-2"
           >
-            <a href="#" className="inline-block mb-3">
-              <img src={logo} alt="Qubesight" className="h-12 w-auto" />
+            <a href="#" className="inline-block mb-4">
+              <img src={logo} alt="QubeSight" className="h-10 w-auto" />
             </a>
-            <p className="text-sm text-muted-foreground">
-              {t('footer.description')}
-            </p>
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            transition={{ duration: 0.5, delay: 0.1 }}
-            className="flex flex-col sm:flex-row items-center gap-6"
-          >
-            <a
-              href={whatsappUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors duration-200"
-            >
-              <MessageCircle className="h-5 w-5" />
-              <span>{t('footer.whatsapp')}</span>
-            </a>
-            <div className="hidden sm:block w-px h-6 bg-border" />
-            <div className="flex gap-6 text-sm">
-              <a href="#" className="text-muted-foreground hover:text-foreground transition-colors duration-200">
-                {t('footer.legal')}
+            <p className="text-sm text-muted-foreground max-w-sm mb-6">{t("footer.tagline")}</p>
+            <div className="flex gap-3">
+              <a
+                href={whatsappUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="WhatsApp"
+                className="h-10 w-10 rounded-xl glass-card flex items-center justify-center text-muted-foreground hover:text-primary transition-colors"
+              >
+                <MessageCircle className="h-5 w-5" />
               </a>
-              <a href="#" className="text-muted-foreground hover:text-foreground transition-colors duration-200">
-                {t('footer.privacy')}
+              <a
+                href="#"
+                aria-label="Instagram"
+                className="h-10 w-10 rounded-xl glass-card flex items-center justify-center text-muted-foreground hover:text-primary transition-colors"
+              >
+                <Instagram className="h-5 w-5" />
+              </a>
+              <a
+                href="#"
+                aria-label="Facebook"
+                className="h-10 w-10 rounded-xl glass-card flex items-center justify-center text-muted-foreground hover:text-primary transition-colors"
+              >
+                <Facebook className="h-5 w-5" />
               </a>
             </div>
           </motion.div>
+
+          <div>
+            <h4 className="font-semibold font-display mb-4 text-sm uppercase tracking-wider">{t("footer.product")}</h4>
+            <ul className="space-y-2.5">
+              {productLinks.map((l) => (
+                <li key={l.href}>
+                  <a href={l.href} className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+                    {l.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div>
+            <h4 className="font-semibold font-display mb-4 text-sm uppercase tracking-wider">{t("footer.legal")}</h4>
+            <ul className="space-y-2.5">
+              <li>
+                <a href="#" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+                  {t("footer.terms")}
+                </a>
+              </li>
+              <li>
+                <a href="#" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+                  {t("footer.privacy")}
+                </a>
+              </li>
+            </ul>
+          </div>
         </div>
 
-        <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          transition={{ duration: 0.5, delay: 0.2 }}
-          className="mt-8 pt-8 border-t border-border text-center"
-        >
+        <div className="pt-8 border-t border-white/5 flex flex-col sm:flex-row justify-between items-center gap-4">
           <p className="text-sm text-muted-foreground">
-            © {currentYear} Qubesight. {t('footer.rights')}
+            © {currentYear} QubeSight. {t("footer.rights")}
           </p>
-        </motion.div>
+          <p className="text-xs text-muted-foreground">
+            Made with <span className="text-primary">⚡</span> in Costa Rica
+          </p>
+        </div>
       </div>
     </footer>
   );

@@ -9,28 +9,27 @@ import logo from "@/assets/logo.png";
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const { t } = useTranslation();
+  const { t, language } = useTranslation();
 
   const navLinks = [
-    { href: "#que-hacemos", label: t('nav.whatWeDo') },
-    { href: "#servicios", label: t('nav.services') },
-    { href: "#proceso", label: t('nav.process') },
-    { href: "#por-que", label: t('nav.whyUs') },
-    { href: "#portafolio", label: t('nav.portfolio') },
-    { href: "#faq", label: "FAQ" },
+    { href: "#problem", label: t("nav.problem") },
+    { href: "#assistant", label: t("nav.assistant") },
+    { href: "#propia", label: t("nav.propia") },
+    { href: "#industries", label: t("nav.industries") },
+    { href: "#pricing", label: t("nav.pricing") },
   ];
 
   useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
-    };
+    const handleScroll = () => setIsScrolled(window.scrollY > 20);
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const whatsappNumber = "50686425281";
-  const whatsappMessage = encodeURIComponent("Hola, me interesa conocer más sobre sus soluciones digitales.");
-  const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${whatsappMessage}`;
+  const whatsappUrl = `https://wa.me/50686425281?text=${encodeURIComponent(
+    language === "es"
+      ? "Hola, quiero empezar con QubeSight."
+      : "Hi, I want to get started with QubeSight."
+  )}`;
 
   return (
     <motion.header
@@ -38,20 +37,16 @@ const Header = () => {
       animate={{ y: 0 }}
       transition={{ duration: 0.5 }}
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled
-          ? "bg-background/90 backdrop-blur-xl border-b border-border/50"
-          : "bg-transparent"
+        isScrolled ? "glass-nav" : "bg-transparent"
       }`}
     >
       <div className="container">
         <nav className="flex items-center justify-between h-20">
-          {/* Logo */}
           <a href="#" className="flex items-center">
-            <img src={logo} alt="Qubesight" className="h-10 w-auto" />
+            <img src={logo} alt="QubeSight" className="h-9 w-auto" />
           </a>
 
-          {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center gap-8">
+          <div className="hidden lg:flex items-center gap-8">
             {navLinks.map((link) => (
               <a
                 key={link.href}
@@ -61,21 +56,23 @@ const Header = () => {
                 {link.label}
               </a>
             ))}
+          </div>
+
+          <div className="hidden lg:flex items-center gap-3">
             <LanguageSwitcher />
-            <Button variant="hero" size="sm" asChild>
+            <Button variant="hero" size="default" asChild className="min-h-[44px]">
               <a href={whatsappUrl} target="_blank" rel="noopener noreferrer">
-                {t('nav.contact')}
+                {t("nav.contact")}
                 <ArrowRight className="ml-1 h-4 w-4" />
               </a>
             </Button>
           </div>
 
-          {/* Mobile Menu Button */}
-          <div className="md:hidden flex items-center gap-2">
+          <div className="lg:hidden flex items-center gap-2">
             <LanguageSwitcher />
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="p-2 text-foreground"
+              className="p-2 text-foreground min-h-[48px] min-w-[48px] flex items-center justify-center"
               aria-label="Toggle menu"
             >
               {isMobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
@@ -83,7 +80,6 @@ const Header = () => {
           </div>
         </nav>
 
-        {/* Mobile Menu */}
         <AnimatePresence>
           {isMobileMenuOpen && (
             <motion.div
@@ -91,23 +87,23 @@ const Header = () => {
               animate={{ opacity: 1, height: "auto" }}
               exit={{ opacity: 0, height: 0 }}
               transition={{ duration: 0.3 }}
-              className="md:hidden overflow-hidden bg-background border-t border-border"
+              className="lg:hidden overflow-hidden glass-nav border-t border-white/5"
             >
-              <div className="py-4 space-y-4">
+              <div className="py-4 space-y-1">
                 {navLinks.map((link) => (
                   <a
                     key={link.href}
                     href={link.href}
                     onClick={() => setIsMobileMenuOpen(false)}
-                    className="block px-4 py-2 text-foreground hover:bg-muted rounded-lg transition-colors duration-200"
+                    className="block px-4 py-3 text-foreground hover:bg-secondary rounded-lg transition-colors"
                   >
                     {link.label}
                   </a>
                 ))}
-                <div className="px-4 pt-2">
-                  <Button variant="hero" size="default" asChild className="w-full">
+                <div className="px-4 pt-3">
+                  <Button variant="hero" size="lg" asChild className="w-full min-h-[48px]">
                     <a href={whatsappUrl} target="_blank" rel="noopener noreferrer">
-                      {t('nav.contact')}
+                      {t("nav.contact")}
                       <ArrowRight className="ml-1 h-4 w-4" />
                     </a>
                   </Button>
