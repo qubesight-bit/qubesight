@@ -6,6 +6,11 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { TranslationProvider } from "@/hooks/useTranslation";
 import Index from "./pages/Index";
 import CaseStudyPage from "./pages/CaseStudy";
+import Restaurantes from "./pages/demos/Restaurantes";
+import Salones from "./pages/demos/Salones";
+import Dental from "./pages/demos/Dental";
+import Gimnasios from "./pages/demos/Gimnasios";
+import Inmobiliarias from "./pages/demos/Inmobiliarias";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -21,6 +26,11 @@ const App = () => (
           <Routes>
             <Route path="/" element={<Index />} />
             <Route path="/case-study/:slug" element={<CaseStudyPage />} />
+            <Route path="/restaurantes" element={<Restaurantes />} />
+            <Route path="/salones" element={<Salones />} />
+            <Route path="/dental" element={<Dental />} />
+            <Route path="/gimnasios" element={<Gimnasios />} />
+            <Route path="/inmobiliarias" element={<Inmobiliarias />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>
