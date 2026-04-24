@@ -212,10 +212,39 @@ export const translations: Translations = {
   'pricing.voice.gold.f5': { es: 'Account manager dedicado', en: 'Dedicated account manager' },
 
   // Final CTA
+  'final.badge': { es: 'Empieza hoy', en: 'Start today' },
   'final.title': { es: 'Configuración en minutos.', en: 'Setup in minutes.' },
   'final.titleAccent': { es: 'Tu negocio empieza a responder hoy mismo.', en: 'Your business starts replying today.' },
   'final.description': { es: 'Sin contratos eternos. Sin tarjetas de crédito ocultas. Solo más clientes atendidos.', en: 'No long contracts. No hidden cards. Just more customers served.' },
   'final.cta': { es: 'Hablar con un experto', en: 'Talk to an expert' },
+  'final.cta.primary': { es: 'Probar demo gratis', en: 'Try free demo' },
+  'final.bullet.1': { es: 'Activación en 48 horas', en: 'Live in 48 hours' },
+  'final.bullet.2': { es: 'Sin permanencia ni contratos largos', en: 'No lock-in, no long contracts' },
+  'final.bullet.3': { es: 'Soporte humano cuando lo necesites', en: 'Human support whenever you need it' },
+  'final.bullet.4': { es: 'Garantía de 14 días o te devolvemos tu dinero', en: '14-day money-back guarantee' },
+  'final.fineprint': { es: 'Sin tarjeta para probar el demo. Cancela cuando quieras.', en: 'No card needed to try the demo. Cancel anytime.' },
+
+  // Trust bar
+  'trustbar.title': { es: 'Diseñado para PYMEs en sectores reales', en: 'Built for SMBs in real-world sectors' },
+
+  // Guarantees
+  'guarantee.setup.title': { es: 'Activo en 48h', en: 'Live in 48h' },
+  'guarantee.setup.desc': { es: 'Configuración 100% gestionada por nuestro equipo.', en: 'Setup fully managed by our team.' },
+  'guarantee.nocontract.title': { es: 'Sin permanencia', en: 'No lock-in' },
+  'guarantee.nocontract.desc': { es: 'Cancela cuando quieras, sin penalizaciones.', en: 'Cancel anytime, no penalties.' },
+  'guarantee.support.title': { es: 'Soporte real', en: 'Real support' },
+  'guarantee.support.desc': { es: 'Humanos respondiendo en menos de 4 horas.', en: 'Humans replying in under 4 hours.' },
+  'guarantee.refund.title': { es: 'Garantía 14 días', en: '14-day guarantee' },
+  'guarantee.refund.desc': { es: 'Si no te convence, te devolvemos el 100%.', en: 'Not happy? Full refund within 14 days.' },
+
+  // Urgency banner
+  'urgency.text': { es: '🚀 Lanzamiento Q4 — quedan {n} cupos de onboarding gestionado este mes', en: '🚀 Q4 launch — {n} managed onboarding slots left this month' },
+  'urgency.cta': { es: 'Reservar →', en: 'Book yours →' },
+
+  // Problem extras
+  'problem.badge': { es: 'El costo de no estar disponible', en: 'The cost of not being available' },
+  'problem.cta.lead': { es: 'Cada hora sin responder cuesta clientes reales.', en: 'Every hour you don\'t reply costs real customers.' },
+  'problem.cta.tail': { es: 'Lo bueno: hay una solución que ya está funcionando para negocios como el tuyo.', en: 'The good news: there\'s a solution already working for businesses like yours.' },
 
   // Footer
   'footer.tagline': { es: 'Automatización con IA para pequeños negocios que quieren crecer en grande.', en: 'AI automation for small businesses that want to grow big.' },
