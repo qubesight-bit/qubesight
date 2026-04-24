@@ -1,48 +1,42 @@
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Check } from "lucide-react";
-import heroVideo from "@/assets/hero-video.mp4";
+import { ArrowRight, Play, MessageSquare, Zap, TrendingUp } from "lucide-react";
 import { useTranslation } from "@/hooks/useTranslation";
 
 const Hero = () => {
   const { t, language } = useTranslation();
-  const whatsappNumber = "50686425281";
-  const whatsappMessage = encodeURIComponent(
-    language === 'es' 
-      ? "Hola, me interesa conocer más sobre sus soluciones digitales."
-      : "Hello, I'm interested in learning more about your digital solutions."
-  );
-  const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${whatsappMessage}`;
+  const whatsappUrl = `https://wa.me/50686425281?text=${encodeURIComponent(
+    language === "es"
+      ? "Hola, quiero empezar a responder automáticamente con QubeSight."
+      : "Hi, I want to start replying automatically with QubeSight."
+  )}`;
 
-  const features = language === 'es' 
-    ? ["Desarrollo a la medida", "Automatización con IA", "Implementación rápida", "Soporte directo"]
-    : ["Custom Development", "AI Automation", "Fast Implementation", "Direct Support"];
+  const stats = [
+    { icon: MessageSquare, value: "2,847", label: t("hero.proof.messages") },
+    { icon: Zap, value: "< 3 seg", label: t("hero.proof.time") },
+    { icon: TrendingUp, value: "94%", label: t("hero.proof.conversion") },
+  ];
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      {/* Background Video */}
-      <video
-        autoPlay
-        loop
-        muted
-        playsInline
-        className="absolute inset-0 w-full h-full object-cover"
-      >
-        <source src={heroVideo} type="video/mp4" />
-      </video>
-      {/* Dark overlay */}
-      <div className="absolute inset-0 bg-background/70" />
-      
-      <div className="container relative z-10 pt-20">
-        <div className="max-w-4xl mx-auto text-center">
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden gradient-hero-bg pt-24 pb-16">
+      {/* Grid + glow */}
+      <div className="absolute inset-0 bg-grid opacity-40" />
+      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[800px] h-[800px] rounded-full blur-3xl opacity-30 pointer-events-none"
+        style={{ background: "var(--gradient-glow)" }} />
+
+      <div className="container relative z-10">
+        <div className="max-w-5xl mx-auto text-center">
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
+            transition={{ duration: 0.5 }}
           >
-            <span className="inline-flex items-center gap-2 px-4 py-2 mb-6 text-sm font-medium rounded-full bg-muted/80 text-foreground border border-border/50">
-              <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
-              {t('hero.badge')}
+            <span className="inline-flex items-center gap-2 px-4 py-2 mb-8 text-xs font-semibold uppercase tracking-widest rounded-full glass-card text-primary">
+              <span className="relative flex h-2 w-2">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75" />
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-primary" />
+              </span>
+              {t("hero.badge")}
             </span>
           </motion.div>
 
@@ -50,78 +44,66 @@ const Hero = () => {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.1 }}
-            className="text-4xl sm:text-5xl lg:text-6xl font-bold font-display leading-tight mb-6 text-foreground"
+            className="text-4xl sm:text-6xl lg:text-7xl font-bold font-display leading-[1.05] mb-6 text-balance"
           >
-            {t('hero.title1')}{" "}
-            <span className="gradient-text">{language === 'es' ? 'y automatización con IA' : 'and AI Automation'}</span>
-            {" "}{t('hero.title2')}
+            {t("hero.title")}
+            <br />
+            <span className="gradient-text">{t("hero.titleAccent")}</span>
           </motion.h1>
 
           <motion.p
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="text-lg sm:text-xl text-muted-foreground mb-8 max-w-2xl mx-auto leading-relaxed"
+            className="text-lg sm:text-xl text-muted-foreground mb-10 max-w-3xl mx-auto leading-relaxed text-balance"
           >
-            {t('hero.description')}
+            {t("hero.description")}
           </motion.p>
 
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.3 }}
-            className="flex flex-wrap justify-center gap-x-6 gap-y-3 mb-10"
+            className="flex flex-col sm:flex-row gap-3 justify-center mb-14"
           >
-            {features.map((feature, index) => (
-              <motion.div
-                key={feature}
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.4, delay: 0.4 + index * 0.1 }}
-                className="flex items-center gap-2 text-muted-foreground"
-              >
-                <Check className="h-5 w-5 text-primary" />
-                <span>{feature}</span>
-              </motion.div>
-            ))}
+            <Button variant="hero" size="lg" asChild className="min-h-[52px]">
+              <a href={whatsappUrl} target="_blank" rel="noopener noreferrer">
+                {t("hero.cta.primary")}
+                <ArrowRight className="ml-1 h-5 w-5" />
+              </a>
+            </Button>
+            <Button variant="heroOutline" size="lg" asChild className="min-h-[52px]">
+              <a href="#assistant">
+                <Play className="mr-1 h-4 w-4" />
+                {t("hero.cta.secondary")}
+              </a>
+            </Button>
           </motion.div>
 
+          {/* Social proof bar */}
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.5 }}
-            className="flex flex-col sm:flex-row gap-4 justify-center"
+            className="grid grid-cols-1 sm:grid-cols-3 gap-3 max-w-3xl mx-auto"
           >
-            <Button variant="hero" size="lg" asChild>
-              <a href={whatsappUrl} target="_blank" rel="noopener noreferrer">
-                {t('hero.cta')}
-                <ArrowRight className="ml-2 h-5 w-5" />
-              </a>
-            </Button>
-            <Button variant="heroOutline" size="lg" asChild>
-              <a href="#servicios">
-                {t('hero.secondary')}
-              </a>
-            </Button>
+            {stats.map((stat, i) => (
+              <div
+                key={i}
+                className="glass-card rounded-2xl px-5 py-4 flex items-center gap-3 text-left"
+              >
+                <div className="flex-shrink-0 h-10 w-10 rounded-lg bg-primary/10 text-primary flex items-center justify-center">
+                  <stat.icon className="h-5 w-5" />
+                </div>
+                <div>
+                  <div className="text-xl font-bold font-display text-foreground">{stat.value}</div>
+                  <div className="text-xs text-muted-foreground leading-tight">{stat.label}</div>
+                </div>
+              </div>
+            ))}
           </motion.div>
         </div>
       </div>
-
-      {/* Scroll indicator */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1, duration: 0.6 }}
-        className="absolute bottom-8 left-1/2 -translate-x-1/2"
-      >
-        <motion.div
-          animate={{ y: [0, 10, 0] }}
-          transition={{ duration: 2, repeat: Infinity }}
-          className="w-6 h-10 rounded-full border-2 border-muted-foreground/30 flex items-start justify-center p-2"
-        >
-          <motion.div className="w-1.5 h-1.5 rounded-full bg-primary" />
-        </motion.div>
-      </motion.div>
     </section>
   );
 };

@@ -1,16 +1,14 @@
 import Header from "@/components/layout/Header";
 import Hero from "@/components/sections/Hero";
-import WhatWeDo from "@/components/sections/WhatWeDo";
-import Services from "@/components/sections/Services";
-import Process from "@/components/sections/Process";
-import WhyUs from "@/components/sections/WhyUs";
-import Portfolio from "@/components/sections/Portfolio";
-import UseCases from "@/components/sections/UseCases";
-import FAQ from "@/components/sections/FAQ";
-import CTA from "@/components/sections/CTA";
+import Problem from "@/components/sections/Problem";
+import Assistant from "@/components/sections/Assistant";
+import PropIA from "@/components/sections/PropIA";
+import Industries from "@/components/sections/Industries";
+import Testimonials from "@/components/sections/Testimonials";
+import Pricing from "@/components/sections/Pricing";
+import FinalCTA from "@/components/sections/FinalCTA";
 import Footer from "@/components/sections/Footer";
 import WhatsAppButton from "@/components/WhatsAppButton";
-import BackgroundMusic from "@/components/BackgroundMusic";
 
 const Index = () => {
   return (
@@ -18,18 +16,16 @@ const Index = () => {
       <Header />
       <main>
         <Hero />
-        <WhatWeDo />
-        <Services />
-        <Process />
-        <WhyUs />
-        <Portfolio />
-        <UseCases />
-        <FAQ />
-        <CTA />
+        <Problem />
+        <Assistant />
+        <PropIA />
+        <Industries />
+        <Testimonials />
+        <Pricing />
+        <FinalCTA />
       </main>
       <Footer />
       <WhatsAppButton />
-      <BackgroundMusic />
     </div>
   );
 };
