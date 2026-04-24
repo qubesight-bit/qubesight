@@ -33,6 +33,7 @@ const Header = () => {
   const navLinks = [
     { href: sectionHref("problem"), label: t("nav.problem") },
     { href: sectionHref("assistant"), label: t("nav.assistant") },
+    { href: sectionHref("voicebot"), label: t("nav.voicebot") },
     { href: sectionHref("propia"), label: t("nav.propia") },
     { href: sectionHref("industries"), label: t("nav.industries") },
     { href: sectionHref("pricing"), label: t("nav.pricing") },
