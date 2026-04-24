@@ -31,12 +31,19 @@ const FinalCTA = () => {
           <p className="text-lg text-muted-foreground mb-10 max-w-2xl mx-auto">
             {t("final.description")}
           </p>
-          <Button variant="hero" size="lg" asChild className="min-h-[56px] px-8">
-            <a href={whatsappUrl} target="_blank" rel="noopener noreferrer">
-              {t("final.cta")}
-              <ArrowRight className="ml-1 h-5 w-5" />
-            </a>
-          </Button>
+          <div className="flex flex-col sm:flex-row gap-3 justify-center">
+            <Button variant="hero" size="lg" asChild className="min-h-[56px] px-8">
+              <a href="#demos">
+                Probar demo gratis
+                <ArrowRight className="ml-1 h-5 w-5" />
+              </a>
+            </Button>
+            <Button variant="heroOutline" size="lg" asChild className="min-h-[56px] px-8">
+              <a href={whatsappUrl} target="_blank" rel="noopener noreferrer">
+                {t("final.cta")}
+              </a>
+            </Button>
+          </div>
         </motion.div>
       </div>
     </section>

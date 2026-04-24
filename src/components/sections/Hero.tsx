@@ -67,13 +67,13 @@ const Hero = () => {
             className="flex flex-col sm:flex-row gap-3 justify-center mb-14"
           >
             <Button variant="hero" size="lg" asChild className="min-h-[52px]">
-              <a href={whatsappUrl} target="_blank" rel="noopener noreferrer">
+              <a href="#demos">
                 {t("hero.cta.primary")}
                 <ArrowRight className="ml-1 h-5 w-5" />
               </a>
             </Button>
             <Button variant="heroOutline" size="lg" asChild className="min-h-[52px]">
-              <a href="#assistant">
+              <a href={whatsappUrl} target="_blank" rel="noopener noreferrer">
                 <Play className="mr-1 h-4 w-4" />
                 {t("hero.cta.secondary")}
               </a>
