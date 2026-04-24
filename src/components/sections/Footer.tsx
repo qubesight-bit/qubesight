@@ -13,11 +13,6 @@ const Footer = () => {
     { href: "#propia", label: "PropIA" },
     { href: "#pricing", label: t("nav.pricing") },
   ];
-  const companyLinks = [
-    { href: "#problem", label: t("nav.problem") },
-    { href: "#industries", label: t("nav.industries") },
-    { href: "#testimonials", label: language => "Testimonios" },
-  ];
 
   return (
     <footer className="pt-20 pb-10 bg-card/50 border-t border-white/5 relative">
