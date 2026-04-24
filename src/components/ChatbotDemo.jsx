@@ -863,8 +863,18 @@ export function ChatEmbedded({ nicheKey }) {
             <div ref={bottomRef} />
           </div>
 
+          {/* Lead form */}
+          {showLeadForm && (
+            <LeadForm
+              color={niche.color}
+              gradient={headerGradient}
+              onSubmit={submitLead}
+              onCancel={() => setShowLeadForm(false)}
+            />
+          )}
+
           {/* Quick replies */}
-          {messages.length > 0 && !typing && (
+          {messages.length > 0 && !typing && !showLeadForm && (
             <div
               style={{
                 padding: "10px 14px",
@@ -889,6 +899,19 @@ export function ChatEmbedded({ nicheKey }) {
                   {q}
                 </button>
               ))}
+              {!leadSubmitted && (
+                <button
+                  className="qs-quick-btn"
+                  onClick={() => setShowLeadForm(true)}
+                  style={{
+                    border: `1.5px solid ${niche.color}`,
+                    background: niche.color,
+                    color: "#fff",
+                  }}
+                >
+                  💬 Contactar asesor
+                </button>
+              )}
             </div>
           )}
 
