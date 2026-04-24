@@ -275,21 +275,23 @@ const Pricing = () => {
               <Button
                 variant={plan.popular ? "hero" : "outline"}
                 size="lg"
-                asChild
+                onClick={() => openCheckout(plan.id, plan.price, `Voice Bot ${plan.name}`)}
                 className="w-full min-h-[48px]"
               >
-                <a
-                  href={whatsapp(`Voice Bot ${plan.name}`)}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  {t("pricing.cta")}
-                </a>
+                {t("pricing.cta")}
               </Button>
             </motion.div>
           ))}
         </div>
       </div>
+
+      <CheckoutDialog
+        open={checkout.open}
+        onOpenChange={(open) => setCheckout((c) => ({ ...c, open }))}
+        amount={checkout.amount}
+        description={checkout.description}
+        planId={checkout.planId}
+      />
     </section>
   );
 };
