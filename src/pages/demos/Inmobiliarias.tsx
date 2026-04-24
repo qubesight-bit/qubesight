@@ -1,4 +1,4 @@
-import { ChatInmobiliaria } from "@/components/ChatbotDemo";
+import { ChatEmbedded } from "@/components/ChatbotDemo";
 import NicheDemoPage from "@/pages/NicheDemoPage";
 
 const Inmobiliarias = () => (
@@ -6,8 +6,9 @@ const Inmobiliarias = () => (
     badge="🏠 Inmobiliarias"
     title="Califica leads y agenda visitas automáticamente."
     subtitle="Muestra propiedades, filtra interesados serios y agenda visitas mientras cierras otras ventas."
-    ChatComponent={ChatInmobiliaria}
-  />
+  >
+    <ChatEmbedded nicheKey="inmobiliaria" />
+  </NicheDemoPage>
 );
 
 export default Inmobiliarias;

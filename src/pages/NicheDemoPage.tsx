@@ -1,4 +1,4 @@
-import { ComponentType } from "react";
+import { ReactNode } from "react";
 import { Link } from "react-router-dom";
 import { ArrowLeft } from "lucide-react";
 import Header from "@/components/layout/Header";
@@ -9,15 +9,15 @@ interface NicheDemoPageProps {
   title: string;
   subtitle: string;
   badge: string;
-  ChatComponent: ComponentType;
+  children: ReactNode;
 }
 
-const NicheDemoPage = ({ title, subtitle, badge, ChatComponent }: NicheDemoPageProps) => {
+const NicheDemoPage = ({ title, subtitle, badge, children }: NicheDemoPageProps) => {
   return (
     <div className="min-h-screen">
       <Header />
       <main>
-        <section className="relative pt-32 pb-16 sm:pt-40 sm:pb-20 overflow-hidden">
+        <section className="relative pt-32 pb-8 sm:pt-40 sm:pb-10 overflow-hidden">
           <div className="absolute inset-0 bg-grid opacity-20" />
           <div className="container relative">
             <Link
@@ -41,8 +41,8 @@ const NicheDemoPage = ({ title, subtitle, badge, ChatComponent }: NicheDemoPageP
 
         <section className="pb-24 sm:pb-32">
           <div className="container">
-            <div className="max-w-2xl mx-auto">
-              <ChatComponent />
+            <div style={{ paddingTop: 40 }} className="flex justify-center">
+              {children}
             </div>
           </div>
         </section>
