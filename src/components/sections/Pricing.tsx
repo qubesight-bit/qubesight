@@ -3,17 +3,18 @@ import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Check, Sparkles } from "lucide-react";
 import { useTranslation } from "@/hooks/useTranslation";
+import CheckoutDialog from "@/components/CheckoutDialog";
 
 const Pricing = () => {
-  const { t, language } = useTranslation();
+  const { t } = useTranslation();
   const [yearly, setYearly] = useState(false);
+  const [checkout, setCheckout] = useState<{ open: boolean; amount: number; description: string; planId: string }>(
+    { open: false, amount: 0, description: "", planId: "" },
+  );
 
-  const whatsapp = (plan: string) =>
-    `https://wa.me/50686425281?text=${encodeURIComponent(
-      language === "es"
-        ? `Hola, me interesa el plan ${plan} de QubeSight.`
-        : `Hi, I'm interested in the ${plan} plan from QubeSight.`
-    )}`;
+  const openCheckout = (planId: string, amount: number, planName: string) => {
+    setCheckout({ open: true, amount, description: `QubeSight — ${planName}`, planId });
+  };
 
   const fmt = (monthly: number) => {
     if (yearly) return Math.round(monthly * 0.8);
@@ -22,6 +23,7 @@ const Pricing = () => {
 
   const plans = [
     {
+      id: "basic",
       name: t("pricing.basic.name"),
       desc: t("pricing.basic.desc"),
       price: fmt(49),
@@ -30,6 +32,7 @@ const Pricing = () => {
       features: [t("pricing.basic.f1"), t("pricing.basic.f2"), t("pricing.basic.f3"), t("pricing.basic.f4")],
     },
     {
+      id: "growth",
       name: t("pricing.growth.name"),
       desc: t("pricing.growth.desc"),
       price: fmt(99),
@@ -44,6 +47,7 @@ const Pricing = () => {
       ],
     },
     {
+      id: "propia",
       name: t("pricing.propia.name"),
       desc: t("pricing.propia.desc"),
       price: 150,
@@ -149,12 +153,10 @@ const Pricing = () => {
               <Button
                 variant={plan.popular ? "hero" : "outline"}
                 size="lg"
-                asChild
+                onClick={() => openCheckout(plan.id, plan.price, plan.name)}
                 className="w-full min-h-[48px]"
               >
-                <a href={whatsapp(plan.name)} target="_blank" rel="noopener noreferrer">
-                  {t("pricing.cta")}
-                </a>
+                {t("pricing.cta")}
               </Button>
             </motion.div>
           ))}
@@ -179,6 +181,7 @@ const Pricing = () => {
         <div className="grid md:grid-cols-3 gap-6 max-w-6xl mx-auto">
           {[
             {
+              id: "voice_bronze",
               name: t("pricing.voice.bronze.name"),
               desc: t("pricing.voice.bronze.desc"),
               price: fmt(199),
@@ -192,6 +195,7 @@ const Pricing = () => {
               ],
             },
             {
+              id: "voice_silver",
               name: t("pricing.voice.silver.name"),
               desc: t("pricing.voice.silver.desc"),
               price: fmt(399),
@@ -206,6 +210,7 @@ const Pricing = () => {
               ],
             },
             {
+              id: "voice_gold",
               name: t("pricing.voice.gold.name"),
               desc: t("pricing.voice.gold.desc"),
               price: fmt(799),
@@ -270,21 +275,23 @@ const Pricing = () => {
               <Button
                 variant={plan.popular ? "hero" : "outline"}
                 size="lg"
-                asChild
+                onClick={() => openCheckout(plan.id, plan.price, `Voice Bot ${plan.name}`)}
                 className="w-full min-h-[48px]"
               >
-                <a
-                  href={whatsapp(`Voice Bot ${plan.name}`)}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  {t("pricing.cta")}
-                </a>
+                {t("pricing.cta")}
               </Button>
             </motion.div>
           ))}
         </div>
       </div>
+
+      <CheckoutDialog
+        open={checkout.open}
+        onOpenChange={(open) => setCheckout((c) => ({ ...c, open }))}
+        amount={checkout.amount}
+        description={checkout.description}
+        planId={checkout.planId}
+      />
     </section>
   );
 };

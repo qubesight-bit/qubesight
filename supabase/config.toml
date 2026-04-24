@@ -2,3 +2,9 @@ project_id = "jhrxqzbdjexdfhaujvmf"
 
 [functions.chat-niche]
 verify_jwt = false
+
+[functions.dlocalgo-create-payment]
+verify_jwt = false
+
+[functions.dlocalgo-webhook]
+verify_jwt = false
