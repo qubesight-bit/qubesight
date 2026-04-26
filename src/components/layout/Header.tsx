@@ -13,6 +13,17 @@ import { useTranslation } from "@/hooks/useTranslation";
 import LanguageSwitcher from "@/components/LanguageSwitcher";
 import LogoCube from "@/components/LogoCube";
 
+const useIsMobile = () => {
+  const [isMobile, setIsMobile] = useState(false);
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth < 480);
+    check();
+    window.addEventListener("resize", check);
+    return () => window.removeEventListener("resize", check);
+  }, []);
+  return isMobile;
+};
+
 const demoLinks = [
   { to: "/restaurantes", emoji: "🍽️", label: "Restaurantes" },
   { to: "/salones", emoji: "💇", label: "Salones" },
