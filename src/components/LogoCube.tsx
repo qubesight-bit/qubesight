@@ -8,14 +8,14 @@ interface LogoCubeProps {
 const LogoCube = ({ className = "", showText = true }: LogoCubeProps) => {
   return (
     <motion.div
-      className={`relative flex items-center gap-3 ${className}`}
+      className={`relative flex items-center gap-2 sm:gap-3 ${className}`}
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.6 }}
     >
       {/* Cubo isométrico 3D con glassmorphism */}
       <motion.div
-        className="relative w-10 h-10"
+        className="relative w-8 h-8 sm:w-10 sm:h-10"
         animate={{
           y: [0, -4, 0],
           rotateY: [0, 5, 0],
@@ -139,7 +139,7 @@ const LogoCube = ({ className = "", showText = true }: LogoCubeProps) => {
 
       {/* Texto QubeSight */}
       <motion.span
-        className="font-display font-bold text-xl tracking-tight text-white transition-colors duration-300 group-hover:text-cyan-400"
+        className={`font-display font-bold text-lg sm:text-xl tracking-tight text-white transition-colors duration-300 group-hover:text-cyan-400 ${showText ? "" : "hidden"}`}
         whileHover={{ scale: 1.02 }}
         style={{ 
           textShadow: "0 0 20px hsl(187 92% 55% / 0.15)",
