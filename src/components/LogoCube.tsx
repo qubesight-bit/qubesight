@@ -2,10 +2,9 @@ import { motion } from "framer-motion";
 
 interface LogoCubeProps {
   className?: string;
-  showText?: boolean;
 }
 
-const LogoCube = ({ className = "", showText = true }: LogoCubeProps) => {
+const LogoCube = ({ className = "" }: LogoCubeProps) => {
   return (
     <motion.div
       className={`relative flex items-center gap-2 sm:gap-3 ${className}`}
