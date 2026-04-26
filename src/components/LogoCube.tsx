@@ -138,7 +138,7 @@ const LogoCube = ({ className = "" }: LogoCubeProps) => {
 
       {/* Texto QubeSight - oculto en móviles, visible en sm+ */}
       <motion.span
-        className="hidden sm:inline font-display font-bold text-lg sm:text-xl tracking-tight text-white transition-colors duration-300 group-hover:text-cyan-400"
+        className="!hidden sm:!inline font-display font-bold text-lg sm:text-xl tracking-tight text-white transition-colors duration-300 group-hover:text-cyan-400"
         whileHover={{ scale: 1.02 }}
         style={{ 
           textShadow: "0 0 20px hsl(187 92% 55% / 0.15)",
