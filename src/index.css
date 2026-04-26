@@ -142,3 +142,10 @@ html {
   background-color: hsl(187 92% 55% / 0.3);
   color: hsl(210 40% 98%);
 }
+
+/* Logo responsive - ocultar texto en móviles pequeños */
+@media (max-width: 419px) {
+  .logo-text-mobile {
+    display: none !important;
+  }
+}
