@@ -39,6 +39,7 @@ const Header = () => {
   const { t, language } = useTranslation();
   const location = useLocation();
   const isHome = location.pathname === "/";
+  const isMobileViewport = useIsMobile();
   const sectionHref = (id: string) => (isHome ? `#${id}` : `/#${id}`);
 
   const navLinks = [
