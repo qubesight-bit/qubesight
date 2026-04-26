@@ -77,7 +77,7 @@ const Header = () => {
       <div className="container">
         <nav className="flex items-center justify-between h-20">
           <Link to="/" className="flex items-center group">
-            <LogoCube showText={!useIsMobile()} />
+            <LogoCube showText={!isMobileViewport} />
           </Link>
 
           <div className="hidden lg:flex items-center gap-7">
