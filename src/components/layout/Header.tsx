@@ -11,7 +11,7 @@ import {
 import { Menu, X, ArrowRight, ChevronDown, Sparkles } from "lucide-react";
 import { useTranslation } from "@/hooks/useTranslation";
 import LanguageSwitcher from "@/components/LanguageSwitcher";
-import logo from "@/assets/logo.png";
+import LogoCube from "@/components/LogoCube";
 
 const demoLinks = [
   { to: "/restaurantes", emoji: "🍽️", label: "Restaurantes" },
@@ -64,8 +64,8 @@ const Header = () => {
     >
       <div className="container">
         <nav className="flex items-center justify-between h-20">
-          <Link to="/" className="flex items-center">
-            <img src={logo} alt="QubeSight" className="h-9 w-auto" />
+          <Link to="/" className="flex items-center group">
+            <LogoCube />
           </Link>
 
           <div className="hidden lg:flex items-center gap-7">
