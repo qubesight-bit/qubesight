@@ -137,7 +137,7 @@ const LogoCube = ({ className = "", showText = true }: LogoCubeProps) => {
         </svg>
       </motion.div>
 
-      {/* Texto QubeSight */}
+      {/* Texto QubeSight - oculto en móvil */}
       <motion.span
         className={`font-display font-bold text-lg sm:text-xl tracking-tight text-white transition-colors duration-300 group-hover:text-cyan-400 ${showText ? "" : "hidden"}`}
         whileHover={{ scale: 1.02 }}
