@@ -11,7 +11,7 @@ import {
 import { Menu, X, ArrowRight, ChevronDown, Sparkles } from "lucide-react";
 import { useTranslation } from "@/hooks/useTranslation";
 import LanguageSwitcher from "@/components/LanguageSwitcher";
-import logo from "@/assets/logo.png";
+import LogoCube from "@/components/LogoCube";
 
 const demoLinks = [
   { to: "/restaurantes", emoji: "🍽️", label: "Restaurantes" },
