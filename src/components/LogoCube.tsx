@@ -138,9 +138,18 @@ const LogoCube = ({ className = "" }: LogoCubeProps) => {
 
       {/* Texto QubeSight */}
       <motion.span
-        className="font-display font-bold text-xl tracking-tight text-white group-hover:text-cyan-400 transition-colors duration-300"
+        className="font-display font-bold text-xl tracking-tight text-white transition-colors duration-300 group-hover:text-cyan-400"
         whileHover={{ scale: 1.02 }}
-        style={{ textShadow: "0 0 20px hsl(187 92% 55% / 0.15)" }}
+        style={{ 
+          textShadow: "0 0 20px hsl(187 92% 55% / 0.15)",
+          transition: "text-shadow 0.3s ease"
+        }}
+        onMouseEnter={(e) => {
+          e.currentTarget.style.textShadow = "0 0 30px hsl(187 92% 55% / 0.4), 0 0 60px hsl(187 92% 55% / 0.2)";
+        }}
+        onMouseLeave={(e) => {
+          e.currentTarget.style.textShadow = "0 0 20px hsl(187 92% 55% / 0.15)";
+        }}
       >
         QubeSight
       </motion.span>
