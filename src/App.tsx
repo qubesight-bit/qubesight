@@ -13,6 +13,7 @@ import Gimnasios from "./pages/demos/Gimnasios";
 import Inmobiliarias from "./pages/demos/Inmobiliarias";
 import PaymentSuccess from "./pages/PaymentSuccess";
 import PaymentFailure from "./pages/PaymentFailure";
+import LogoResponsiveTest from "./pages/LogoResponsiveTest";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -35,6 +36,7 @@ const App = () => (
             <Route path="/inmobiliarias" element={<Inmobiliarias />} />
             <Route path="/payment/success" element={<PaymentSuccess />} />
             <Route path="/payment/failure" element={<PaymentFailure />} />
+            <Route path="/dev/logo-test" element={<LogoResponsiveTest />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>
