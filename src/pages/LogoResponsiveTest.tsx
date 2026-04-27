@@ -54,18 +54,18 @@ const LogoResponsiveTest = () => {
               </div>
 
               <div
-                className="relative mx-auto border border-white/10 rounded-lg overflow-hidden bg-zinc-950"
+                className="relative mx-auto border border-border rounded-lg overflow-hidden bg-background"
                 style={{ width: `${width}px`, maxWidth: "100%" }}
               >
                 {/* Simulated navbar */}
                 <div
-                  className="relative flex items-center justify-between px-4 border-b border-white/5"
+                  className="relative flex items-center justify-between px-4 border-b border-border"
                   style={{ height: `${NAVBAR_HEIGHT}px` }}
                 >
                   {showGuides && (
                     <>
-                      <div className="absolute inset-x-0 top-1/2 h-px bg-cyan-400/20 pointer-events-none" />
-                      <div className="absolute inset-y-0 left-4 w-px bg-cyan-400/20 pointer-events-none" />
+                      <div className="absolute inset-x-0 top-1/2 h-px bg-primary/20 pointer-events-none" />
+                      <div className="absolute inset-y-0 left-4 w-px bg-primary/20 pointer-events-none" />
                     </>
                   )}
                   <LogoCube />
