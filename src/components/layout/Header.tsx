@@ -64,7 +64,11 @@ const Header = () => {
     >
       <div className="container">
         <nav className="flex items-center justify-between h-20">
-          <Link to="/" className="flex items-center group">
+          <Link
+            to="/"
+            className="group flex h-10 w-10 min-[420px]:w-[10.75rem] items-center overflow-hidden"
+            aria-label="QubeSight"
+          >
             <LogoCube />
           </Link>
 
