@@ -13,12 +13,10 @@ import Pricing from "@/components/sections/Pricing";
 import FinalCTA from "@/components/sections/FinalCTA";
 import Footer from "@/components/sections/Footer";
 import WhatsAppButton from "@/components/WhatsAppButton";
-import UrgencyBanner from "@/components/UrgencyBanner";
 
 const Index = () => {
   return (
     <div className="min-h-screen">
-      <UrgencyBanner />
       <Header />
       <main>
         <Hero />

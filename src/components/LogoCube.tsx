@@ -7,14 +7,14 @@ interface LogoCubeProps {
 const LogoCube = ({ className = "" }: LogoCubeProps) => {
   return (
     <motion.div
-      className={`relative flex items-center gap-2 sm:gap-3 ${className}`}
+      className={`relative flex items-center gap-2 sm:gap-3 leading-none ${className}`}
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.6 }}
     >
       {/* Cubo isométrico 3D con glassmorphism */}
       <motion.div
-        className="relative w-8 h-8 sm:w-10 sm:h-10"
+        className="relative shrink-0 h-9 w-9 sm:h-10 sm:w-10 aspect-square"
         animate={{
           y: [0, -4, 0],
           rotateY: [0, 5, 0],
