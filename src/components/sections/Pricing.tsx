@@ -132,12 +132,6 @@ const Pricing = () => {
                   <span className="text-5xl font-bold font-display">${plan.price}</span>
                   <span className="text-muted-foreground">{plan.suffix}</span>
                 </div>
-                {plan.setup && (
-                  <div className="mt-2 text-sm text-muted-foreground">
-                    + <span className="font-semibold text-foreground">{plan.setup.value}</span> {plan.setup.label}{" "}
-                    <span className="text-xs">({plan.setup.note})</span>
-                  </div>
-                )}
               </div>
 
               <ul className="space-y-3 mb-8 flex-grow">
