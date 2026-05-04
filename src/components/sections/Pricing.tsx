@@ -23,10 +23,10 @@ const Pricing = () => {
 
   const plans = [
     {
-      id: "basic",
+      id: "starter",
       name: t("pricing.basic.name"),
       desc: t("pricing.basic.desc"),
-      price: fmt(49),
+      price: fmt(129),
       suffix: t("pricing.month"),
       popular: false,
       features: [t("pricing.basic.f1"), t("pricing.basic.f2"), t("pricing.basic.f3"), t("pricing.basic.f4")],
@@ -35,7 +35,7 @@ const Pricing = () => {
       id: "growth",
       name: t("pricing.growth.name"),
       desc: t("pricing.growth.desc"),
-      price: fmt(99),
+      price: fmt(229),
       suffix: t("pricing.month"),
       popular: true,
       features: [
@@ -47,12 +47,11 @@ const Pricing = () => {
       ],
     },
     {
-      id: "propia",
+      id: "scale",
       name: t("pricing.propia.name"),
       desc: t("pricing.propia.desc"),
-      price: 150,
+      price: fmt(399),
       suffix: t("pricing.month"),
-      setup: { label: t("pricing.propia.setup"), value: "$800 – $1,200", note: t("pricing.oneTime") },
       popular: false,
       features: [
         t("pricing.propia.f1"),
@@ -133,12 +132,6 @@ const Pricing = () => {
                   <span className="text-5xl font-bold font-display">${plan.price}</span>
                   <span className="text-muted-foreground">{plan.suffix}</span>
                 </div>
-                {plan.setup && (
-                  <div className="mt-2 text-sm text-muted-foreground">
-                    + <span className="font-semibold text-foreground">{plan.setup.value}</span> {plan.setup.label}{" "}
-                    <span className="text-xs">({plan.setup.note})</span>
-                  </div>
-                )}
               </div>
 
               <ul className="space-y-3 mb-8 flex-grow">
