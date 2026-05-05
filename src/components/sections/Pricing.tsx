@@ -298,6 +298,11 @@ const Pricing = () => {
             </motion.div>
           ))}
         </div>
+        <div className="max-w-6xl mx-auto mt-6 text-center">
+          <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass-card text-sm font-semibold text-primary">
+            ⚡ {t("pricing.voice.overage")}
+          </span>
+        </div>
       </div>
 
       <CheckoutDialog
