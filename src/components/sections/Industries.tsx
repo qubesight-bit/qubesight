@@ -55,7 +55,7 @@ const Industries = () => {
           <p className="mt-5 text-lg text-muted-foreground">{t("industries.description")}</p>
         </motion.div>
 
-        <Tabs defaultValue="realestate" className="max-w-5xl mx-auto">
+        <Tabs defaultValue="realestate" className="max-w-5xl mx-auto perspective-2000">
           <TabsList className="grid grid-cols-2 md:grid-cols-4 h-auto bg-secondary/40 p-1.5 rounded-2xl mb-8">
             {industries.map((ind) => (
               <TabsTrigger
@@ -75,7 +75,7 @@ const Industries = () => {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.4 }}
-                className="glass-card rounded-3xl p-8 sm:p-12"
+                className="glass-card depth-card rounded-3xl p-8 sm:p-12"
               >
                 <div className="flex items-start gap-5 mb-8">
                   <div className="flex-shrink-0 h-14 w-14 rounded-2xl gradient-bg flex items-center justify-center text-primary-foreground shadow-glow">

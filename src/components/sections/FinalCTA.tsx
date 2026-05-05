@@ -22,6 +22,7 @@ const FinalCTA = () => {
     <section className="py-24 sm:py-32 relative overflow-hidden">
       <div className="absolute inset-0 bg-grid opacity-30" />
       <div className="absolute inset-0 gradient-hero-bg opacity-60" />
+      <div className="absolute bottom-0 left-0 right-0 h-[40vh] neon-grid-3d animate-grid-drift opacity-30 pointer-events-none" />
 
       {/* Floating glow orbs */}
       <div className="absolute top-1/4 left-10 w-72 h-72 rounded-full blur-3xl opacity-40 pointer-events-none animate-pulse-glow"
@@ -35,7 +36,7 @@ const FinalCTA = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="max-w-4xl mx-auto text-center glass-card rounded-3xl p-10 sm:p-16 shadow-glow border-primary/20 relative overflow-hidden"
+          className="max-w-4xl mx-auto text-center glass-card depth-card rounded-3xl p-10 sm:p-16 shadow-glow border-primary/20 relative overflow-hidden perspective-2000"
         >
           {/* Top glow accent */}
           <div className="absolute top-0 left-1/2 -translate-x-1/2 w-1/2 h-px bg-gradient-to-r from-transparent via-primary to-transparent" />

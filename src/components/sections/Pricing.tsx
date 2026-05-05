@@ -64,8 +64,11 @@ const Pricing = () => {
   ];
 
   return (
-    <section id="pricing" className="py-24 sm:py-32 relative">
-      <div className="container">
+    <section id="pricing" className="py-24 sm:py-32 relative overflow-hidden">
+      <div className="absolute inset-0 bg-grid opacity-20 pointer-events-none" />
+      <div className="absolute top-1/3 -left-40 w-96 h-96 rounded-full blur-3xl opacity-30 pointer-events-none animate-float-3d" style={{ background: "var(--gradient-glow)" }} />
+      <div className="absolute bottom-1/4 -right-40 w-96 h-96 rounded-full blur-3xl opacity-30 pointer-events-none animate-float-3d" style={{ background: "radial-gradient(circle, hsl(217 91% 60% / 0.4), transparent 70%)", animationDelay: "-7s" }} />
+      <div className="container relative">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -105,7 +108,7 @@ const Pricing = () => {
           </div>
         </motion.div>
 
-        <div className="grid md:grid-cols-3 gap-6 max-w-6xl mx-auto">
+        <div className="grid md:grid-cols-3 gap-6 max-w-6xl mx-auto perspective-2000">
           {plans.map((plan, i) => (
             <motion.div
               key={i}
@@ -113,7 +116,7 @@ const Pricing = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: i * 0.1 }}
-              className={`relative glass-card rounded-3xl p-8 flex flex-col ${
+              className={`relative glass-card depth-card rounded-3xl p-8 flex flex-col ${
                 plan.popular ? "border-primary/40 shadow-glow scale-100 md:scale-105" : ""
               }`}
             >
@@ -171,7 +174,7 @@ const Pricing = () => {
           </p>
         </motion.div>
 
-        <div className="grid md:grid-cols-3 gap-6 max-w-6xl mx-auto">
+        <div className="grid md:grid-cols-3 gap-6 max-w-6xl mx-auto perspective-2000">
           {[
             {
               id: "voice_bronze",
@@ -224,7 +227,7 @@ const Pricing = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: i * 0.1 }}
-              className={`relative glass-card rounded-3xl p-8 flex flex-col ${
+              className={`relative glass-card depth-card rounded-3xl p-8 flex flex-col ${
                 plan.popular ? "border-primary/40 shadow-glow scale-100 md:scale-105" : ""
               }`}
             >

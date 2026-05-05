@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Check, MessageCircle, ArrowRight, Bot } from "lucide-react";
 import { useTranslation } from "@/hooks/useTranslation";
+import Tilt3D from "@/components/Tilt3D";
 
 const Assistant = () => {
   const { t, language } = useTranslation();
@@ -71,9 +72,10 @@ const Assistant = () => {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.15 }}
-            className="relative"
+            className="relative perspective-2000"
           >
             <div className="absolute inset-0 blur-3xl opacity-40" style={{ background: "var(--gradient-glow)" }} />
+            <Tilt3D max={10} className="relative">
             <div className="relative glass-card rounded-3xl p-6 shadow-glow">
               <div className="flex items-center gap-3 pb-4 border-b border-white/5">
                 <div className="h-10 w-10 rounded-full gradient-bg flex items-center justify-center text-primary-foreground">
@@ -114,6 +116,7 @@ const Assistant = () => {
                 {language === "es" ? "Respondido en 2.1 segundos" : "Replied in 2.1 seconds"}
               </div>
             </div>
+            </Tilt3D>
           </motion.div>
         </div>
       </div>
