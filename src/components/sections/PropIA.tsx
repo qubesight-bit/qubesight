@@ -10,10 +10,10 @@ const PropIA = () => {
   )}`;
 
   const steps = [
-    { icon: Camera, title: t("propia.step1.title"), desc: t("propia.step1.desc") },
-    { icon: Sparkles, title: t("propia.step2.title"), desc: t("propia.step2.desc") },
-    { icon: Video, title: t("propia.step3.title"), desc: t("propia.step3.desc") },
-    { icon: Send, title: t("propia.step4.title"), desc: t("propia.step4.desc") },
+    { icon: Camera, title: t("propia.step1.title.v2"), desc: t("propia.step1.desc") },
+    { icon: Sparkles, title: t("propia.step2.title.v2"), desc: t("propia.step2.desc.v2") },
+    { icon: Video, title: t("propia.step3.title.v2"), desc: t("propia.step3.desc.v2") },
+    { icon: Send, title: t("propia.step4.title.v2"), desc: t("propia.step4.desc.v2") },
   ];
 
   const extras = [
