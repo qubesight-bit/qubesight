@@ -35,7 +35,7 @@ const FinalCTA = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="max-w-4xl mx-auto text-center glass-card rounded-3xl p-10 sm:p-16 shadow-glow border-primary/20 relative overflow-hidden"
+          className="max-w-4xl mx-auto text-center glass-card depth-card rounded-3xl p-10 sm:p-16 shadow-glow border-primary/20 relative overflow-hidden perspective-2000"
         >
           {/* Top glow accent */}
           <div className="absolute top-0 left-1/2 -translate-x-1/2 w-1/2 h-px bg-gradient-to-r from-transparent via-primary to-transparent" />
