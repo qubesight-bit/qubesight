@@ -77,6 +77,12 @@ const FinalCTA = () => {
             </Button>
           </div>
 
+          <p className="mt-6 text-base sm:text-lg font-semibold text-foreground">
+            👉 {t("final.subline")}
+          </p>
+          <p className="mt-4 text-sm sm:text-base gradient-text font-display font-bold italic">
+            {t("final.tagline")}
+          </p>
           <p className="mt-6 text-xs text-muted-foreground">
             {t("final.fineprint")}
           </p>
