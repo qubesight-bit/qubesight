@@ -20,10 +20,10 @@ const Hero = () => {
 
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden gradient-hero-bg pt-24 pb-16">
-      {/* Spline 3D background scene */}
-      <div className="absolute inset-0 z-0 opacity-70 pointer-events-none">
+      {/* Spline 3D background scene (gracefully falls back if scene unavailable) */}
+      <div className="absolute inset-0 z-0 opacity-60 pointer-events-none mix-blend-screen">
         <Spline3D
-          scene="https://prod.spline.design/6Wq1Q7YGyM-iab9i/scene.splinecode"
+          scene="https://prod.spline.design/0PYg6Z3SmZaoVPRR/scene.splinecode"
           className="w-full h-full"
         />
       </div>
