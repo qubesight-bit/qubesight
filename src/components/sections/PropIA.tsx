@@ -85,6 +85,9 @@ const PropIA = () => {
           ))}
         </div>
 
+        <p className="text-center text-lg sm:text-xl font-semibold gradient-text mb-8">
+          👉 {t("propia.closer")}
+        </p>
         <div className="text-center">
           <Button variant="hero" size="lg" asChild className="min-h-[52px]">
             <a href={whatsappUrl} target="_blank" rel="noopener noreferrer">
