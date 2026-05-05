@@ -368,6 +368,30 @@ export const translations: Translations = {
     es: 'Mientras otros venden software… QubeSight te entrega clientes atendidos.',
     en: 'While others sell software… QubeSight delivers served customers.'
   },
+
+  // Voice Bot pricing redesign
+  'pricing.voice.inboundFree': { es: 'Llamadas entrantes ilimitadas sin costo', en: 'Unlimited inbound calls at no cost' },
+  'pricing.voice.setup48': { es: 'Configuración en 48 horas', en: 'Setup in 48 hours' },
+  'pricing.voice.noContract': { es: 'Sin contratos largos', en: 'No long-term contracts' },
+  'pricing.voice.overage.title': { es: 'Uso adicional', en: 'Additional usage' },
+  'pricing.voice.overage.item': { es: 'Minutos salientes: $0.10 / min', en: 'Outbound minutes: $0.10 / min' },
+  'pricing.voice.overage.note': { es: 'Recibir llamadas no tiene costo. Solo pagas cuando el sistema realiza llamadas salientes.', en: 'Receiving calls is free. You only pay when the system makes outbound calls.' },
+  'pricing.addon.badge': { es: 'Recomendado para aumentar ventas', en: 'Recommended to boost sales' },
+  'pricing.addon.name': { es: 'Outbound Engine', en: 'Outbound Engine' },
+  'pricing.addon.desc': { es: 'Motor de llamadas salientes para activar tu base de clientes.', en: 'Outbound call engine to activate your customer base.' },
+  'pricing.addon.f1': { es: 'Recordatorios automáticos', en: 'Automatic reminders' },
+  'pricing.addon.f2': { es: 'Follow-ups inteligentes', en: 'Smart follow-ups' },
+  'pricing.addon.f3': { es: 'Llamadas automáticas masivas', en: 'Automated mass calls' },
+  'pricing.addon.cta': { es: 'Agregar a mi plan', en: 'Add to my plan' },
+  'pricing.compare.title': { es: 'Recepcionista humana vs QubeSight', en: 'Human receptionist vs QubeSight' },
+  'pricing.compare.human': { es: 'Recepcionista humana', en: 'Human receptionist' },
+  'pricing.compare.human.1': { es: '$1,100+/mes', en: '$1,100+/mo' },
+  'pricing.compare.human.2': { es: 'Horario limitado', en: 'Limited hours' },
+  'pricing.compare.human.3': { es: '1 llamada a la vez', en: '1 call at a time' },
+  'pricing.compare.qs': { es: 'QubeSight', en: 'QubeSight' },
+  'pricing.compare.qs.1': { es: 'Desde $199', en: 'From $199' },
+  'pricing.compare.qs.2': { es: '24/7 sin descansos', en: '24/7 no breaks' },
+  'pricing.compare.qs.3': { es: 'Llamadas simultáneas ilimitadas', en: 'Unlimited concurrent calls' },
 };
 
 interface TranslationContextType {
