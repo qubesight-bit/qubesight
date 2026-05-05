@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Check, MessageCircle, ArrowRight, Bot } from "lucide-react";
 import { useTranslation } from "@/hooks/useTranslation";
+import Tilt3D from "@/components/Tilt3D";
 
 const Assistant = () => {
   const { t, language } = useTranslation();
