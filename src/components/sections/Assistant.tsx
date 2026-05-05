@@ -35,8 +35,8 @@ const Assistant = () => {
               {t("assistant.badge")}
             </span>
             <h2 className="text-3xl sm:text-5xl font-bold font-display leading-tight mb-6 text-balance">
-              {t("assistant.title")}{" "}
-              <span className="gradient-text">{t("assistant.titleAccent")}</span>
+              {t("assistant.title.v2")}{" "}
+              <span className="gradient-text">{t("assistant.titleAccent.v2")}</span>
             </h2>
             <p className="text-lg text-muted-foreground mb-8">{t("assistant.description")}</p>
 
