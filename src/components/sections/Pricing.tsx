@@ -108,7 +108,7 @@ const Pricing = () => {
           </div>
         </motion.div>
 
-        <div className="grid md:grid-cols-3 gap-6 max-w-6xl mx-auto">
+        <div className="grid md:grid-cols-3 gap-6 max-w-6xl mx-auto perspective-2000">
           {plans.map((plan, i) => (
             <motion.div
               key={i}
@@ -116,7 +116,7 @@ const Pricing = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: i * 0.1 }}
-              className={`relative glass-card rounded-3xl p-8 flex flex-col ${
+              className={`relative glass-card depth-card rounded-3xl p-8 flex flex-col ${
                 plan.popular ? "border-primary/40 shadow-glow scale-100 md:scale-105" : ""
               }`}
             >
@@ -174,7 +174,7 @@ const Pricing = () => {
           </p>
         </motion.div>
 
-        <div className="grid md:grid-cols-3 gap-6 max-w-6xl mx-auto">
+        <div className="grid md:grid-cols-3 gap-6 max-w-6xl mx-auto perspective-2000">
           {[
             {
               id: "voice_bronze",
@@ -227,7 +227,7 @@ const Pricing = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: i * 0.1 }}
-              className={`relative glass-card rounded-3xl p-8 flex flex-col ${
+              className={`relative glass-card depth-card rounded-3xl p-8 flex flex-col ${
                 plan.popular ? "border-primary/40 shadow-glow scale-100 md:scale-105" : ""
               }`}
             >
