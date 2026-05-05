@@ -135,6 +135,22 @@ const Pricing = () => {
                   <span className="text-5xl font-bold font-display">${plan.price}</span>
                   <span className="text-muted-foreground">{plan.suffix}</span>
                 </div>
+                <div className="mt-2 text-sm text-muted-foreground">
+                  {yearly ? (
+                    <>
+                      <span className="text-foreground font-semibold">${plan.price * 12}</span>{" "}
+                      {t("pricing.annualTotal")}{" "}
+                      <span className="text-primary">
+                        ({t("pricing.youSave")} ${(plan.price * 12) / 4})
+                      </span>
+                    </>
+                  ) : (
+                    <>
+                      <span className="text-foreground font-semibold">${plan.price * 12}</span>{" "}
+                      {t("pricing.annualTotal")}
+                    </>
+                  )}
+                </div>
               </div>
 
               <ul className="space-y-3 mb-8 flex-grow">
