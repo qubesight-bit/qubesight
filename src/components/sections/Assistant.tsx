@@ -64,6 +64,7 @@ const Assistant = () => {
                 <ArrowRight className="ml-1 h-5 w-5" />
               </a>
             </Button>
+            <p className="mt-6 text-sm text-muted-foreground">{t("assistant.footer")}</p>
           </motion.div>
 
           {/* Right: chat mockup */}
