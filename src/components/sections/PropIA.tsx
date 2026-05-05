@@ -10,10 +10,10 @@ const PropIA = () => {
   )}`;
 
   const steps = [
-    { icon: Camera, title: t("propia.step1.title"), desc: t("propia.step1.desc") },
-    { icon: Sparkles, title: t("propia.step2.title"), desc: t("propia.step2.desc") },
-    { icon: Video, title: t("propia.step3.title"), desc: t("propia.step3.desc") },
-    { icon: Send, title: t("propia.step4.title"), desc: t("propia.step4.desc") },
+    { icon: Camera, title: t("propia.step1.title.v2"), desc: t("propia.step1.desc") },
+    { icon: Sparkles, title: t("propia.step2.title.v2"), desc: t("propia.step2.desc.v2") },
+    { icon: Video, title: t("propia.step3.title.v2"), desc: t("propia.step3.desc.v2") },
+    { icon: Send, title: t("propia.step4.title.v2"), desc: t("propia.step4.desc.v2") },
   ];
 
   const extras = [
@@ -36,10 +36,10 @@ const PropIA = () => {
             {t("propia.badge")}
           </span>
           <h2 className="text-3xl sm:text-5xl font-bold font-display leading-tight text-balance">
-            {t("propia.title")}{" "}
-            <span className="gradient-text">{t("propia.titleAccent")}</span>
+            {t("propia.title.v2")}{" "}
+            <span className="gradient-text">{t("propia.titleAccent.v2")}</span>
           </h2>
-          <p className="mt-6 text-lg text-muted-foreground">{t("propia.description")}</p>
+          <p className="mt-6 text-lg text-muted-foreground">{t("propia.description.v2")}</p>
         </motion.div>
 
         {/* Steps timeline */}
@@ -85,6 +85,9 @@ const PropIA = () => {
           ))}
         </div>
 
+        <p className="text-center text-lg sm:text-xl font-semibold gradient-text mb-8">
+          👉 {t("propia.closer")}
+        </p>
         <div className="text-center">
           <Button variant="hero" size="lg" asChild className="min-h-[52px]">
             <a href={whatsappUrl} target="_blank" rel="noopener noreferrer">

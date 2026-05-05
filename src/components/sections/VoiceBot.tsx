@@ -82,7 +82,10 @@ const VoiceBot = () => {
             <span className="gradient-text">{t("voicebot.titleAccent")}</span>
           </h2>
           <p className="mt-5 text-lg text-muted-foreground">
-            {t("voicebot.subtitle")}
+            {t("voicebot.subtitle.v2")}
+          </p>
+          <p className="mt-4 inline-block px-4 py-2 rounded-full glass-card text-sm font-semibold text-primary">
+            👉 {t("voicebot.activation")}
           </p>
         </motion.div>
 

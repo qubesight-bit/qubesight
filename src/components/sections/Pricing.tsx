@@ -200,6 +200,7 @@ const Pricing = () => {
               tier: "bronze" as const,
               popular: false,
               features: [
+                t("pricing.voice.bronze.capacity"),
                 t("pricing.voice.bronze.f1"),
                 t("pricing.voice.bronze.f2"),
                 t("pricing.voice.bronze.f3"),
@@ -214,6 +215,7 @@ const Pricing = () => {
               tier: "silver" as const,
               popular: true,
               features: [
+                t("pricing.voice.silver.capacity"),
                 t("pricing.voice.silver.f1"),
                 t("pricing.voice.silver.f2"),
                 t("pricing.voice.silver.f3"),
@@ -229,6 +231,7 @@ const Pricing = () => {
               tier: "gold" as const,
               popular: false,
               features: [
+                t("pricing.voice.gold.capacity"),
                 t("pricing.voice.gold.f1"),
                 t("pricing.voice.gold.f2"),
                 t("pricing.voice.gold.f3"),
@@ -294,6 +297,11 @@ const Pricing = () => {
               </Button>
             </motion.div>
           ))}
+        </div>
+        <div className="max-w-6xl mx-auto mt-6 text-center">
+          <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass-card text-sm font-semibold text-primary">
+            ⚡ {t("pricing.voice.overage")}
+          </span>
         </div>
       </div>
 
