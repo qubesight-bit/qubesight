@@ -116,6 +116,7 @@ const Assistant = () => {
                 {language === "es" ? "Respondido en 2.1 segundos" : "Replied in 2.1 seconds"}
               </div>
             </div>
+            </Tilt3D>
           </motion.div>
         </div>
       </div>
