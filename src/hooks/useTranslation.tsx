@@ -256,6 +256,118 @@ export const translations: Translations = {
   'footer.terms': { es: 'Términos', en: 'Terms' },
   'footer.privacy': { es: 'Privacidad', en: 'Privacy' },
   'footer.rights': { es: 'Todos los derechos reservados.', en: 'All rights reserved.' },
+
+  // Hero extras
+  'hero.subhead.1': {
+    es: 'Responde automáticamente en WhatsApp, Instagram, Messenger, Web y llamadas — todo en un solo sistema.',
+    en: 'Auto-replies on WhatsApp, Instagram, Messenger, Web and calls — all in one system.'
+  },
+  'hero.subhead.2': {
+    es: 'Más clientes atendidos, más citas agendadas, más ventas cerradas.',
+    en: 'More customers served, more bookings made, more sales closed.'
+  },
+
+  // Multichannel block
+  'multi.badge': { es: 'Cobertura total', en: 'Full coverage' },
+  'multi.title': { es: 'Automatización total en', en: 'Total automation across' },
+  'multi.titleAccent': { es: 'todos tus canales.', en: 'all your channels.' },
+  'multi.description': {
+    es: 'QubeSight responde por ti en cada canal donde tus clientes te buscan, sincronizado en una sola lógica inteligente.',
+    en: 'QubeSight replies for you on every channel where customers reach out, synced under a single smart logic.'
+  },
+  'multi.ch.whatsapp': { es: 'WhatsApp', en: 'WhatsApp' },
+  'multi.ch.instagram': { es: 'Instagram (DMs)', en: 'Instagram (DMs)' },
+  'multi.ch.messenger': { es: 'Facebook Messenger', en: 'Facebook Messenger' },
+  'multi.ch.web': { es: 'Web Chat', en: 'Web Chat' },
+  'multi.ch.voice': { es: 'Llamadas (Voice Bot AI)', en: 'Calls (Voice Bot AI)' },
+  'multi.tagline': {
+    es: 'Un solo sistema. Todos tus clientes atendidos.',
+    en: 'One system. All your customers served.'
+  },
+
+  // Assistant overrides
+  'assistant.title.v2': { es: 'Tu equipo de atención automática', en: 'Your automatic support team' },
+  'assistant.titleAccent.v2': { es: 'en todos tus canales.', en: 'on every channel.' },
+  'assistant.footer': {
+    es: 'Funciona 24/7 en WhatsApp, Instagram, Messenger y tu sitio web. Nunca más pierdes un mensaje.',
+    en: 'Runs 24/7 on WhatsApp, Instagram, Messenger and your website. Never miss a message again.'
+  },
+
+  // VoiceBot updates
+  'voicebot.subtitle.v2': {
+    es: 'Tu recepcionista inteligente que responde, agenda y ejecuta por ti 24/7. Atiende llamadas, agenda citas y cobra automáticamente — sin que tengas que configurar nada.',
+    en: 'Your smart receptionist that answers, books and executes for you 24/7. Handles calls, books appointments and charges payments automatically — zero setup needed.'
+  },
+  'voicebot.activation': {
+    es: 'Activación en menos de 48 horas, listo para tu negocio.',
+    en: 'Live in under 48 hours, ready for your business.'
+  },
+
+  // Voice Bot capacity
+  'pricing.voice.bronze.capacity': { es: '2,000 minutos (~400 llamadas)', en: '2,000 minutes (~400 calls)' },
+  'pricing.voice.silver.capacity': { es: '5,000 minutos (~1,000 llamadas)', en: '5,000 minutes (~1,000 calls)' },
+  'pricing.voice.gold.capacity': { es: '12,000 minutos (~2,400 llamadas)', en: '12,000 minutes (~2,400 calls)' },
+  'pricing.voice.overage': { es: 'Uso adicional: $0.10 por minuto', en: 'Overage usage: $0.10 per minute' },
+
+  // PropIA repositioning
+  'propia.title.v2': { es: 'PropIA — Tu equipo de', en: 'PropIA — Your automatic' },
+  'propia.titleAccent.v2': { es: 'marketing automático.', en: 'marketing team.' },
+  'propia.description.v2': {
+    es: 'Convierte una sola foto en contenido que vende en todas tus redes automáticamente.',
+    en: 'Turn a single photo into content that sells across all your social channels automatically.'
+  },
+  'propia.step1.title.v2': { es: 'Subes tus fotos una vez', en: 'Upload your photos once' },
+  'propia.step2.title.v2': { es: 'IA crea textos que venden', en: 'AI writes copy that sells' },
+  'propia.step2.desc.v2': { es: 'Optimizados para SEO y conversión.', en: 'Optimized for SEO and conversion.' },
+  'propia.step3.title.v2': { es: 'IA genera Reels automáticos', en: 'AI generates auto Reels' },
+  'propia.step3.desc.v2': { es: 'Videos cortos listos para publicar.', en: 'Short videos ready to publish.' },
+  'propia.step4.title.v2': { es: 'Publica en IG, FB y TikTok', en: 'Publishes to IG, FB and TikTok' },
+  'propia.step4.desc.v2': { es: 'Todas tus redes al mismo tiempo.', en: 'All your channels simultaneously.' },
+  'propia.closer': {
+    es: 'Más contenido = más visibilidad = más clientes.',
+    en: 'More content = more visibility = more customers.'
+  },
+
+  // Differentiation block
+  'diff.badge': { es: 'Por qué QubeSight', en: 'Why QubeSight' },
+  'diff.title': { es: 'Otras herramientas', en: 'Other tools' },
+  'diff.titleAccent': { es: 'vs QubeSight.', en: 'vs QubeSight.' },
+  'diff.others.title': { es: 'Otras plataformas', en: 'Other platforms' },
+  'diff.others.1': { es: 'Son complicadas de usar', en: 'Are complicated to use' },
+  'diff.others.2': { es: 'Requieren configuración técnica', en: 'Require technical setup' },
+  'diff.others.3': { es: 'No están adaptadas al mercado local', en: 'Not adapted to the local market' },
+  'diff.others.4': { es: 'Soporte lento o automatizado', en: 'Slow or automated support' },
+  'diff.us.title': { es: 'QubeSight', en: 'QubeSight' },
+  'diff.us.1': { es: 'Configuración completa incluida', en: 'Full setup included' },
+  'diff.us.2': { es: 'Funciona en todos tus canales', en: 'Works across all your channels' },
+  'diff.us.3': { es: 'Soporte humano real', en: 'Real human support' },
+  'diff.us.4': { es: 'Listo en menos de 48 horas', en: 'Live in under 48 hours' },
+
+  // ROI block
+  'roi.badge': { es: 'Costo vs valor', en: 'Cost vs value' },
+  'roi.title': { es: 'Más barato que', en: 'Cheaper than' },
+  'roi.titleAccent': { es: 'contratar personal.', en: 'hiring staff.' },
+  'roi.description': {
+    es: 'Un recepcionista cuesta más de $1,100/mes. QubeSight hace más, por menos de la mitad.',
+    en: 'A receptionist costs over $1,100/month. QubeSight does more, for less than half.'
+  },
+  'roi.b1': { es: 'Atiende 24/7 sin interrupciones', en: 'Answers 24/7 without breaks' },
+  'roi.b2': { es: 'Maneja múltiples clientes a la vez', en: 'Handles multiple customers at once' },
+  'roi.b3': { es: 'Nunca se cansa ni se enferma', en: 'Never gets tired or sick' },
+  'roi.b4': { es: 'Por menos de la mitad del costo', en: 'For less than half the cost' },
+  'roi.compare.human': { es: 'Recepcionista humana', en: 'Human receptionist' },
+  'roi.compare.qs': { es: 'QubeSight', en: 'QubeSight' },
+  'roi.compare.month': { es: '/mes', en: '/mo' },
+
+  // Final CTA additions
+  'final.subline': {
+    es: 'Empieza hoy y deja de perder clientes todos los días.',
+    en: 'Start today and stop losing customers every day.'
+  },
+  'final.tagline': {
+    es: 'Mientras otros venden software… QubeSight te entrega clientes atendidos.',
+    en: 'While others sell software… QubeSight delivers served customers.'
+  },
 };
 
 interface TranslationContextType {
