@@ -36,10 +36,10 @@ const PropIA = () => {
             {t("propia.badge")}
           </span>
           <h2 className="text-3xl sm:text-5xl font-bold font-display leading-tight text-balance">
-            {t("propia.title")}{" "}
-            <span className="gradient-text">{t("propia.titleAccent")}</span>
+            {t("propia.title.v2")}{" "}
+            <span className="gradient-text">{t("propia.titleAccent.v2")}</span>
           </h2>
-          <p className="mt-6 text-lg text-muted-foreground">{t("propia.description")}</p>
+          <p className="mt-6 text-lg text-muted-foreground">{t("propia.description.v2")}</p>
         </motion.div>
 
         {/* Steps timeline */}
