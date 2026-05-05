@@ -26,13 +26,16 @@ const Index = () => {
         <TrustBar />
         <Problem />
         <Assistant />
+        <Multichannel />
         <VoiceBot />
         <PropIA />
         <Industries />
         <DemoNiches />
         <Testimonials />
         <GuaranteeStrip />
+        <Differentiation />
         <Pricing />
+        <ROI />
         <FinalCTA />
       </main>
       <Footer />
