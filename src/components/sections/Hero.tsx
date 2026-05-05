@@ -72,9 +72,17 @@ const Hero = () => {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="text-lg sm:text-xl text-muted-foreground mb-10 max-w-3xl mx-auto leading-relaxed text-balance"
+            className="text-lg sm:text-xl text-muted-foreground mb-4 max-w-3xl mx-auto leading-relaxed text-balance"
           >
-            {t("hero.description")}
+            {t("hero.subhead.1")}
+          </motion.p>
+          <motion.p
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.25 }}
+            className="text-base sm:text-lg text-foreground/80 font-medium mb-10 max-w-3xl mx-auto leading-relaxed text-balance"
+          >
+            {t("hero.subhead.2")}
           </motion.p>
 
           <motion.div
