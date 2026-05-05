@@ -161,6 +161,8 @@ export const translations: Translations = {
   'pricing.monthly': { es: 'Mensual', en: 'Monthly' },
   'pricing.yearly': { es: 'Anual', en: 'Yearly' },
   'pricing.save': { es: 'Ahorra 20%', en: 'Save 20%' },
+  'pricing.annualTotal': { es: '/año', en: '/year' },
+  'pricing.youSave': { es: 'ahorras', en: 'you save' },
   'pricing.popular': { es: 'Más Popular', en: 'Most Popular' },
   'pricing.month': { es: '/mes', en: '/mo' },
   'pricing.oneTime': { es: 'pago único', en: 'one-time' },
