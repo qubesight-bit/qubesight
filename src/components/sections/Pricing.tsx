@@ -215,6 +215,7 @@ const Pricing = () => {
               tier: "silver" as const,
               popular: true,
               features: [
+                t("pricing.voice.silver.capacity"),
                 t("pricing.voice.silver.f1"),
                 t("pricing.voice.silver.f2"),
                 t("pricing.voice.silver.f3"),
