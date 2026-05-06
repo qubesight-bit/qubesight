@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { MessageCircle, Instagram, Facebook } from "lucide-react";
-import logo from "@/assets/logo.png";
+import LogoCube from "@/components/LogoCube";
 import { useTranslation } from "@/hooks/useTranslation";
 
 const Footer = () => {
@@ -25,8 +25,8 @@ const Footer = () => {
             transition={{ duration: 0.5 }}
             className="col-span-2"
           >
-            <a href="#" className="inline-block mb-4">
-              <img src={logo} alt="QubeSight" className="h-10 w-auto" />
+            <a href="#" className="inline-flex h-10 items-center mb-4" aria-label="QubeSight">
+              <LogoCube />
             </a>
             <p className="text-sm text-muted-foreground max-w-sm mb-6">{t("footer.tagline")}</p>
             <div className="flex gap-3">
