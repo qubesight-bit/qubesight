@@ -206,6 +206,7 @@ const Pricing = () => {
                 t("pricing.voice.bronze.f2"),
                 t("pricing.voice.bronze.f3"),
                 t("pricing.voice.bronze.f4"),
+                t("pricing.voice.bronze.f5"),
               ],
             },
             {
@@ -240,6 +241,7 @@ const Pricing = () => {
                 t("pricing.voice.gold.f3"),
                 t("pricing.voice.gold.f4"),
                 t("pricing.voice.gold.f5"),
+                t("pricing.voice.gold.f6"),
               ],
             },
           ].map((plan, i) => (
