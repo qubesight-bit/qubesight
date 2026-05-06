@@ -15,17 +15,14 @@ const LogoCube = ({ className = "" }: LogoCubeProps) => {
       <motion.div
         className="relative h-full w-full max-w-10 shrink-0 aspect-square"
         animate={{
-          y: [0, -4, 0],
-          rotateY: [0, 12, 0, -12, 0],
-          rotateX: [0, -6, 0, 6, 0],
+          rotateY: 360,
         }}
         transition={{
-          duration: 5,
-          ease: "easeInOut",
+          duration: 8,
+          ease: "linear",
           repeat: Infinity,
-          repeatType: "loop",
         }}
-        style={{ perspective: 300, transformStyle: "preserve-3d", willChange: "transform" }}
+        style={{ perspective: 400, transformStyle: "preserve-3d", willChange: "transform" }}
       >
         <svg
           viewBox="0 0 48 48"
