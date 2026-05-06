@@ -7,22 +7,14 @@ interface LogoCubeProps {
 const LogoCube = ({ className = "" }: LogoCubeProps) => {
   return (
     <motion.div
-      className={`relative flex h-full w-full min-w-0 items-center gap-2 leading-none sm:gap-3 ${className}`}
+      className={`group/logo relative flex h-full w-full min-w-0 items-center gap-2 leading-none sm:gap-3 ${className}`}
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.6 }}
     >
       <motion.div
-        className="relative h-full w-full max-w-10 shrink-0 aspect-square"
-        animate={{
-          rotateY: 360,
-        }}
-        transition={{
-          duration: 8,
-          ease: "linear",
-          repeat: Infinity,
-        }}
-        style={{ perspective: 400, transformStyle: "preserve-3d", willChange: "transform" }}
+        className="logo-cube-spin relative h-full w-full max-w-10 shrink-0 aspect-square"
+        style={{ perspective: 500, transformStyle: "preserve-3d", willChange: "transform" }}
       >
         <svg
           viewBox="0 0 48 48"
