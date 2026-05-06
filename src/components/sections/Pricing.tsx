@@ -190,7 +190,7 @@ const Pricing = () => {
           </p>
         </motion.div>
 
-        <div className="grid md:grid-cols-3 gap-6 max-w-6xl mx-auto perspective-2000">
+        <div className="grid md:grid-cols-3 gap-6 lg:gap-8 max-w-6xl mx-auto perspective-2000 items-stretch">
           {[
             {
               id: "voice_bronze",
@@ -199,6 +199,7 @@ const Pricing = () => {
               price: fmt(199),
               tier: "bronze" as const,
               popular: false,
+              variant: "outline" as const,
               features: [
                 t("pricing.voice.bronze.capacity"),
                 t("pricing.voice.bronze.f1"),
@@ -214,6 +215,7 @@ const Pricing = () => {
               price: fmt(399),
               tier: "silver" as const,
               popular: true,
+              variant: "hero" as const,
               features: [
                 t("pricing.voice.silver.capacity"),
                 t("pricing.voice.silver.f1"),
@@ -230,6 +232,7 @@ const Pricing = () => {
               price: fmt(799),
               tier: "gold" as const,
               popular: false,
+              variant: "secondary" as const,
               features: [
                 t("pricing.voice.gold.capacity"),
                 t("pricing.voice.gold.f1"),
@@ -246,18 +249,22 @@ const Pricing = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: i * 0.1 }}
-              className={`relative glass-card depth-card rounded-3xl p-8 flex flex-col ${
-                plan.popular ? "border-primary/40 shadow-glow scale-100 md:scale-105" : ""
+              whileHover={{ y: -6 }}
+              className={`relative glass-card depth-card rounded-3xl p-8 flex flex-col transition-all duration-300 ${
+                plan.popular
+                  ? "border-primary/60 shadow-glow md:scale-105 ring-1 ring-primary/30"
+                  : "hover:border-primary/30"
               }`}
             >
               {plan.popular && (
-                <span className="absolute -top-3 left-1/2 -translate-x-1/2 inline-flex items-center gap-1 px-3 py-1 rounded-full gradient-bg text-primary-foreground text-xs font-bold uppercase tracking-wider shadow-glow">
+                <span className="absolute -top-3 left-1/2 -translate-x-1/2 inline-flex items-center gap-1 px-3 py-1 rounded-full gradient-bg text-primary-foreground text-xs font-bold uppercase tracking-wider shadow-glow whitespace-nowrap">
                   <Sparkles className="h-3 w-3" />
                   {t("pricing.popular")}
                 </span>
               )}
 
-              <div className="flex items-center gap-2 mb-1">
+              {/* 1. Name */}
+              <div className="flex items-center gap-2 mb-2">
                 <span
                   className={`h-2.5 w-2.5 rounded-full ${
                     plan.tier === "bronze"
@@ -269,16 +276,23 @@ const Pricing = () => {
                 />
                 <h3 className="text-xl font-bold font-display">Voice Bot {plan.name}</h3>
               </div>
-              <p className="text-sm text-muted-foreground mb-6">{plan.desc}</p>
 
-              <div className="mb-6">
+              {/* 2. Price */}
+              <div className="mb-1">
                 <div className="flex items-baseline gap-1">
                   <span className="text-5xl font-bold font-display">${plan.price}</span>
                   <span className="text-muted-foreground">{t("pricing.month")}</span>
                 </div>
+                <div className="mt-1 text-xs text-muted-foreground">
+                  ⚡ {t("pricing.voice.setup48")} · {t("pricing.voice.noContract")}
+                </div>
               </div>
 
-              <ul className="space-y-3 mb-8 flex-grow">
+              {/* 3. Subtitle */}
+              <p className="text-sm text-muted-foreground mt-4 mb-5">{plan.desc}</p>
+
+              {/* 4. Features */}
+              <ul className="space-y-3 mb-5">
                 {plan.features.map((f, idx) => (
                   <li key={idx} className="flex items-start gap-3 text-sm">
                     <Check className="h-4 w-4 text-primary flex-shrink-0 mt-0.5" />
@@ -287,8 +301,17 @@ const Pricing = () => {
                 ))}
               </ul>
 
+              {/* 5. Highlight: inbound free */}
+              <div className="mb-6 mt-auto rounded-2xl border border-primary/30 bg-primary/10 p-4 flex items-start gap-3">
+                <span className="text-lg leading-none">📞</span>
+                <p className="text-sm font-bold text-primary leading-snug">
+                  {t("pricing.voice.inboundFree")}
+                </p>
+              </div>
+
+              {/* 6. CTA */}
               <Button
-                variant={plan.popular ? "hero" : "outline"}
+                variant={plan.variant}
                 size="lg"
                 onClick={() => openCheckout(plan.id, plan.price, `Voice Bot ${plan.name}`)}
                 className="w-full min-h-[48px]"
@@ -298,7 +321,107 @@ const Pricing = () => {
             </motion.div>
           ))}
         </div>
-        <div className="max-w-6xl mx-auto mt-6 text-center">
+
+        {/* Overage block */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
+          className="max-w-3xl mx-auto mt-10 glass-card rounded-2xl p-6 sm:p-8"
+        >
+          <h4 className="text-sm font-bold uppercase tracking-wider text-primary mb-3">
+            {t("pricing.voice.overage.title")}
+          </h4>
+          <ul className="space-y-2 text-sm">
+            <li className="flex items-center gap-2">
+              <span className="h-1.5 w-1.5 rounded-full bg-primary" />
+              {t("pricing.voice.overage.item")}
+            </li>
+          </ul>
+          <p className="mt-4 text-sm text-muted-foreground italic">
+            👉 {t("pricing.voice.overage.note")}
+          </p>
+        </motion.div>
+
+        {/* Add-on card */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
+          className="relative max-w-3xl mx-auto mt-8 glass-card depth-card rounded-3xl p-8 border-primary/30"
+        >
+          <span className="absolute -top-3 left-6 inline-flex items-center gap-1 px-3 py-1 rounded-full gradient-bg text-primary-foreground text-xs font-bold uppercase tracking-wider shadow-glow">
+            <Sparkles className="h-3 w-3" />
+            {t("pricing.addon.badge")}
+          </span>
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-6">
+            <div className="flex-1">
+              <h4 className="text-xl font-bold font-display mb-1">
+                {t("pricing.addon.name")} —{" "}
+                <span className="gradient-text">$49</span>
+                <span className="text-muted-foreground text-base font-normal">
+                  {" "}{t("pricing.month")}
+                </span>
+              </h4>
+              <p className="text-sm text-muted-foreground mb-4">{t("pricing.addon.desc")}</p>
+              <ul className="space-y-2">
+                {[t("pricing.addon.f1"), t("pricing.addon.f2"), t("pricing.addon.f3")].map((f, idx) => (
+                  <li key={idx} className="flex items-start gap-2 text-sm">
+                    <Check className="h-4 w-4 text-primary flex-shrink-0 mt-0.5" />
+                    <span>{f}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <Button
+              variant="hero"
+              size="lg"
+              onClick={() => openCheckout("outbound_engine", 49, "Outbound Engine")}
+              className="min-h-[48px] sm:self-center whitespace-nowrap"
+            >
+              {t("pricing.addon.cta")}
+            </Button>
+          </div>
+        </motion.div>
+
+        {/* Comparison block */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
+          className="max-w-4xl mx-auto mt-12"
+        >
+          <h4 className="text-center text-sm font-bold uppercase tracking-wider text-muted-foreground mb-6">
+            {t("pricing.compare.title")}
+          </h4>
+          <div className="grid sm:grid-cols-2 gap-4">
+            <div className="glass-card rounded-2xl p-6 opacity-80">
+              <h5 className="text-base font-bold font-display mb-4 text-muted-foreground">
+                {t("pricing.compare.human")}
+              </h5>
+              <ul className="space-y-2 text-sm">
+                <li className="flex items-center gap-2"><span className="text-destructive">✕</span>{t("pricing.compare.human.1")}</li>
+                <li className="flex items-center gap-2"><span className="text-destructive">✕</span>{t("pricing.compare.human.2")}</li>
+                <li className="flex items-center gap-2"><span className="text-destructive">✕</span>{t("pricing.compare.human.3")}</li>
+              </ul>
+            </div>
+            <div className="glass-card rounded-2xl p-6 border-primary/40 shadow-glow">
+              <h5 className="text-base font-bold font-display mb-4 text-primary">
+                {t("pricing.compare.qs")}
+              </h5>
+              <ul className="space-y-2 text-sm">
+                <li className="flex items-center gap-2"><Check className="h-4 w-4 text-primary" />{t("pricing.compare.qs.1")}</li>
+                <li className="flex items-center gap-2"><Check className="h-4 w-4 text-primary" />{t("pricing.compare.qs.2")}</li>
+                <li className="flex items-center gap-2"><Check className="h-4 w-4 text-primary" />{t("pricing.compare.qs.3")}</li>
+              </ul>
+            </div>
+          </div>
+        </motion.div>
+
+        <div className="max-w-6xl mx-auto mt-8 text-center">
           <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass-card text-sm font-semibold text-primary">
             ⚡ {t("pricing.voice.overage")}
           </span>
