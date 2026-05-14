@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Play, MessageSquare, Zap, TrendingUp } from "lucide-react";
 import { useTranslation } from "@/hooks/useTranslation";
-import Spline3D from "@/components/Spline3D";
+import heroBgVideo from "@/assets/hero-bg.mp4";
 
 const Hero = () => {
   const { t, language } = useTranslation();
@@ -20,12 +20,18 @@ const Hero = () => {
 
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden gradient-hero-bg pt-24 pb-16">
-      {/* Spline 3D background scene (gracefully falls back if scene unavailable) */}
-      <div className="absolute inset-0 z-0 opacity-60 pointer-events-none mix-blend-screen">
-        <Spline3D
-          scene="https://prod.spline.design/0PYg6Z3SmZaoVPRR/scene.splinecode"
-          className="w-full h-full"
+      {/* Cinematic background video */}
+      <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
+        <video
+          src={heroBgVideo}
+          autoPlay
+          loop
+          muted
+          playsInline
+          preload="auto"
+          className="w-full h-full object-cover opacity-50"
         />
+        <div className="absolute inset-0 bg-gradient-to-b from-background/40 via-background/20 to-background" />
       </div>
 
       {/* 3D perspective grid floor */}
