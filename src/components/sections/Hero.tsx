@@ -29,22 +29,13 @@ const Hero = () => {
           muted
           playsInline
           preload="auto"
-          className="w-full h-full object-cover opacity-50"
+          className="w-full h-full object-cover opacity-70"
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-background/40 via-background/20 to-background" />
+        {/* Cinematic dark overlay for legibility */}
+        <div className="absolute inset-0 bg-background/50" />
+        <div className="absolute inset-0 bg-gradient-to-b from-background/70 via-background/20 to-background" />
+        <div className="absolute inset-0 bg-gradient-to-r from-background/60 via-transparent to-background/60" />
       </div>
-
-      {/* 3D perspective grid floor */}
-      <div className="absolute bottom-0 left-0 right-0 h-[60vh] neon-grid-3d animate-grid-drift opacity-40 pointer-events-none" />
-
-      {/* Floating orbs */}
-      <div className="absolute top-[20%] left-[8%] w-32 h-32 rounded-full orb-3d animate-float-3d pointer-events-none" />
-      <div className="absolute top-[30%] right-[10%] w-24 h-24 rounded-full orb-3d animate-float-3d pointer-events-none" style={{ animationDelay: "-4s" }} />
-      <div className="absolute bottom-[25%] right-[20%] w-16 h-16 rounded-full orb-3d animate-float-3d pointer-events-none" style={{ animationDelay: "-8s" }} />
-
-      {/* Vignette glow */}
-      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[800px] h-[800px] rounded-full blur-3xl opacity-40 pointer-events-none"
-        style={{ background: "var(--gradient-glow)" }} />
 
       <div className="container relative z-10">
         <div className="max-w-5xl mx-auto text-center perspective-2000">
