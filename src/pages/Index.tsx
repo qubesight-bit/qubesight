@@ -24,6 +24,7 @@ const Index = () => {
       <Header />
       <main>
         <Hero />
+        <Founders />
         <TrustBar />
         <Problem />
         <Assistant />
@@ -33,7 +34,6 @@ const Index = () => {
         <Industries />
         <DemoNiches />
         <Testimonials />
-        <Founders />
         <GuaranteeStrip />
         <Differentiation />
         <Pricing />
