@@ -9,6 +9,7 @@ import PropIA from "@/components/sections/PropIA";
 import Industries from "@/components/sections/Industries";
 import DemoNiches from "@/components/sections/DemoNiches";
 import Testimonials from "@/components/sections/Testimonials";
+import Founders from "@/components/sections/Founders";
 import GuaranteeStrip from "@/components/sections/GuaranteeStrip";
 import Differentiation from "@/components/sections/Differentiation";
 import Pricing from "@/components/sections/Pricing";
@@ -32,6 +33,7 @@ const Index = () => {
         <Industries />
         <DemoNiches />
         <Testimonials />
+        <Founders />
         <GuaranteeStrip />
         <Differentiation />
         <Pricing />
