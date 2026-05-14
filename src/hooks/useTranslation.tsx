@@ -259,6 +259,15 @@ export const translations: Translations = {
   'footer.privacy': { es: 'Privacidad', en: 'Privacy' },
   'footer.rights': { es: 'Todos los derechos reservados.', en: 'All rights reserved.' },
 
+  // Founders
+  'founders.title': { es: 'Conoce al equipo', en: 'Meet the team' },
+  'founders.titleAccent': { es: 'detrás de QubeSight.', en: 'behind QubeSight.' },
+  'founders.subtitle': { es: 'Construimos automatización con IA pensada para negocios reales en Latinoamérica.', en: 'We build AI automation designed for real businesses across Latin America.' },
+  'founders.ernesto.role': { es: 'Fundador & CEO', en: 'Founder & CEO' },
+  'founders.ernesto.bio': { es: 'Lidera la estrategia, producto y desarrollo de IA en QubeSight.', en: 'Leads strategy, product and AI development at QubeSight.' },
+  'founders.karla.role': { es: 'Cofundadora & COO', en: 'Co-founder & COO' },
+  'founders.karla.bio': { es: 'Dirige operaciones y la experiencia de cliente para que cada implementación funcione.', en: 'Runs operations and customer experience to make every rollout work.' },
+
   // Hero extras
   'hero.subhead.1': {
     es: 'Responde automáticamente en WhatsApp, Instagram, Messenger, Web y llamadas — todo en un solo sistema.',
