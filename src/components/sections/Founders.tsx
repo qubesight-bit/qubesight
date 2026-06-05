@@ -1,3 +1,5 @@
+import { motion } from "framer-motion";
+import { Linkedin } from "lucide-react";
 import { useTranslation } from "@/hooks/useTranslation";
 import ernestoImg from "@/assets/founder-ernesto.jpeg";
 import karlaImg from "@/assets/founder-karla.png";
@@ -20,47 +22,60 @@ const founders = [
 ];
 
 const Founders = () => {
-  const { t, language } = useTranslation();
+  const { t } = useTranslation();
 
   return (
-    <section id="founders" className="py-24 sm:py-32 hairline-y">
+    <section id="founders" className="py-24 sm:py-32 relative">
       <div className="container">
-        <div className="grid grid-cols-12 gap-6 mb-16">
-          <span className="col-span-12 md:col-span-2 eyebrow">
-            {language === "es" ? "Quiénes somos" : "Who we are"}
-          </span>
-          <h2 className="col-span-12 md:col-span-10 font-display text-4xl sm:text-6xl leading-[1.02] tracking-tight">
-            {language === "es"
-              ? "Dos personas, no una agencia."
-              : "Two people. Not an agency."}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="max-w-3xl mx-auto text-center mb-16"
+        >
+          <h2 className="text-3xl sm:text-5xl font-bold font-display leading-tight text-balance">
+            {t("founders.title")}{" "}
+            <span className="gradient-text">{t("founders.titleAccent")}</span>
           </h2>
-        </div>
+          <p className="mt-4 text-muted-foreground text-lg">{t("founders.subtitle")}</p>
+        </motion.div>
 
-        <div className="grid grid-cols-12 gap-6 sm:gap-10">
-          {founders.map((f) => (
-            <article key={f.name} className="col-span-12 sm:col-span-6">
-              <div className="aspect-[4/5] w-full overflow-hidden bg-foreground/5 mb-6">
+        <div className="grid sm:grid-cols-2 gap-6 max-w-3xl mx-auto">
+          {founders.map((f, i) => (
+            <motion.div
+              key={f.name}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: i * 0.12 }}
+              className="glass-card rounded-2xl p-6 flex flex-col items-center text-center"
+            >
+              <div className="relative mb-5">
+                <div className="absolute -inset-1 rounded-full bg-gradient-to-br from-primary/40 to-blue-600/40 blur-md opacity-70" />
                 <img
                   src={f.img}
                   alt={f.name}
                   loading="lazy"
-                  className="h-full w-full object-cover grayscale hover:grayscale-0 transition-[filter] duration-700"
+                  className="relative h-32 w-32 rounded-full object-cover border border-white/10"
                 />
               </div>
-              <h3 className="font-display text-3xl sm:text-4xl leading-none">{f.name}</h3>
-              <p className="mt-2 eyebrow">{t(f.roleKey)}</p>
-              <p className="mt-4 text-foreground/75 leading-relaxed max-w-md">{t(f.bioKey)}</p>
+              <h3 className="font-display font-semibold text-xl">{f.name}</h3>
+              <p className="text-sm text-primary mt-1">{t(f.roleKey)}</p>
+              <p className="text-sm text-muted-foreground mt-3 leading-relaxed">{t(f.bioKey)}</p>
               {f.linkedin && (
                 <a
                   href={f.linkedin}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="mt-4 inline-block text-sm underline underline-offset-[6px] decoration-foreground/30 hover:decoration-primary hover:text-primary transition-colors"
+                  aria-label={`LinkedIn ${f.name}`}
+                  className="mt-4 inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors"
                 >
-                  LinkedIn ↗
+                  <Linkedin className="h-4 w-4" />
+                  LinkedIn
                 </a>
               )}
-            </article>
+            </motion.div>
           ))}
         </div>
       </div>
