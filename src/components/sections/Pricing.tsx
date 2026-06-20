@@ -196,7 +196,7 @@ const Pricing = () => {
               id: "voice_bronze",
               name: t("pricing.voice.bronze.name"),
               desc: t("pricing.voice.bronze.desc"),
-              price: fmt(199),
+              price: fmt(49),
               tier: "bronze" as const,
               popular: false,
               variant: "outline" as const,
@@ -213,7 +213,7 @@ const Pricing = () => {
               id: "voice_silver",
               name: t("pricing.voice.silver.name"),
               desc: t("pricing.voice.silver.desc"),
-              price: fmt(399),
+              price: fmt(99),
               tier: "silver" as const,
               popular: true,
               variant: "hero" as const,
@@ -230,7 +230,7 @@ const Pricing = () => {
               id: "voice_gold",
               name: t("pricing.voice.gold.name"),
               desc: t("pricing.voice.gold.desc"),
-              price: fmt(799),
+              price: fmt(199),
               tier: "gold" as const,
               popular: false,
               variant: "secondary" as const,
@@ -362,7 +362,7 @@ const Pricing = () => {
             <div className="flex-1">
               <h4 className="text-xl font-bold font-display mb-1">
                 {t("pricing.addon.name")} —{" "}
-                <span className="gradient-text">$49</span>
+                <span className="gradient-text">$29</span>
                 <span className="text-muted-foreground text-base font-normal">
                   {" "}{t("pricing.month")}
                 </span>
