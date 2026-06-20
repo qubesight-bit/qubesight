@@ -23,19 +23,19 @@ const Pricing = () => {
 
   const plans = [
     {
-      id: "starter",
+      id: "assistant_bronze",
       name: t("pricing.basic.name"),
       desc: t("pricing.basic.desc"),
-      price: fmt(129),
+      price: fmt(49),
       suffix: t("pricing.month"),
       popular: false,
-      features: [t("pricing.basic.f1"), t("pricing.basic.f2"), t("pricing.basic.f3"), t("pricing.basic.f4")],
+      features: [t("pricing.basic.f1"), t("pricing.basic.f2"), t("pricing.basic.f3"), t("pricing.basic.f4"), t("pricing.basic.f5")],
     },
     {
-      id: "growth",
+      id: "assistant_silver",
       name: t("pricing.growth.name"),
       desc: t("pricing.growth.desc"),
-      price: fmt(229),
+      price: fmt(89),
       suffix: t("pricing.month"),
       popular: true,
       features: [
@@ -47,10 +47,10 @@ const Pricing = () => {
       ],
     },
     {
-      id: "scale",
+      id: "assistant_gold",
       name: t("pricing.propia.name"),
       desc: t("pricing.propia.desc"),
-      price: fmt(399),
+      price: fmt(159),
       suffix: t("pricing.month"),
       popular: false,
       features: [
