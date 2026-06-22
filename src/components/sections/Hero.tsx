@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { ArrowUpRight, Play, MessageSquare, Zap, TrendingUp } from "lucide-react";
+import { ArrowUpRight, Play, MessageSquare, Zap, TrendingUp, Check } from "lucide-react";
 import { useTranslation } from "@/hooks/useTranslation";
 import HeroChatPreview from "@/components/HeroChatPreview";
 import AnimatedCounter from "@/components/AnimatedCounter";
@@ -153,6 +153,5 @@ const Hero = () => {
   );
 };
 
-import { Check } from "lucide-react";
-
 export default Hero;
+
