@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { ArrowRight, Play, MessageSquare, Zap, TrendingUp } from "lucide-react";
 import { useTranslation } from "@/hooks/useTranslation";
 import heroBgVideo from "@/assets/hero-bg.mp4";
+import HeroCube from "@/components/three/HeroCube";
 
 const Hero = () => {
   const { t, language } = useTranslation();
@@ -38,7 +39,8 @@ const Hero = () => {
       </div>
 
       <div className="container relative z-10">
-        <div className="max-w-5xl mx-auto text-center perspective-2000">
+        <div className="grid lg:grid-cols-[1fr_400px] gap-12 items-center max-w-6xl mx-auto perspective-2000">
+        <div className="text-center lg:text-left">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
