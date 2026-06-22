@@ -46,16 +46,16 @@ export const translations: Translations = {
   'voicebot.cta': { es: 'Activar mi Voice Bot', en: 'Activate my Voice Bot' },
 
   // Hero
-  'hero.badge': { es: 'Automatización con IA · 24/7', en: 'AI Automation · 24/7' },
+  'hero.badge': { es: 'Asistente de Voz & Chat con IA · 24/7', en: 'AI Voice & Chat Assistant · 24/7' },
   'hero.title': { es: 'Nunca pierdas un cliente más.', en: 'Never lose another customer.' },
-  'hero.titleAccent': { es: 'Tu negocio responde 24/7 con IA.', en: 'Your business replies 24/7 with AI.' },
+  'hero.titleAccent': { es: 'Tu recepcionista IA responde llamadas, chat y SMS 24/7.', en: 'Your AI receptionist answers calls, chat and SMS 24/7.' },
   'hero.description': {
     es: 'QubeSight gestiona tus mensajes en WhatsApp y web instantáneamente, mientras PropIA automatiza tus redes sociales. Deja de perder ventas por no contestar a tiempo.',
     en: 'QubeSight handles your WhatsApp and web messages instantly, while PropIA automates your social media. Stop losing sales for not replying in time.'
   },
   'hero.cta.primary': { es: 'Empezar a Responder Automáticamente', en: 'Start Replying Automatically' },
   'hero.cta.secondary': { es: 'Ver Cómo Funciona', en: 'See How It Works' },
-  'hero.proof.messages': { es: 'mensajes respondidos este mes', en: 'messages answered this month' },
+  'hero.proof.messages': { es: 'llamadas y mensajes atendidos', en: 'calls and messages handled' },
   'hero.proof.time': { es: 'tiempo de respuesta', en: 'response time' },
   'hero.proof.conversion': { es: 'tasa de conversión', en: 'conversion rate' },
 
