@@ -187,7 +187,10 @@ const VoiceBot = () => {
             </div>
           </motion.div>
 
-          {/* Benefits tiles */}
+        </div>
+
+        {/* Benefits row */}
+        <div className="max-w-6xl mx-auto grid grid-cols-2 lg:grid-cols-4 gap-4 mt-5">
           {benefits.map((b, i) => (
             <motion.div
               key={i}
@@ -195,8 +198,7 @@ const VoiceBot = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: 0.05 * i, ease: [0.32, 0.72, 0, 1] }}
-              className="lg:col-span-[unset] bezel-shell"
-              style={{ gridColumn: "span 1", gridColumnEnd: "span 1" }}
+              className="bezel-shell"
             >
               <div className="bezel-inner bento-tile p-5 h-full flex items-center gap-3">
                 <div className="h-10 w-10 rounded-xl bg-primary/10 border border-primary/20 text-primary flex items-center justify-center flex-shrink-0">
