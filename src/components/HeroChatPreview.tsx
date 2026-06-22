@@ -1,6 +1,29 @@
 import { motion } from "framer-motion";
-import { Check } from "lucide-react";
+import { Check, Phone, MessageSquare, Globe } from "lucide-react";
 import { useTranslation } from "@/hooks/useTranslation";
+
+const Waveform = () => {
+  return (
+    <div className="flex items-end gap-[3px] h-5">
+      {[0, 1, 2, 3, 4, 5].map((i) => (
+        <motion.span
+          key={i}
+          className="w-[3px] rounded-full bg-primary"
+          animate={{
+            height: [8, 18, 10, 20, 12, 8],
+          }}
+          transition={{
+            duration: 1.2,
+            repeat: Infinity,
+            repeatType: "reverse",
+            delay: i * 0.12,
+            ease: "easeInOut",
+          }}
+        />
+      ))}
+    </div>
+  );
+};
 
 const HeroChatPreview = () => {
   const { language } = useTranslation();
@@ -10,29 +33,29 @@ const HeroChatPreview = () => {
     {
       role: "in" as const,
       text: es
-        ? "Hola, ¿tienen mesa para 4 mañana 8pm?"
-        : "Hi, do you have a table for 4 tomorrow 8pm?",
-      time: "20:14",
+        ? "Hola, ¿cuánto cuesta una limpieza dental?"
+        : "Hi, how much is a dental cleaning?",
+      time: "09:41",
     },
     {
       role: "out" as const,
       text: es
-        ? "¡Hola! Sí, 8:00 pm para 4 personas. ¿Te la reservo?"
-        : "Hi! Yes, 8:00 pm for 4 people. Want me to book it?",
-      time: "20:14",
+        ? "¡Claro! La limpieza dental es $80. ¿Te agendo para mañana a las 10am?"
+        : "Sure! A dental cleaning is $80. Shall I book you for tomorrow at 10am?",
+      time: "09:41",
     },
     {
       role: "in" as const,
-      text: es ? "Sí, por favor." : "Yes please.",
-      time: "20:14",
+      text: es ? "Sí, perfecto." : "Yes, perfect.",
+      time: "09:42",
     },
     {
       role: "out" as const,
       text: es
-        ? "Reserva confirmada para mañana 8:00 pm · 4 pers."
-        : "Booking confirmed for tomorrow 8:00 pm · 4 ppl.",
-      time: "20:14",
-      tag: es ? "Reserva creada" : "Booking created",
+        ? "Listo. Te envío la cotización y confirmación por SMS ahora mismo."
+        : "Done. I'm sending the quote and confirmation via SMS right now.",
+      time: "09:42",
+      tag: es ? "SMS enviado" : "SMS sent",
     },
   ];
 
@@ -52,7 +75,7 @@ const HeroChatPreview = () => {
                   <span className="absolute inset-0 rounded-full bg-emerald-400 animate-ping opacity-70" />
                   <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-emerald-400" />
                 </span>
-                {es ? "Respondiendo en 2.1 seg" : "Replying in 2.1s"}
+                {es ? "En llamada · Respuesta < 2s" : "On call · Reply < 2s"}
               </div>
             </div>
           </div>
@@ -63,6 +86,29 @@ const HeroChatPreview = () => {
           </div>
         </div>
 
+        {/* Live call waveform strip */}
+        <motion.div
+          initial={{ opacity: 0, y: 6 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.3 }}
+          className="mt-4 flex items-center gap-3 rounded-xl bg-white/[0.03] border border-white/[0.06] px-3.5 py-2.5"
+        >
+          <div className="flex items-center justify-center h-8 w-8 rounded-lg bg-primary/15 text-primary">
+            <Phone className="h-4 w-4" strokeWidth={1.5} />
+          </div>
+          <div className="flex-1 min-w-0">
+            <div className="text-xs font-semibold text-foreground leading-tight">
+              {es ? "Llamada entrante atendida" : "Incoming call answered"}
+            </div>
+            <div className="text-[10px] text-muted-foreground mt-0.5 leading-tight">
+              {es
+                ? "Interpretación en vivo · Español ↔ English"
+                : "Live interpretation · Spanish ↔ English"}
+            </div>
+          </div>
+          <Waveform />
+        </motion.div>
+
         <div className="hairline my-4" />
 
         {/* Conversation */}
@@ -72,7 +118,7 @@ const HeroChatPreview = () => {
               key={i}
               initial={{ opacity: 0, y: 6 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.4, delay: 0.4 + i * 0.18 }}
+              transition={{ duration: 0.4, delay: 0.5 + i * 0.18 }}
               className={`flex ${m.role === "out" ? "justify-end" : "justify-start"}`}
             >
               <div
@@ -85,7 +131,7 @@ const HeroChatPreview = () => {
                 {m.text}
                 {m.tag && (
                   <div className="mt-1.5 inline-flex items-center gap-1 rounded-full bg-white/15 px-2 py-0.5 text-[10px] font-semibold tracking-wide">
-                    <Check className="h-3 w-3" /> {m.tag}
+                    <MessageSquare className="h-3 w-3" /> {m.tag}
                   </div>
                 )}
                 <div className={`mt-1 text-[10px] ${m.role === "out" ? "text-white/70" : "text-muted-foreground"}`}>
@@ -101,9 +147,12 @@ const HeroChatPreview = () => {
         {/* Composer mock */}
         <div className="flex items-center gap-2 rounded-full bg-white/[0.04] border border-white/[0.06] px-4 py-2.5">
           <span className="text-xs text-muted-foreground flex-1">
-            {es ? "Escribe un mensaje..." : "Type a message..."}
+            {es ? "Escribe o habla..." : "Type or speak..."}
           </span>
-          <span className="text-[10px] uppercase tracking-widest text-primary/80 font-semibold">AI</span>
+          <span className="flex items-center gap-1 text-[10px] uppercase tracking-widest text-primary/80 font-semibold">
+            <Globe className="h-3 w-3" />
+            AI
+          </span>
         </div>
       </div>
     </div>
