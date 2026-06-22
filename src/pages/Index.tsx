@@ -17,31 +17,37 @@ import ROI from "@/components/sections/ROI";
 import FinalCTA from "@/components/sections/FinalCTA";
 import Footer from "@/components/sections/Footer";
 import WhatsAppButton from "@/components/WhatsAppButton";
+import BackgroundScene from "@/components/three/BackgroundScene";
+import ParticleNetwork from "@/components/three/ParticleNetwork";
 
 const Index = () => {
   return (
-    <div className="min-h-screen">
-      <Header />
-      <main>
-        <Hero />
-        <Founders />
-        <TrustBar />
-        <Problem />
-        <Assistant />
-        <Multichannel />
-        <VoiceBot />
-        <PropIA />
-        <Industries />
-        <DemoNiches />
-        <Testimonials />
-        <GuaranteeStrip />
-        <Differentiation />
-        <Pricing />
-        <ROI />
-        <FinalCTA />
-      </main>
-      <Footer />
-      <WhatsAppButton />
+    <div className="min-h-screen relative">
+      <BackgroundScene />
+      <ParticleNetwork />
+      <div className="relative" style={{ zIndex: 2 }}>
+        <Header />
+        <main>
+          <Hero />
+          <Founders />
+          <TrustBar />
+          <Problem />
+          <Assistant />
+          <Multichannel />
+          <VoiceBot />
+          <PropIA />
+          <Industries />
+          <DemoNiches />
+          <Testimonials />
+          <GuaranteeStrip />
+          <Differentiation />
+          <Pricing />
+          <ROI />
+          <FinalCTA />
+        </main>
+        <Footer />
+        <WhatsAppButton />
+      </div>
     </div>
   );
 };
