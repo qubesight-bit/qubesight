@@ -653,36 +653,12 @@ export function ChatEmbedded({ nicheKey }) {
   };
   const headerGradient = `linear-gradient(135deg, ${niche.color} 0%, ${darken(niche.color, 0.22)} 100%)`;
 
-  return (
-    <>
-      <style>{`
-        @keyframes bounce { 0%,60%,100%{transform:translateY(0)} 30%{transform:translateY(-5px)} }
-        @keyframes qs-pulse { 0%,100% { box-shadow: 0 0 0 0 rgba(74,222,128,0.55); } 50% { box-shadow: 0 0 0 6px rgba(74,222,128,0); } }
-        @keyframes qs-float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-4px); } }
-        .qs-embedded-shell { width: 100%; max-width: 480px; height: 640px; }
-        @media (min-width: 1280px) { .qs-embedded-shell { max-width: 560px; height: 720px; } }
-        .qs-quick-btn { background: #fff; border-radius: 999px; padding: 7px 14px; font-size: 12.5px; cursor: pointer; font-weight: 600; transition: all .18s ease; box-shadow: 0 1px 2px rgba(0,0,0,0.04); }
-        .qs-quick-btn:hover { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(0,0,0,0.10); }
-        .qs-send-btn { transition: transform .15s ease, box-shadow .15s ease; }
-        .qs-send-btn:hover { transform: scale(1.06); }
-        .qs-send-btn:active { transform: scale(0.96); }
-        .qs-input::placeholder { color: #9ca3af; }
-      `}</style>
-
-      <div style={{ position: "relative", width: "100%", display: "flex", justifyContent: "center" }}>
-        <div aria-hidden style={{
-          position: "absolute", inset: "-40px",
-          background: `radial-gradient(60% 50% at 50% 40%, ${niche.color}55 0%, transparent 70%)`,
-          filter: "blur(40px)", opacity: 0.7, pointerEvents: "none", zIndex: 0,
-        }} />
-
   // WhatsApp palette
-  const WA_HEADER = "#075e54";          // dark teal header (classic WA)
-  const WA_HEADER_2 = "#128c7e";        // teal
-  const WA_BG = "#efeae2";               // chat background beige
+  const WA_HEADER = "#075e54";
+  const WA_HEADER_2 = "#128c7e";
+  const WA_BG = "#efeae2";
   const WA_INPUT_BAR = "#f0f2f5";
-  const WA_SEND = "#00a884";             // green send button
-  // SVG doodle pattern (subtle), encoded
+  const WA_SEND = "#00a884";
   const waPattern =
     "url(\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='140' height='140' viewBox='0 0 140 140'><g fill='none' stroke='%23d1c7b8' stroke-width='1' opacity='0.35'><circle cx='20' cy='20' r='6'/><path d='M50 30 q10 -10 20 0 t20 0'/><path d='M90 60 l8 8 l-8 8 l-8 -8 z'/><circle cx='110' cy='100' r='4'/><path d='M20 90 q15 10 30 0'/><path d='M60 110 l6 -10 l6 10'/></g></svg>\")";
 
