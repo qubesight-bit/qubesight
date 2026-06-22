@@ -21,8 +21,17 @@ const Hero = () => {
 
   return (
     <section className="relative min-h-[100dvh] flex items-center overflow-hidden pt-32 pb-20">
-      {/* Ambient orbs */}
-      <div className="pointer-events-none absolute inset-0 -z-10">
+      {/* Ambient orbs + faint video wash */}
+      <div className="pointer-events-none absolute inset-0 -z-10 overflow-hidden">
+        <video
+          src={heroVideo.url}
+          autoPlay
+          muted
+          loop
+          playsInline
+          className="absolute inset-0 w-full h-full object-cover opacity-[0.18] mix-blend-screen scale-110 blur-[2px]"
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-background/80 via-background/60 to-background" />
         <div className="absolute -top-40 left-1/3 w-[640px] h-[640px] rounded-full blur-3xl opacity-40"
              style={{ background: "radial-gradient(circle, hsl(249 70% 40% / 0.45), transparent 60%)" }} />
         <div className="absolute bottom-0 -right-40 w-[520px] h-[520px] rounded-full blur-3xl opacity-30"
