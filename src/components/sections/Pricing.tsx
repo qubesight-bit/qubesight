@@ -23,6 +23,16 @@ const Pricing = () => {
 
   const plans = [
     {
+      id: "assistant_starter",
+      name: t("pricing.starter.name"),
+      desc: t("pricing.starter.desc"),
+      price: fmt(20),
+      suffix: t("pricing.month"),
+      popular: false,
+      setup: 80,
+      features: [t("pricing.starter.f1"), t("pricing.starter.f2"), t("pricing.starter.f3")],
+    },
+    {
       id: "assistant_bronze",
       name: t("pricing.basic.name"),
       desc: t("pricing.basic.desc"),
