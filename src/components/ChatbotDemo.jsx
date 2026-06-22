@@ -357,49 +357,77 @@ function formatMessage(text) {
   );
 }
 
-function Bubble({ msg, color }) {
+function Tick() {
+  return (
+    <svg viewBox="0 0 16 11" width="15" height="11" style={{ marginLeft: 2, verticalAlign: "middle" }}>
+      <path fill="#53bdeb" d="M11.071.653a.457.457 0 0 0-.304-.102.493.493 0 0 0-.381.178l-6.19 7.636-2.405-2.272a.463.463 0 0 0-.336-.146.484.484 0 0 0-.343.146l-.311.31a.473.473 0 0 0 0 .675l3.218 3.218c.094.094.22.146.343.146a.484.484 0 0 0 .343-.146L11.4 1.31a.473.473 0 0 0 0-.675l-.329-.329z"/>
+      <path fill="#53bdeb" d="M15.917.653a.457.457 0 0 0-.304-.102.493.493 0 0 0-.381.178L9.042 8.365 8.077 7.4a.473.473 0 0 0-.675 0l-.312.311a.473.473 0 0 0 0 .675l1.683 1.683c.094.094.22.146.343.146a.484.484 0 0 0 .343-.146l6.787-8.373a.473.473 0 0 0 0-.675l-.329-.368z"/>
+    </svg>
+  );
+}
+
+function Bubble({ msg }) {
   const isBot = msg.role === "bot";
   return (
-    <div style={{ display: "flex", justifyContent: isBot ? "flex-start" : "flex-end", marginBottom: 8 }}>
-      {isBot && (
-        <div style={{
-          width: 28, height: 28, borderRadius: "50%", background: color, color: "#fff",
-          display: "flex", alignItems: "center", justifyContent: "center",
-          fontSize: 13, fontWeight: 700, marginRight: 8, flexShrink: 0, alignSelf: "flex-end",
-        }}>Q</div>
-      )}
+    <div style={{ display: "flex", justifyContent: isBot ? "flex-start" : "flex-end", marginBottom: 4, padding: "0 6px" }}>
       <div style={{
-        maxWidth: "78%", background: isBot ? "#fff" : color,
-        color: isBot ? "#1a1a1a" : "#fff",
-        borderRadius: isBot ? "4px 16px 16px 16px" : "16px 4px 16px 16px",
-        padding: "10px 14px", fontSize: 13.5, lineHeight: 1.6, whiteSpace: "pre-wrap",
-        boxShadow: "0 1px 3px rgba(0,0,0,0.08)",
-        border: isBot ? "1px solid #f0f0f0" : "none",
+        position: "relative",
+        maxWidth: "78%",
+        background: isBot ? "#ffffff" : "#d9fdd3",
+        color: "#111b21",
+        borderRadius: 7.5,
+        padding: "6px 9px 8px 9px",
+        fontSize: 14.2,
+        lineHeight: 1.42,
+        whiteSpace: "pre-wrap",
+        boxShadow: "0 1px 0.5px rgba(11,20,26,0.13)",
+        marginLeft: isBot ? 8 : 0,
+        marginRight: isBot ? 0 : 8,
+        borderTopLeftRadius: isBot ? 0 : 7.5,
+        borderTopRightRadius: isBot ? 7.5 : 0,
       }}>
-        {formatMessage(msg.text)}
-        <div style={{ fontSize: 10, opacity: 0.5, marginTop: 4, textAlign: "right" }}>{msg.time}</div>
+        <span aria-hidden style={{
+          position: "absolute", top: 0,
+          left: isBot ? -8 : "auto",
+          right: isBot ? "auto" : -8,
+          width: 8, height: 13,
+          background: isBot ? "#ffffff" : "#d9fdd3",
+          clipPath: isBot
+            ? "polygon(100% 0, 0 0, 100% 100%)"
+            : "polygon(0 0, 100% 0, 0 100%)",
+        }} />
+        <div style={{ paddingRight: isBot ? 44 : 58, minWidth: 60 }}>
+          {formatMessage(msg.text)}
+        </div>
+        <div style={{
+          position: "absolute", right: 8, bottom: 3,
+          fontSize: 10.5, color: "#667781",
+          display: "flex", alignItems: "center", gap: 1, lineHeight: 1,
+        }}>
+          <span>{msg.time}</span>
+          {!isBot && <Tick />}
+        </div>
       </div>
     </div>
   );
 }
 
-function TypingIndicator({ color }) {
+function TypingIndicator() {
   return (
-    <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 8 }}>
+    <div style={{ display: "flex", justifyContent: "flex-start", marginBottom: 4, padding: "0 6px" }}>
       <div style={{
-        width: 28, height: 28, borderRadius: "50%", background: color,
-        display: "flex", alignItems: "center", justifyContent: "center",
-        fontSize: 13, fontWeight: 700, color: "#fff", flexShrink: 0,
-      }}>Q</div>
-      <div style={{
-        background: "#fff", border: "1px solid #f0f0f0",
-        borderRadius: "4px 16px 16px 16px",
-        padding: "12px 16px", display: "flex", gap: 4,
-        boxShadow: "0 1px 3px rgba(0,0,0,0.06)",
+        position: "relative", background: "#ffffff", borderRadius: 7.5,
+        borderTopLeftRadius: 0,
+        padding: "10px 14px", display: "flex", gap: 4, marginLeft: 8,
+        boxShadow: "0 1px 0.5px rgba(11,20,26,0.13)",
       }}>
+        <span aria-hidden style={{
+          position: "absolute", top: 0, left: -8, width: 8, height: 13,
+          background: "#ffffff", clipPath: "polygon(100% 0, 0 0, 100% 100%)",
+        }} />
         {[0, 1, 2].map(i => (
           <div key={i} style={{
-            width: 6, height: 6, borderRadius: "50%", background: color, opacity: 0.6,
+            width: 6, height: 6, borderRadius: "50%", background: "#9aa5ab",
             animation: `bounce 1.2s ease-in-out ${i * 0.2}s infinite`,
           }} />
         ))}
