@@ -23,6 +23,16 @@ const Pricing = () => {
 
   const plans = [
     {
+      id: "assistant_starter",
+      name: t("pricing.starter.name"),
+      desc: t("pricing.starter.desc"),
+      price: fmt(20),
+      suffix: t("pricing.month"),
+      popular: false,
+      setup: 80,
+      features: [t("pricing.starter.f1"), t("pricing.starter.f2"), t("pricing.starter.f3")],
+    },
+    {
       id: "assistant_bronze",
       name: t("pricing.basic.name"),
       desc: t("pricing.basic.desc"),
@@ -108,7 +118,7 @@ const Pricing = () => {
           </div>
         </motion.div>
 
-        <div className="grid md:grid-cols-3 gap-6 max-w-6xl mx-auto perspective-2000">
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-7xl mx-auto perspective-2000">
           {plans.map((plan, i) => (
             <motion.div
               key={i}
@@ -131,6 +141,11 @@ const Pricing = () => {
               <p className="text-sm text-muted-foreground mb-6">{plan.desc}</p>
 
               <div className="mb-6">
+                {"setup" in plan && plan.setup && (
+                  <div className="text-sm text-muted-foreground mb-1">
+                    ${plan.setup} {t("pricing.oneTime")}
+                  </div>
+                )}
                 <div className="flex items-baseline gap-1">
                   <span className="text-5xl font-bold font-display">${plan.price}</span>
                   <span className="text-muted-foreground">{plan.suffix}</span>
