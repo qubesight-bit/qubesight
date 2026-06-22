@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { ArrowRight, Play, MessageSquare, Zap, TrendingUp } from "lucide-react";
 import { useTranslation } from "@/hooks/useTranslation";
 import HeroCube from "@/components/three/HeroCube";
+import AnimatedCounter from "@/components/AnimatedCounter";
 
 const Hero = () => {
   const { t, language } = useTranslation();
@@ -13,7 +14,7 @@ const Hero = () => {
   )}`;
 
   const stats = [
-    { icon: MessageSquare, value: "2,847", label: t("hero.proof.messages") },
+    { icon: MessageSquare, value: <AnimatedCounter to={2847} />, label: t("hero.proof.messages") },
     { icon: Zap, value: "< 3 seg", label: t("hero.proof.time") },
     { icon: TrendingUp, value: "94%", label: t("hero.proof.conversion") },
   ];
