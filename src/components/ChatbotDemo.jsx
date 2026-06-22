@@ -676,122 +676,189 @@ export function ChatEmbedded({ nicheKey }) {
           filter: "blur(40px)", opacity: 0.7, pointerEvents: "none", zIndex: 0,
         }} />
 
+  // WhatsApp palette
+  const WA_HEADER = "#075e54";          // dark teal header (classic WA)
+  const WA_HEADER_2 = "#128c7e";        // teal
+  const WA_BG = "#efeae2";               // chat background beige
+  const WA_INPUT_BAR = "#f0f2f5";
+  const WA_SEND = "#00a884";             // green send button
+  // SVG doodle pattern (subtle), encoded
+  const waPattern =
+    "url(\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='140' height='140' viewBox='0 0 140 140'><g fill='none' stroke='%23d1c7b8' stroke-width='1' opacity='0.35'><circle cx='20' cy='20' r='6'/><path d='M50 30 q10 -10 20 0 t20 0'/><path d='M90 60 l8 8 l-8 8 l-8 -8 z'/><circle cx='110' cy='100' r='4'/><path d='M20 90 q15 10 30 0'/><path d='M60 110 l6 -10 l6 10'/></g></svg>\")";
+
+  return (
+    <>
+      <style>{`
+        @keyframes bounce { 0%,60%,100%{transform:translateY(0)} 30%{transform:translateY(-5px)} }
+        @keyframes qs-pulse { 0%,100% { box-shadow: 0 0 0 0 rgba(74,222,128,0.55); } 50% { box-shadow: 0 0 0 6px rgba(74,222,128,0); } }
+        .qs-embedded-shell { width: 100%; max-width: 480px; height: 640px; }
+        @media (min-width: 1280px) { .qs-embedded-shell { max-width: 560px; height: 720px; } }
+        .qs-quick-btn { background: #fff; border-radius: 999px; padding: 6px 12px; font-size: 12.5px; cursor: pointer; font-weight: 500; transition: all .15s ease; box-shadow: 0 1px 2px rgba(0,0,0,0.06); }
+        .qs-quick-btn:hover { background: #f0f2f5; }
+        .qs-send-btn { transition: transform .15s ease; }
+        .qs-send-btn:hover { transform: scale(1.05); }
+        .qs-send-btn:active { transform: scale(0.95); }
+        .qs-input::placeholder { color: #8696a0; }
+      `}</style>
+
+      <div style={{ position: "relative", width: "100%", display: "flex", justifyContent: "center" }}>
+        <div aria-hidden style={{
+          position: "absolute", inset: "-40px",
+          background: `radial-gradient(60% 50% at 50% 40%, ${niche.color}55 0%, transparent 70%)`,
+          filter: "blur(40px)", opacity: 0.6, pointerEvents: "none", zIndex: 0,
+        }} />
+
         <div className="qs-embedded-shell" style={{
-          position: "relative", zIndex: 1, margin: "0 auto", borderRadius: 28,
-          background: "#f5f5f7", display: "flex", flexDirection: "column",
-          boxShadow: "0 30px 80px -20px rgba(0,0,0,0.55), 0 8px 24px -8px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.06)",
-          overflow: "hidden", fontFamily: "'Segoe UI', system-ui, -apple-system, sans-serif",
-          border: "1px solid rgba(255,255,255,0.10)",
+          position: "relative", zIndex: 1, margin: "0 auto", borderRadius: 14,
+          background: WA_BG, display: "flex", flexDirection: "column",
+          boxShadow: "0 30px 80px -20px rgba(0,0,0,0.55), 0 8px 24px -8px rgba(0,0,0,0.4)",
+          overflow: "hidden", fontFamily: "'Segoe UI', Helvetica, system-ui, -apple-system, sans-serif",
+          border: "1px solid rgba(0,0,0,0.15)",
         }}>
-          {/* Header */}
+          {/* WhatsApp Header */}
           <div style={{
-            background: headerGradient, color: "#fff", padding: "18px 20px",
-            display: "flex", alignItems: "center", gap: 14, position: "relative", overflow: "hidden",
+            background: WA_HEADER, color: "#fff", padding: "10px 14px",
+            display: "flex", alignItems: "center", gap: 12, flexShrink: 0,
           }}>
-            <div aria-hidden style={{
-              position: "absolute", top: 0, left: 0, right: 0, height: "60%",
-              background: "linear-gradient(180deg, rgba(255,255,255,0.18) 0%, rgba(255,255,255,0) 100%)",
-              pointerEvents: "none",
-            }} />
+            {/* Back arrow */}
+            <svg viewBox="0 0 24 24" width="22" height="22" fill="#fff" style={{ opacity: 0.95 }}>
+              <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/>
+            </svg>
+            {/* Avatar */}
             <div style={{
-              position: "relative", width: 48, height: 48, borderRadius: "50%",
-              background: "rgba(255,255,255,0.22)", display: "flex", alignItems: "center",
-              justifyContent: "center", fontSize: 22, border: "1.5px solid rgba(255,255,255,0.35)",
-              animation: "qs-float 4s ease-in-out infinite",
+              position: "relative", width: 40, height: 40, borderRadius: "50%",
+              background: niche.color, display: "flex", alignItems: "center",
+              justifyContent: "center", fontSize: 20, flexShrink: 0,
+              border: "1px solid rgba(255,255,255,0.2)",
             }}>
               {niche.emoji}
-              <span style={{
-                position: "absolute", bottom: 1, right: 1, width: 12, height: 12,
-                borderRadius: "50%", background: "#4ade80", border: "2px solid #fff",
-                animation: "qs-pulse 2s ease-out infinite",
-              }} />
             </div>
-            <div style={{ flex: 1, position: "relative" }}>
-              <div style={{ fontWeight: 700, fontSize: 16, letterSpacing: "-0.01em" }}>{niche.bizName}</div>
-              <div style={{ fontSize: 12, opacity: 0.92, marginTop: 2 }}>
-                💬 Chat · 🎙️ Voz · 📲 SMS · 🌐 Bilingüe — 24/7
+            <div style={{ flex: 1, minWidth: 0 }}>
+              <div style={{ fontWeight: 500, fontSize: 16, lineHeight: 1.2, letterSpacing: "0" }}>
+                {niche.bizName}
+              </div>
+              <div style={{ fontSize: 12.5, opacity: 0.85, marginTop: 1, display: "flex", alignItems: "center", gap: 5 }}>
+                <span style={{
+                  width: 7, height: 7, borderRadius: "50%", background: "#4ade80",
+                  display: "inline-block", animation: "qs-pulse 2s ease-out infinite",
+                }} />
+                en línea · IA 24/7
               </div>
             </div>
-            <div style={{
-              position: "relative", fontSize: 11, fontWeight: 600, padding: "5px 10px",
-              borderRadius: 999, background: "rgba(255,255,255,0.18)",
-              border: "1px solid rgba(255,255,255,0.25)", letterSpacing: "0.04em", textTransform: "uppercase",
-            }}>Demo IA</div>
+            {/* WA header icons */}
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="#fff" style={{ opacity: 0.9 }} aria-label="Videollamada">
+              <path d="M17 10.5V7c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1v10c0 .55.45 1 1 1h12c.55 0 1-.45 1-1v-3.5l4 4v-11l-4 4z"/>
+            </svg>
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="#fff" style={{ opacity: 0.9 }} aria-label="Llamar">
+              <path d="M20.01 15.38c-1.23 0-2.42-.2-3.53-.56a.977.977 0 0 0-1.01.24l-1.57 1.97c-2.83-1.35-5.48-3.9-6.89-6.83l1.95-1.66c.27-.28.35-.67.24-1.02-.37-1.11-.56-2.3-.56-3.53 0-.54-.45-.99-.99-.99H4.19C3.65 3 3 3.24 3 3.99 3 13.28 10.73 21 20.01 21c.71 0 .99-.63.99-1.18v-3.45c0-.54-.45-.99-.99-.99z"/>
+            </svg>
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="#fff" style={{ opacity: 0.9 }} aria-label="Más">
+              <path d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/>
+            </svg>
           </div>
 
-          {/* Capability strip */}
+          {/* Messages with WhatsApp doodle background */}
           <div style={{
-            display: "flex", gap: 6, padding: "8px 12px",
-            background: "rgba(255,255,255,0.6)", borderBottom: "1px solid rgba(0,0,0,0.05)",
-            fontSize: 10.5, fontWeight: 600, color: "#475569", flexWrap: "wrap",
+            flex: 1, overflowY: "auto", padding: "12px 6px 8px",
+            background: `${waPattern}, ${WA_BG}`,
+            backgroundRepeat: "repeat",
           }}>
-            <span style={{ padding: "3px 8px", borderRadius: 999, background: "#fff", border: "1px solid #e2e8f0" }}>📞 Contesta llamadas</span>
-            <span style={{ padding: "3px 8px", borderRadius: 999, background: "#fff", border: "1px solid #e2e8f0" }}>📅 Agenda {niche.bookingLabel}s</span>
-            <span style={{ padding: "3px 8px", borderRadius: 999, background: "#fff", border: "1px solid #e2e8f0" }}>📲 Cotiza por SMS</span>
-            <span style={{ padding: "3px 8px", borderRadius: 999, background: "#fff", border: "1px solid #e2e8f0" }}>🌐 ES ↔ EN en vivo</span>
-          </div>
-
-          {/* Messages */}
-          <div style={{
-            flex: 1, overflowY: "auto", padding: "18px 16px 8px",
-            background: `linear-gradient(180deg, ${niche.bgLight} 0%, #ffffff 100%)`,
-          }}>
-            {messages.map((msg, i) => <Bubble key={i} msg={msg} color={niche.color} />)}
-            {typing && <TypingIndicator color={niche.color} />}
+            {/* Date chip */}
+            <div style={{ display: "flex", justifyContent: "center", margin: "6px 0 12px" }}>
+              <span style={{
+                background: "#e1f2fa", color: "#54656f", fontSize: 12.2,
+                padding: "5px 12px", borderRadius: 7.5, fontWeight: 500,
+                boxShadow: "0 1px 0.5px rgba(11,20,26,0.13)",
+              }}>HOY</span>
+            </div>
+            {/* Encryption notice chip */}
+            <div style={{ display: "flex", justifyContent: "center", margin: "0 12px 12px" }}>
+              <span style={{
+                background: "#fdf4c5", color: "#54656f", fontSize: 11.5,
+                padding: "6px 12px", borderRadius: 7.5, textAlign: "center", lineHeight: 1.35,
+                boxShadow: "0 1px 0.5px rgba(11,20,26,0.13)", maxWidth: 320,
+              }}>🔒 Los mensajes están cifrados de extremo a extremo. Demo IA · QubeSight</span>
+            </div>
+            {messages.map((msg, i) => <Bubble key={i} msg={msg} />)}
+            {typing && <TypingIndicator />}
             <div ref={bottomRef} />
           </div>
 
           {showLeadForm && (
-            <LeadForm color={niche.color} gradient={headerGradient}
+            <LeadForm color={niche.color} gradient={`linear-gradient(135deg, ${WA_HEADER_2} 0%, ${WA_SEND} 100%)`}
               onSubmit={submitLead} onCancel={() => setShowLeadForm(false)} />
           )}
 
           {messages.length > 0 && !typing && !showLeadForm && booking.stage === "idle" && (
             <div style={{
-              padding: "10px 14px", background: "rgba(255,255,255,0.7)",
-              backdropFilter: "blur(8px)", display: "flex", gap: 8, flexWrap: "wrap",
-              borderTop: "1px solid rgba(0,0,0,0.05)",
+              padding: "8px 10px", background: "rgba(239,234,226,0.85)",
+              backdropFilter: "blur(8px)", display: "flex", gap: 6, flexWrap: "wrap",
+              borderTop: "1px solid rgba(0,0,0,0.06)",
             }}>
               {QUICK_REPLIES[nicheKey].map((q) => (
                 <button key={q} className="qs-quick-btn"
                   onClick={() => send(q.replace(/^[^\p{L}]+/u, "").toLowerCase())}
-                  style={{ border: `1.5px solid ${niche.color}`, color: niche.color }}>
+                  style={{ border: `1px solid ${WA_SEND}`, color: WA_HEADER }}>
                   {q}
                 </button>
               ))}
               {!leadSubmitted && (
                 <button className="qs-quick-btn" onClick={() => setShowLeadForm(true)}
-                  style={{ border: `1.5px solid ${niche.color}`, background: niche.color, color: "#fff" }}>
+                  style={{ border: `1px solid ${WA_SEND}`, background: WA_SEND, color: "#fff" }}>
                   💬 Hablar con humano
                 </button>
               )}
             </div>
           )}
 
-          {/* Input */}
+          {/* WhatsApp Input bar */}
           <div style={{
-            display: "flex", padding: "14px 16px", background: "#fff",
-            borderTop: "1px solid #ececec", gap: 10, alignItems: "center",
+            display: "flex", padding: "8px 10px", background: WA_INPUT_BAR,
+            gap: 8, alignItems: "center", flexShrink: 0,
           }}>
+            <button aria-label="Emoji" style={{
+              background: "transparent", border: "none", cursor: "pointer",
+              padding: 6, color: "#54656f", display: "flex",
+            }}>
+              <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
+                <path d="M11.999 2C6.486 2 2 6.487 2 12s4.486 10 9.999 10C17.514 22 22 17.513 22 12S17.514 2 11.999 2zm.001 18c-4.41 0-8-3.589-8-8s3.59-8 8-8 8 3.589 8 8-3.59 8-8 8zM8.5 11A1.5 1.5 0 1 1 10 9.5 1.5 1.5 0 0 1 8.5 11zm7 0A1.5 1.5 0 1 1 17 9.5a1.5 1.5 0 0 1-1.5 1.5zm.76 3.62a4.99 4.99 0 0 1-8.52 0 .75.75 0 1 1 1.29-.76 3.49 3.49 0 0 0 5.94 0 .75.75 0 0 1 1.29.76z"/>
+              </svg>
+            </button>
+            <button aria-label="Adjuntar" style={{
+              background: "transparent", border: "none", cursor: "pointer",
+              padding: 6, color: "#54656f", display: "flex",
+            }}>
+              <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
+                <path d="M1.816 15.556v.002c0 1.502.584 2.912 1.646 3.972s2.472 1.647 3.974 1.647a5.58 5.58 0 0 0 3.972-1.645l9.547-9.548c.769-.768 1.147-1.767 1.058-2.817-.079-.968-.548-1.927-1.319-2.698-1.594-1.592-4.068-1.711-5.517-.262l-7.916 7.915c-.881.881-.792 2.25.214 3.261.959.958 2.423 1.053 3.263.215l5.511-5.512c.28-.28.267-.722.053-.936l-.244-.244c-.191-.191-.567-.349-.957.04l-5.506 5.506c-.18.18-.635.127-.976-.214-.098-.097-.576-.613-.213-.973l7.915-7.917c.818-.817 2.267-.699 3.23.262.5.501.802 1.1.849 1.685.051.573-.156 1.111-.589 1.543l-9.547 9.549a3.97 3.97 0 0 1-2.829 1.171 3.975 3.975 0 0 1-2.83-1.173 3.973 3.973 0 0 1-1.172-2.828c0-1.071.415-2.076 1.172-2.83l7.209-7.211c.157-.157.264-.579.028-.814L11.5 4.36a.572.572 0 0 0-.834.018l-7.205 7.207a5.577 5.577 0 0 0-1.645 3.971z"/>
+              </svg>
+            </button>
             <input className="qs-input" value={input}
               onChange={(e) => setInput(e.target.value)}
               onKeyDown={(e) => e.key === "Enter" && send()}
-              placeholder={booking.stage !== "idle" ? "Responde aquí..." : "Escribe tu mensaje..."}
+              placeholder={booking.stage !== "idle" ? "Responde aquí..." : "Mensaje"}
               style={{
-                flex: 1, border: "1.5px solid #e5e7eb", borderRadius: 999,
-                padding: "12px 18px", fontSize: 14, background: "#f9fafb",
-                outline: "none", color: "#111827",
-                transition: "border-color .15s ease, background .15s ease",
+                flex: 1, border: "none", borderRadius: 8,
+                padding: "10px 14px", fontSize: 14.5, background: "#fff",
+                outline: "none", color: "#111b21",
+                boxShadow: "0 1px 1px rgba(0,0,0,0.04)",
               }}
-              onFocus={(e) => { e.target.style.borderColor = niche.color; e.target.style.background = "#fff"; }}
-              onBlur={(e) => { e.target.style.borderColor = "#e5e7eb"; e.target.style.background = "#f9fafb"; }}
             />
             <button className="qs-send-btn" onClick={() => send()} style={{
-              width: 46, height: 46, borderRadius: "50%", background: headerGradient,
-              border: "none", color: "#fff", cursor: "pointer", fontSize: 18,
+              width: 42, height: 42, borderRadius: "50%", background: WA_SEND,
+              border: "none", color: "#fff", cursor: "pointer",
               display: "flex", alignItems: "center", justifyContent: "center",
-              flexShrink: 0, boxShadow: `0 6px 18px -4px ${niche.color}88`,
-            }} aria-label="Enviar">➤</button>
+              flexShrink: 0,
+            }} aria-label="Enviar">
+              {input.trim() ? (
+                <svg viewBox="0 0 24 24" width="22" height="22" fill="#fff">
+                  <path d="M1.101 21.757 23.8 12.028 1.101 2.3l.011 7.912 13.623 1.816-13.623 1.817-.011 7.912z"/>
+                </svg>
+              ) : (
+                <svg viewBox="0 0 24 24" width="22" height="22" fill="#fff">
+                  <path d="M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3zm5.91-3c-.49 0-.9.36-.98.85C16.52 14.2 14.47 16 12 16s-4.52-1.8-4.93-4.15c-.08-.49-.49-.85-.98-.85-.61 0-1.09.54-1 1.14.49 3 2.89 5.35 5.91 5.78V20c0 .55.45 1 1 1s1-.45 1-1v-2.08c3.02-.43 5.42-2.78 5.91-5.78.1-.6-.39-1.14-1-1.14z"/>
+                </svg>
+              )}
+            </button>
           </div>
         </div>
       </div>
