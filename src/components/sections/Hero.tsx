@@ -110,7 +110,7 @@ const Hero = () => {
                   <stat.icon className="h-5 w-5" />
                 </div>
                 <div>
-                  <div className="text-xl font-bold font-display text-foreground">{stat.value}</div>
+                  <div className="text-xl font-bold font-display text-foreground tabular-nums tracking-tight">{stat.value}</div>
                   <div className="text-xs text-muted-foreground leading-tight">{stat.label}</div>
                 </div>
               </div>
