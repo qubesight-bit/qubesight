@@ -1,8 +1,6 @@
 import { motion } from "framer-motion";
-import { Button } from "@/components/ui/button";
-import { Check, MessageCircle, ArrowRight, Bot } from "lucide-react";
+import { ArrowUpRight, Bot, Clock, Globe2, Calendar, Database, Languages } from "lucide-react";
 import { useTranslation } from "@/hooks/useTranslation";
-import Tilt3D from "@/components/Tilt3D";
 
 const Assistant = () => {
   const { t, language } = useTranslation();
@@ -10,116 +8,125 @@ const Assistant = () => {
     language === "es" ? "Hola, quiero mi QubeSight Assistant." : "Hi, I want my QubeSight Assistant."
   )}`;
 
-  const benefits = [
-    t("assistant.b1"),
-    t("assistant.b2"),
-    t("assistant.b3"),
-    t("assistant.b4"),
-    t("assistant.b5"),
+  // Capability tiles — bento grid
+  const tiles = [
+    {
+      icon: Clock,
+      title: t("assistant.b1"),
+      span: "lg:col-span-4 lg:row-span-2",
+      featured: true,
+      // featured tile shows a live "response timer"
+    },
+    { icon: Globe2, title: t("assistant.b2"), span: "lg:col-span-4" },
+    { icon: Calendar, title: t("assistant.b3"), span: "lg:col-span-4" },
+    { icon: Languages, title: t("assistant.b4"), span: "lg:col-span-4" },
+    { icon: Database, title: t("assistant.b5"), span: "lg:col-span-4" },
   ];
 
   return (
-    <section id="assistant" className="py-24 sm:py-32 relative overflow-hidden">
-      <div className="absolute inset-0 bg-grid opacity-20" />
-      <div className="container relative">
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
-          {/* Left content */}
+    <section id="assistant" className="relative py-28 sm:py-36 overflow-hidden">
+      {/* Ambient orb */}
+      <div className="pointer-events-none absolute inset-0 -z-10">
+        <div className="absolute top-1/4 -left-40 w-[520px] h-[520px] rounded-full blur-3xl opacity-25"
+             style={{ background: "radial-gradient(circle, hsl(249 70% 40% / 0.4), transparent 60%)" }} />
+      </div>
+
+      <div className="container">
+        {/* Header */}
+        <div className="grid lg:grid-cols-[1fr_auto] gap-8 items-end mb-14">
           <motion.div
-            initial={{ opacity: 0, x: -30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-80px" }}
+            transition={{ duration: 0.7 }}
           >
-            <span className="inline-flex items-center gap-2 px-3 py-1.5 mb-6 text-xs font-semibold uppercase tracking-wider rounded-full glass-card text-primary">
-              <Bot className="h-3.5 w-3.5" />
+            <span className="eyebrow mb-6">
+              <Bot className="h-3 w-3" strokeWidth={1.75} />
               {t("assistant.badge")}
             </span>
-            <h2 className="text-3xl sm:text-5xl font-bold font-display leading-tight mb-6 text-balance">
+            <h2 className="display-xl text-[clamp(2rem,4.5vw,3.75rem)] max-w-3xl">
               {t("assistant.title.v2")}{" "}
-              <span className="gradient-text">{t("assistant.titleAccent.v2")}</span>
+              <span className="accent-text">{t("assistant.titleAccent.v2")}</span>
             </h2>
-            <p className="text-lg text-muted-foreground mb-8">{t("assistant.description")}</p>
-
-            <ul className="space-y-3 mb-10">
-              {benefits.map((b, i) => (
-                <motion.li
-                  key={i}
-                  initial={{ opacity: 0, x: -20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.4, delay: i * 0.08 }}
-                  className="flex items-start gap-3"
-                >
-                  <span className="mt-0.5 flex-shrink-0 h-6 w-6 rounded-full bg-primary/15 text-primary flex items-center justify-center">
-                    <Check className="h-4 w-4" />
-                  </span>
-                  <span className="text-foreground/90">{b}</span>
-                </motion.li>
-              ))}
-            </ul>
-
-            <Button variant="hero" size="lg" asChild className="min-h-[52px]">
-              <a href={whatsappUrl} target="_blank" rel="noopener noreferrer">
-                {t("assistant.cta")}
-                <ArrowRight className="ml-1 h-5 w-5" />
-              </a>
-            </Button>
-            <p className="mt-6 text-sm text-muted-foreground">{t("assistant.footer")}</p>
+            <p className="mt-6 text-lg text-muted-foreground max-w-2xl leading-relaxed">
+              {t("assistant.description")}
+            </p>
           </motion.div>
 
-          {/* Right: chat mockup */}
-          <motion.div
-            initial={{ opacity: 0, x: 30 }}
-            whileInView={{ opacity: 1, x: 0 }}
+          <motion.a
+            href={whatsappUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.15 }}
-            className="relative perspective-2000"
+            transition={{ duration: 0.6, delay: 0.1 }}
+            className="group inline-flex items-center gap-3 rounded-full pl-6 pr-2 py-2 bg-gradient-to-br from-[hsl(249,65%,58%)] to-[hsl(258,75%,64%)] text-white font-semibold text-sm shadow-[0_18px_40px_-12px_hsl(249,70%,40%,0.6)] transition-transform duration-500 ease-[cubic-bezier(.2,.8,.2,1)] active:scale-[0.98] w-max"
           >
-            <div className="absolute inset-0 blur-3xl opacity-40" style={{ background: "var(--gradient-glow)" }} />
-            <Tilt3D max={10} className="relative">
-            <div className="relative glass-card rounded-3xl p-6 shadow-glow">
-              <div className="flex items-center gap-3 pb-4 border-b border-white/5">
-                <div className="h-10 w-10 rounded-full gradient-bg flex items-center justify-center text-primary-foreground">
-                  <MessageCircle className="h-5 w-5" />
-                </div>
-                <div>
-                  <div className="font-semibold text-sm">QubeSight Assistant</div>
-                  <div className="text-xs text-primary flex items-center gap-1.5">
-                    <span className="h-1.5 w-1.5 rounded-full bg-primary animate-pulse" />
-                    {language === "es" ? "En línea · Responde al instante" : "Online · Replies instantly"}
-                  </div>
-                </div>
-              </div>
-
-              <div className="space-y-3 py-5">
-                <div className="max-w-[80%] bg-secondary rounded-2xl rounded-tl-sm px-4 py-3 text-sm">
-                  {language === "es"
-                    ? "Hola, ¿tienen mesas disponibles para mañana a las 8pm?"
-                    : "Hi, do you have tables available tomorrow at 8pm?"}
-                </div>
-                <div className="max-w-[80%] ml-auto gradient-bg text-primary-foreground rounded-2xl rounded-tr-sm px-4 py-3 text-sm">
-                  {language === "es"
-                    ? "¡Hola! Sí, tenemos disponibilidad para 2, 4 o 6 personas. ¿Cuántos serán?"
-                    : "Hi! Yes, we have availability for 2, 4 or 6 people. How many will you be?"}
-                </div>
-                <div className="max-w-[80%] bg-secondary rounded-2xl rounded-tl-sm px-4 py-3 text-sm">
-                  {language === "es" ? "Seríamos 4 personas." : "We'd be 4 people."}
-                </div>
-                <div className="max-w-[80%] ml-auto gradient-bg text-primary-foreground rounded-2xl rounded-tr-sm px-4 py-3 text-sm">
-                  {language === "es"
-                    ? "¡Listo! Reserva confirmada para 4 personas mañana 8pm. ✅"
-                    : "Done! Booking confirmed for 4 people tomorrow 8pm. ✅"}
-                </div>
-              </div>
-
-              <div className="flex items-center gap-2 pt-3 border-t border-white/5 text-xs text-muted-foreground">
-                <span className="h-1.5 w-1.5 rounded-full bg-primary" />
-                {language === "es" ? "Respondido en 2.1 segundos" : "Replied in 2.1 seconds"}
-              </div>
-            </div>
-            </Tilt3D>
-          </motion.div>
+            <span>{t("assistant.cta")}</span>
+            <span className="cta-arrow-chip">
+              <ArrowUpRight className="h-4 w-4" strokeWidth={1.75} />
+            </span>
+          </motion.a>
         </div>
+
+        {/* Bento grid */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 lg:auto-rows-[180px] gap-4 sm:gap-5">
+          {tiles.map((tile, i) => {
+            const Icon = tile.icon;
+            return (
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, y: 24, filter: "blur(8px)" }}
+                whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+                viewport={{ once: true, margin: "-60px" }}
+                transition={{ duration: 0.7, delay: i * 0.06, ease: [0.32, 0.72, 0, 1] }}
+                className={`bento-tile p-7 flex flex-col ${tile.span ?? ""}`}
+              >
+                {tile.featured ? (
+                  <div className="flex flex-col h-full justify-between">
+                    <div className="flex items-center gap-3">
+                      <div className="h-10 w-10 rounded-xl bg-primary/15 text-primary grid place-items-center border border-primary/25">
+                        <Icon className="h-5 w-5" strokeWidth={1.5} />
+                      </div>
+                      <div className="eyebrow !text-[9px]">24/7</div>
+                    </div>
+                    <div>
+                      <div className="text-6xl font-display font-semibold tabular-nums tracking-tight leading-none">
+                        2.1<span className="text-2xl text-muted-foreground ml-1">s</span>
+                      </div>
+                      <div className="mt-3 text-sm text-foreground/90 max-w-xs leading-snug">
+                        {tile.title}
+                      </div>
+                      <div className="mt-5 flex items-center gap-1.5">
+                        {[0, 1, 2, 3, 4, 5, 6].map((b) => (
+                          <span
+                            key={b}
+                            className="h-6 w-1.5 rounded-full bg-gradient-to-t from-primary/30 to-primary"
+                            style={{ opacity: 0.3 + b * 0.1 }}
+                          />
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                ) : (
+                  <>
+                    <div className="h-10 w-10 rounded-xl bg-white/[0.04] border border-white/[0.08] grid place-items-center text-primary mb-5">
+                      <Icon className="h-5 w-5" strokeWidth={1.5} />
+                    </div>
+                    <div className="mt-auto">
+                      <p className="text-foreground/90 text-[15px] leading-snug">
+                        {tile.title}
+                      </p>
+                    </div>
+                  </>
+                )}
+              </motion.div>
+            );
+          })}
+        </div>
+
+        <p className="mt-10 text-sm text-muted-foreground">{t("assistant.footer")}</p>
       </div>
     </section>
   );

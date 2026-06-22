@@ -300,3 +300,104 @@ html {
   opacity: 1;
   transform: translate(0, 0);
 }
+
+/* ===== Wave 1: Bento + double-bezel utilities ===== */
+
+/* Premium nested enclosure — outer aluminum tray + inner glass plate */
+.bezel-shell {
+  position: relative;
+  padding: 6px;
+  background: linear-gradient(180deg, hsl(0 0% 100% / 0.06), hsl(0 0% 100% / 0.02));
+  border: 1px solid hsl(0 0% 100% / 0.06);
+  border-radius: 28px;
+  box-shadow:
+    inset 0 1px 0 0 hsl(0 0% 100% / 0.08),
+    0 30px 80px -30px hsl(249 70% 8% / 0.7);
+}
+.bezel-inner {
+  border-radius: 22px;
+  background: linear-gradient(180deg, hsl(240 30% 8% / 0.92), hsl(240 35% 5% / 0.96));
+  border: 1px solid hsl(0 0% 100% / 0.05);
+  box-shadow: inset 0 1px 1px hsl(0 0% 100% / 0.06);
+}
+
+/* Bento tile — minimal, dark, hairline border, hover spotlight */
+.bento-tile {
+  position: relative;
+  border-radius: 24px;
+  background: linear-gradient(180deg, hsl(240 28% 8% / 0.7), hsl(240 35% 5% / 0.85));
+  border: 1px solid hsl(0 0% 100% / 0.06);
+  box-shadow: inset 0 1px 0 hsl(0 0% 100% / 0.05);
+  overflow: hidden;
+  transition: border-color .5s cubic-bezier(.2,.8,.2,1), transform .5s cubic-bezier(.2,.8,.2,1);
+}
+.bento-tile::before {
+  content: "";
+  position: absolute; inset: 0;
+  background: radial-gradient(120% 60% at 50% 0%, hsl(249 70% 60% / 0.10), transparent 55%);
+  pointer-events: none;
+  opacity: .8;
+}
+.bento-tile:hover {
+  border-color: hsl(249 70% 64% / 0.30);
+  transform: translateY(-3px);
+}
+
+/* Eyebrow micro-badge */
+.eyebrow {
+  display: inline-flex; align-items: center; gap: .5rem;
+  padding: .35rem .75rem;
+  font-size: 10px; font-weight: 600;
+  text-transform: uppercase; letter-spacing: 0.22em;
+  color: hsl(250 35% 80%);
+  background: hsl(0 0% 100% / 0.04);
+  border: 1px solid hsl(0 0% 100% / 0.08);
+  border-radius: 999px;
+}
+
+/* Button-in-button nested arrow chip */
+.cta-arrow-chip {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 28px; height: 28px;
+  border-radius: 999px;
+  background: hsl(0 0% 100% / 0.16);
+  transition: transform .45s cubic-bezier(.2,.8,.2,1), background-color .3s ease;
+}
+.group:hover .cta-arrow-chip {
+  transform: translate(2px, -1px) scale(1.06);
+  background: hsl(0 0% 100% / 0.24);
+}
+
+/* Display headline rhythm */
+.display-xl {
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 600;
+  letter-spacing: -0.045em;
+  line-height: 0.98;
+  text-wrap: balance;
+}
+
+/* Soft single-hue gradient text — premium, no rainbow */
+.accent-text {
+  background: linear-gradient(180deg, hsl(255 60% 88%) 0%, hsl(255 70% 72%) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Hairline divider */
+.hairline {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, hsl(0 0% 100% / 0.1), transparent);
+}
+
+/* Chat message bubbles inside hero preview */
+.bubble-in {
+  background: hsl(240 22% 14%);
+  border: 1px solid hsl(0 0% 100% / 0.05);
+}
+.bubble-out {
+  background: linear-gradient(135deg, hsl(249 65% 56%), hsl(258 70% 62%));
+  color: hsl(0 0% 100%);
+  box-shadow: 0 6px 24px -8px hsl(249 70% 50% / 0.5);
+}
