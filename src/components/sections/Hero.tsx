@@ -2,7 +2,6 @@ import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Play, MessageSquare, Zap, TrendingUp } from "lucide-react";
 import { useTranslation } from "@/hooks/useTranslation";
-import heroBgVideo from "@/assets/hero-bg.mp4";
 import HeroCube from "@/components/three/HeroCube";
 
 const Hero = () => {
