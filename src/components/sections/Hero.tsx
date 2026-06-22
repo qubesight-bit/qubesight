@@ -1,9 +1,9 @@
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { ArrowUpRight, Play, MessageSquare, Zap, TrendingUp, Check } from "lucide-react";
+import { ArrowUpRight, Play, MessageSquare, Zap, TrendingUp, Check, Sparkles } from "lucide-react";
 import { useTranslation } from "@/hooks/useTranslation";
-import HeroChatPreview from "@/components/HeroChatPreview";
 import AnimatedCounter from "@/components/AnimatedCounter";
+import heroVideo from "@/assets/qubesight-hero.mp4.asset.json";
 
 const Hero = () => {
   const { t, language } = useTranslation();
