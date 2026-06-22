@@ -46,12 +46,13 @@
     --sidebar-border: 240 15% 18%;
     --sidebar-ring: 249 75% 64%;
 
-    /* Brand tokens — tri-color gradient (purple / teal / violet) */
-    --gradient-primary: linear-gradient(135deg, hsl(249 75% 64%) 0%, hsl(178 100% 40%) 50%, hsl(271 91% 65%) 100%);
-    --gradient-text: linear-gradient(135deg, hsl(258 90% 76%) 0%, hsl(189 94% 43%) 50%, hsl(271 95% 75%) 100%);
-    --gradient-hero: radial-gradient(ellipse at top, hsl(249 75% 30% / 0.35), transparent 60%), radial-gradient(ellipse at bottom, hsl(178 100% 30% / 0.22), transparent 60%), hsl(240 40% 4%);
+    /* Brand tokens — restrained: indigo lead, violet support, teal only as detail */
+    --gradient-primary: linear-gradient(135deg, hsl(249 70% 58%) 0%, hsl(258 78% 66%) 100%);
+    --gradient-text: linear-gradient(180deg, hsl(250 35% 96%) 0%, hsl(255 60% 80%) 100%);
+    --gradient-hero: radial-gradient(ellipse at top, hsl(249 60% 22% / 0.32), transparent 60%), hsl(240 40% 4%);
     --gradient-dark: linear-gradient(180deg, hsl(240 40% 4%) 0%, hsl(240 30% 7%) 100%);
-    --gradient-glow: radial-gradient(circle at center, hsl(249 75% 64% / 0.22), transparent 70%);
+    --gradient-glow: radial-gradient(circle at center, hsl(249 75% 64% / 0.18), transparent 70%);
+
 
     --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.4);
     --shadow-md: 0 4px 12px -2px rgb(0 0 0 / 0.5);
@@ -71,10 +72,10 @@
     @apply bg-background text-foreground antialiased;
     font-family: 'Inter', sans-serif;
     background-image:
-      radial-gradient(ellipse 80% 50% at 50% -10%, hsl(249 75% 35% / 0.18), transparent),
-      radial-gradient(ellipse 60% 40% at 80% 110%, hsl(178 100% 30% / 0.12), transparent),
-      radial-gradient(ellipse 50% 40% at 10% 60%, hsl(271 91% 45% / 0.10), transparent);
+      radial-gradient(ellipse 70% 45% at 50% -10%, hsl(249 65% 28% / 0.20), transparent),
+      radial-gradient(ellipse 50% 35% at 85% 100%, hsl(258 60% 32% / 0.10), transparent);
   }
+
 
   h1, h2, h3, h4, h5, h6 {
     font-family: 'Space Grotesk', sans-serif;

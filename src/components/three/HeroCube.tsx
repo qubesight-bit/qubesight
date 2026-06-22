@@ -45,19 +45,20 @@ function NestedCubes() {
     <group>
       <lineSegments ref={outer}>
         <edgesGeometry args={[new THREE.BoxGeometry(2, 2, 2)]} />
-        <lineBasicMaterial color="#6c5ce7" transparent opacity={0.8} />
+        <lineBasicMaterial color="#6c5ce7" transparent opacity={0.7} />
       </lineSegments>
       <lineSegments ref={middle}>
         <edgesGeometry args={[new THREE.BoxGeometry(1.2, 1.2, 1.2)]} />
-        <lineBasicMaterial color="#00cec9" transparent opacity={0.5} />
+        <lineBasicMaterial color="#8b7ee8" transparent opacity={0.45} />
       </lineSegments>
       <lineSegments ref={inner}>
         <edgesGeometry args={[new THREE.BoxGeometry(0.6, 0.6, 0.6)]} />
-        <lineBasicMaterial color="#a855f7" transparent opacity={0.6} />
+        <lineBasicMaterial color="#a89cf0" transparent opacity={0.5} />
       </lineSegments>
       <points ref={particles} geometry={particleGeom}>
-        <pointsMaterial color="#00cec9" size={0.05} transparent opacity={0.9} />
+        <pointsMaterial color="#8b7ee8" size={0.04} transparent opacity={0.7} />
       </points>
+
     </group>
   );
 }
