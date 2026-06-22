@@ -70,13 +70,15 @@ function CameraParallax() {
 }
 
 function GridPlane() {
+  const ref = useRef<THREE.GridHelper>(null);
   return (
     <gridHelper
+      ref={ref}
       args={[80, 40, "#6c5ce7", "#6c5ce7"]}
       position={[0, -8, 0]}
-    >
-      <meshBasicMaterial attach="material" transparent opacity={0.04} />
-    </gridHelper>
+      material-transparent={true}
+      material-opacity={0.04}
+    />
   );
 }
 
