@@ -240,3 +240,19 @@ html {
   animation: logo-cube-active 3.5s linear infinite;
   filter: drop-shadow(0 0 8px hsl(var(--primary) / 0.5));
 }
+
+/* Scroll reveal utilities */
+.reveal-up, .reveal-left, .reveal-right {
+  opacity: 0;
+  transition: opacity 0.8s ease, transform 0.8s ease;
+  will-change: opacity, transform;
+}
+.reveal-up { transform: translateY(40px); }
+.reveal-left { transform: translateX(-40px); }
+.reveal-right { transform: translateX(40px); }
+.reveal-up.is-visible,
+.reveal-left.is-visible,
+.reveal-right.is-visible {
+  opacity: 1;
+  transform: translate(0, 0);
+}
