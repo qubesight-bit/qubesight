@@ -1,21 +1,23 @@
-import { useState, useEffect } from "react";
-import { motion } from "framer-motion";
-import { Phone, Mic, MessageSquare } from "lucide-react";
+import { useState, useEffect, useMemo } from "react";
+import { AnimatePresence, motion } from "framer-motion";
+import { Phone, Mic, MessageSquare, CalendarCheck, Play, Check } from "lucide-react";
 import { useTranslation } from "@/hooks/useTranslation";
 
-const Waveform = () => {
+const Waveform = ({ active }: { active: boolean }) => {
   return (
     <div className="flex items-end justify-center gap-[4px] h-10">
       {Array.from({ length: 28 }).map((_, i) => (
         <motion.span
           key={i}
           className="w-[3px] rounded-full bg-gradient-to-t from-primary to-[hsl(255,70%,72%)]"
-          animate={{
-            height: [6, 22 + Math.random() * 18, 10, 28 + Math.random() * 14, 14, 6],
-          }}
+          animate={
+            active
+              ? { height: [6, 22 + ((i * 7) % 18), 10, 28 + ((i * 5) % 14), 14, 6] }
+              : { height: 6 }
+          }
           transition={{
             duration: 1.4,
-            repeat: Infinity,
+            repeat: active ? Infinity : 0,
             repeatType: "reverse",
             delay: i * 0.05,
             ease: "easeInOut",
@@ -26,178 +28,219 @@ const Waveform = () => {
   );
 };
 
-const CallTimer = () => {
-  const [seconds, setSeconds] = useState(12);
-  useEffect(() => {
-    const id = setInterval(() => setSeconds((s) => s + 1), 1000);
-    return () => clearInterval(id);
-  }, []);
-  const m = Math.floor(seconds / 60)
-    .toString()
-    .padStart(2, "0");
-  const s = (seconds % 60).toString().padStart(2, "0");
-  return <span className="tabular-nums">{m}:{s}</span>;
+type Step = {
+  key: string;
+  ms: number;
+  labelEs: string;
+  labelEn: string;
+  icon: typeof Phone;
 };
 
 const HeroChatPreview = () => {
   const { language } = useTranslation();
   const es = language === "es";
 
+  const steps: Step[] = useMemo(
+    () => [
+      { key: "ring",  ms: 1400, labelEs: "Llamada entrante",       labelEn: "Incoming call",      icon: Phone },
+      { key: "ans",   ms: 1800, labelEs: "IA contesta en 2 seg",   labelEn: "AI answers in 2s",   icon: Mic },
+      { key: "talk",  ms: 3000, labelEs: "Conversa e interpreta",  labelEn: "Talks & interprets", icon: Mic },
+      { key: "book",  ms: 2200, labelEs: "Agenda el turno",        labelEn: "Books appointment",  icon: CalendarCheck },
+      { key: "sms",   ms: 2200, labelEs: "Envía cotización SMS",   labelEn: "Sends SMS quote",    icon: MessageSquare },
+    ],
+    []
+  );
+
+  const [stepIdx, setStepIdx] = useState(0);
+  const [tick, setTick] = useState(0); // forces remount of step content on loop
+  const [elapsed, setElapsed] = useState(0);
+
+  // Step advance
+  useEffect(() => {
+    const t = setTimeout(() => {
+      if (stepIdx < steps.length - 1) {
+        setStepIdx((i) => i + 1);
+      } else {
+        // restart loop
+        setTimeout(() => {
+          setStepIdx(0);
+          setElapsed(0);
+          setTick((n) => n + 1);
+        }, 1500);
+      }
+    }, steps[stepIdx].ms);
+    return () => clearTimeout(t);
+  }, [stepIdx, steps]);
+
+  // Call timer (only while active)
+  useEffect(() => {
+    if (stepIdx === 0) return;
+    const id = setInterval(() => setElapsed((s) => s + 1), 1000);
+    return () => clearInterval(id);
+  }, [stepIdx, tick]);
+
+  const current = steps[stepIdx];
+  const callActive = stepIdx >= 1;
+  const m = Math.floor(elapsed / 60).toString().padStart(2, "0");
+  const s = (elapsed % 60).toString().padStart(2, "0");
+
   return (
     <div className="bezel-shell">
-      <div className="bezel-inner p-6 sm:p-8 text-center">
-        {/* Status pill */}
-        <motion.div
-          initial={{ opacity: 0, y: 8 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          className="inline-flex items-center gap-2 rounded-full bg-emerald-400/10 border border-emerald-400/20 px-3.5 py-1.5 mb-6"
-        >
-          <span className="relative inline-flex h-2 w-2">
-            <span className="absolute inset-0 rounded-full bg-emerald-400 animate-ping opacity-70" />
-            <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-400" />
-          </span>
-          <span className="text-[11px] font-semibold uppercase tracking-widest text-emerald-300">
-            {es ? "Llamada en curso" : "On call"}
-          </span>
-        </motion.div>
-
-        {/* Large avatar with pulse ring */}
-        <motion.div
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.6, delay: 0.1 }}
-          className="relative mx-auto mb-5 w-24 h-24"
-        >
-          {/* Outer pulse rings */}
-          <span className="absolute inset-0 rounded-full bg-primary/20 animate-ping" style={{ animationDuration: "2.5s" }} />
-          <span className="absolute -inset-3 rounded-full bg-primary/10 animate-ping" style={{ animationDuration: "3s" }} />
-          {/* Avatar */}
-          <div className="relative h-24 w-24 rounded-full bg-gradient-to-br from-[hsl(249,65%,56%)] to-[hsl(258,70%,62%)] grid place-items-center text-3xl font-bold text-white shadow-[0_0_40px_-8px_hsl(249,70%,50%,0.5)]">
-            <Phone className="h-8 w-8" strokeWidth={1.5} />
-          </div>
-        </motion.div>
-
-        {/* Caller name */}
-        <motion.div
-          initial={{ opacity: 0, y: 6 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.2 }}
-          className="mb-1"
-        >
-          <div className="text-xl font-semibold text-foreground tracking-tight">
-            QubeSight AI
-          </div>
-        </motion.div>
-
-        {/* Timer */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.35 }}
-          className="text-sm text-muted-foreground mb-6"
-        >
-          <CallTimer />
-        </motion.div>
-
-        {/* Big waveform */}
-        <motion.div
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.3 }}
-          className="mb-6"
-        >
-          <Waveform />
-        </motion.div>
-
-        {/* Live interpretation tag */}
-        <motion.div
-          initial={{ opacity: 0, y: 6 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.45 }}
-          className="mb-6"
-        >
-          <div className="inline-flex items-center gap-2 rounded-xl bg-white/[0.03] border border-white/[0.06] px-4 py-2.5">
-            <Mic className="h-4 w-4 text-primary" strokeWidth={1.5} />
-            <span className="text-xs text-muted-foreground">
-              {es
-                ? "Interpretación en vivo · Español ↔ English"
-                : "Live interpretation · Spanish ↔ English"}
+      <div className="bezel-inner p-6 sm:p-7">
+        {/* Auto-demo tag + step indicator */}
+        <div className="flex items-center justify-between gap-3 mb-5">
+          <div className="inline-flex items-center gap-2 rounded-full bg-primary/10 border border-primary/20 px-3 py-1">
+            <Play className="h-3 w-3 text-primary" fill="currentColor" />
+            <span className="text-[10px] font-semibold uppercase tracking-widest text-primary">
+              {es ? "Demo automática" : "Auto demo"}
             </span>
           </div>
-        </motion.div>
-
-        {/* Divider */}
-        <div className="hairline my-5" />
-
-        {/* Call transcript bubbles */}
-        <div className="flex flex-col gap-3 text-left">
-          <motion.div
-            initial={{ opacity: 0, x: -10 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: 0.6 }}
-            className="bubble-in rounded-2xl rounded-bl-md px-3.5 py-2.5 text-[13px] leading-snug max-w-[85%]"
-          >
-            {es
-              ? "Hola, ¿cuánto cuesta una limpieza dental?"
-              : "Hi, how much is a dental cleaning?"}
-            <div className="mt-1 text-[10px] text-muted-foreground">09:41</div>
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, x: 10 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: 0.8 }}
-            className="self-end bubble-out rounded-2xl rounded-br-md px-3.5 py-2.5 text-[13px] leading-snug max-w-[85%]"
-          >
-            {es
-              ? "¡Claro! La limpieza es $80. ¿Te agendo para mañana a las 10am?"
-              : "Sure! A cleaning is $80. Shall I book you for tomorrow at 10am?"}
-            <div className="mt-1 text-[10px] text-white/70">09:41</div>
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, x: 10 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: 1.0 }}
-            className="self-end bubble-out rounded-2xl rounded-br-md px-3.5 py-2.5 text-[13px] leading-snug max-w-[85%]"
-          >
-            {es
-              ? "Listo. Te envío la cotización por SMS ahora mismo."
-              : "Done. I'm sending the quote via SMS right now."}
-            <div className="mt-1.5 inline-flex items-center gap-1 rounded-full bg-white/15 px-2 py-0.5 text-[10px] font-semibold tracking-wide">
-              <MessageSquare className="h-3 w-3" /> {es ? "SMS enviado" : "SMS sent"}
-            </div>
-            <div className="mt-1 text-[10px] text-white/70">09:42</div>
-          </motion.div>
+          <div className="inline-flex items-center gap-2 rounded-full bg-emerald-400/10 border border-emerald-400/20 px-3 py-1">
+            <span className="relative inline-flex h-2 w-2">
+              <span className="absolute inset-0 rounded-full bg-emerald-400 animate-ping opacity-70" />
+              <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-400" />
+            </span>
+            <span className="text-[10px] font-semibold uppercase tracking-widest text-emerald-300">
+              {callActive ? (es ? "En vivo" : "Live") : (es ? "Sonando" : "Ringing")}
+            </span>
+          </div>
         </div>
 
-        {/* Call action buttons */}
-        <motion.div
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1.2 }}
-          className="mt-6 flex items-center justify-center gap-5"
-        >
-          <div className="flex flex-col items-center gap-1.5">
-            <div className="h-12 w-12 rounded-full bg-white/[0.06] border border-white/[0.08] grid place-items-center text-muted-foreground">
-              <Mic className="h-5 w-5" strokeWidth={1.5} />
+        {/* Step progress dots */}
+        <div className="flex items-center gap-1.5 mb-5">
+          {steps.map((st, i) => (
+            <div key={st.key} className="flex-1 h-1 rounded-full bg-white/[0.06] overflow-hidden">
+              <motion.div
+                key={`${st.key}-${tick}`}
+                initial={{ width: i < stepIdx ? "100%" : "0%" }}
+                animate={{ width: i <= stepIdx ? "100%" : "0%" }}
+                transition={{ duration: i === stepIdx ? st.ms / 1000 : 0.3, ease: "linear" }}
+                className="h-full bg-gradient-to-r from-primary to-[hsl(258,70%,68%)]"
+              />
             </div>
-            <span className="text-[10px] text-muted-foreground">{es ? "Silenciar" : "Mute"}</span>
-          </div>
-          <div className="flex flex-col items-center gap-1.5">
-            <div className="h-14 w-14 rounded-full bg-red-500/90 grid place-items-center text-white shadow-[0_8px_24px_-6px_rgba(239,68,68,0.5)]">
-              <Phone className="h-6 w-6 rotate-[135deg]" strokeWidth={1.5} />
+          ))}
+        </div>
+
+        {/* Avatar + name */}
+        <div className="text-center mb-4">
+          <motion.div
+            initial={{ scale: 0.95 }}
+            animate={{ scale: callActive ? 1 : [1, 1.04, 1] }}
+            transition={{ duration: callActive ? 0.4 : 0.9, repeat: callActive ? 0 : Infinity }}
+            className="relative mx-auto mb-3 w-20 h-20"
+          >
+            {!callActive && (
+              <>
+                <span className="absolute inset-0 rounded-full bg-primary/25 animate-ping" style={{ animationDuration: "1.2s" }} />
+                <span className="absolute -inset-3 rounded-full bg-primary/10 animate-ping" style={{ animationDuration: "1.6s" }} />
+              </>
+            )}
+            <div className="relative h-20 w-20 rounded-full bg-gradient-to-br from-[hsl(249,65%,56%)] to-[hsl(258,70%,62%)] grid place-items-center text-white shadow-[0_0_40px_-8px_hsl(249,70%,50%,0.5)]">
+              <Phone className="h-7 w-7" strokeWidth={1.5} />
             </div>
-            <span className="text-[10px] text-muted-foreground">{es ? "Colgar" : "End"}</span>
+          </motion.div>
+          <div className="text-lg font-semibold text-foreground tracking-tight">QubeSight AI</div>
+          <div className="text-xs text-muted-foreground tabular-nums">
+            {callActive ? `${m}:${s}` : (es ? "Llamando…" : "Calling…")}
           </div>
-          <div className="flex flex-col items-center gap-1.5">
-            <div className="h-12 w-12 rounded-full bg-white/[0.06] border border-white/[0.08] grid place-items-center text-muted-foreground">
-              <MessageSquare className="h-5 w-5" strokeWidth={1.5} />
-            </div>
-            <span className="text-[10px] text-muted-foreground">SMS</span>
-          </div>
-        </motion.div>
+        </div>
+
+        {/* Waveform */}
+        <div className="mb-4">
+          <Waveform active={callActive && stepIdx <= 2} />
+        </div>
+
+        {/* Current step label */}
+        <div className="flex items-center justify-center gap-2 mb-4 min-h-[28px]">
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={`${current.key}-${tick}`}
+              initial={{ opacity: 0, y: 6 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -6 }}
+              transition={{ duration: 0.3 }}
+              className="inline-flex items-center gap-2 rounded-full bg-white/[0.04] border border-white/[0.08] px-3 py-1.5"
+            >
+              <current.icon className="h-3.5 w-3.5 text-primary" strokeWidth={2} />
+              <span className="text-xs text-foreground/90 font-medium">
+                {es ? current.labelEs : current.labelEn}
+              </span>
+            </motion.div>
+          </AnimatePresence>
+        </div>
+
+        <div className="hairline my-4" />
+
+        {/* Event stream */}
+        <div className="flex flex-col gap-2.5 text-left min-h-[170px]">
+          <AnimatePresence>
+            {stepIdx >= 2 && (
+              <motion.div
+                key={`q-${tick}`}
+                initial={{ opacity: 0, x: -10 }}
+                animate={{ opacity: 1, x: 0 }}
+                className="bubble-in rounded-2xl rounded-bl-md px-3.5 py-2 text-[12.5px] leading-snug max-w-[85%]"
+              >
+                {es ? "Hola, ¿cuánto cuesta una limpieza dental?" : "Hi, how much is a cleaning?"}
+              </motion.div>
+            )}
+            {stepIdx >= 2 && (
+              <motion.div
+                key={`a-${tick}`}
+                initial={{ opacity: 0, x: 10 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: 0.4 }}
+                className="self-end bubble-out rounded-2xl rounded-br-md px-3.5 py-2 text-[12.5px] leading-snug max-w-[85%]"
+              >
+                {es ? "$80. ¿Te agendo mañana 10am?" : "$80. Book you tomorrow 10am?"}
+              </motion.div>
+            )}
+
+            {stepIdx >= 3 && (
+              <motion.div
+                key={`book-${tick}`}
+                initial={{ opacity: 0, y: 8, scale: 0.97 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                className="flex items-center gap-3 rounded-xl bg-emerald-400/[0.06] border border-emerald-400/20 px-3.5 py-2.5"
+              >
+                <div className="h-8 w-8 rounded-lg bg-emerald-400/15 grid place-items-center">
+                  <CalendarCheck className="h-4 w-4 text-emerald-300" />
+                </div>
+                <div className="flex-1">
+                  <div className="text-[12px] font-semibold text-foreground">
+                    {es ? "Turno confirmado" : "Appointment confirmed"}
+                  </div>
+                  <div className="text-[10.5px] text-muted-foreground">
+                    {es ? "Mar 23 Jun · 10:00 · Limpieza" : "Tue Jun 23 · 10:00 · Cleaning"}
+                  </div>
+                </div>
+                <Check className="h-4 w-4 text-emerald-300" />
+              </motion.div>
+            )}
+
+            {stepIdx >= 4 && (
+              <motion.div
+                key={`sms-${tick}`}
+                initial={{ opacity: 0, y: 8, scale: 0.97 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                className="flex items-center gap-3 rounded-xl bg-primary/[0.06] border border-primary/20 px-3.5 py-2.5"
+              >
+                <div className="h-8 w-8 rounded-lg bg-primary/15 grid place-items-center">
+                  <MessageSquare className="h-4 w-4 text-primary" />
+                </div>
+                <div className="flex-1">
+                  <div className="text-[12px] font-semibold text-foreground">
+                    {es ? "SMS enviado · cotización" : "SMS sent · quote"}
+                  </div>
+                  <div className="text-[10.5px] text-muted-foreground font-mono truncate">
+                    {es ? "Limpieza $80 — confirmar: y/n" : "Cleaning $80 — confirm: y/n"}
+                  </div>
+                </div>
+                <Check className="h-4 w-4 text-primary" />
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </div>
       </div>
     </div>
   );
