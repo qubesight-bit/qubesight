@@ -27,7 +27,9 @@ const Index = () => {
     <div className="min-h-screen relative">
       <BackgroundScene />
       <ParticleNetwork />
+      <div className="grain-overlay" aria-hidden="true" />
       <div className="relative" style={{ zIndex: 2 }}>
+
         <Header />
         <main>
           <Hero />
