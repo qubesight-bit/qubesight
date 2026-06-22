@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { ArrowUpRight, Play, MessageSquare, Zap, TrendingUp, Check } from "lucide-react";
+import { ArrowUpRight, Play, Phone, Zap, TrendingUp, Check } from "lucide-react";
 import { useTranslation } from "@/hooks/useTranslation";
 import HeroChatPreview from "@/components/HeroChatPreview";
 import AnimatedCounter from "@/components/AnimatedCounter";
@@ -14,7 +14,7 @@ const Hero = () => {
   )}`;
 
   const stats = [
-    { icon: MessageSquare, value: <AnimatedCounter to={2847} />, label: t("hero.proof.messages") },
+    { icon: Phone, value: <AnimatedCounter to={2847} />, label: t("hero.proof.messages") },
     { icon: Zap, value: "< 3s", label: t("hero.proof.time") },
     { icon: TrendingUp, value: "94%", label: t("hero.proof.conversion") },
   ];
