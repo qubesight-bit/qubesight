@@ -84,58 +84,61 @@ const Pricing = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="max-w-3xl mx-auto text-center mb-12"
+          className="max-w-3xl mx-auto text-center mb-14"
         >
-          <span className="inline-flex items-center gap-2 px-3 py-1.5 mb-5 text-xs font-semibold uppercase tracking-wider rounded-full glass-card text-primary">
+          <span className="eyebrow mb-6">
             {t("pricing.badge")}
           </span>
-          <h2 className="text-3xl sm:text-5xl font-bold font-display leading-tight text-balance">
+          <h2 className="display-xl text-[clamp(2rem,4.5vw,3.75rem)] mt-4">
             {t("pricing.title")}{" "}
-            <span className="gradient-text">{t("pricing.titleAccent")}</span>
+            <span className="accent-text">{t("pricing.titleAccent")}</span>
           </h2>
 
           {/* Toggle */}
-          <div className="inline-flex items-center gap-3 mt-10 p-1.5 glass-card rounded-full">
+          <div className="inline-flex items-center gap-1 mt-10 p-1 rounded-full bg-white/[0.04] border border-white/[0.08]">
             <button
               onClick={() => setYearly(false)}
-              className={`px-5 py-2 rounded-full text-sm font-semibold transition-all ${
-                !yearly ? "gradient-bg text-primary-foreground shadow-glow" : "text-muted-foreground"
+              className={`px-5 py-2 rounded-full text-sm font-semibold transition-all duration-500 ease-[cubic-bezier(.2,.8,.2,1)] ${
+                !yearly ? "bg-gradient-to-br from-[hsl(249,65%,58%)] to-[hsl(258,75%,64%)] text-white shadow-[0_10px_24px_-10px_hsl(249,70%,40%,0.7)]" : "text-muted-foreground hover:text-foreground"
               }`}
             >
               {t("pricing.monthly")}
             </button>
             <button
               onClick={() => setYearly(true)}
-              className={`px-5 py-2 rounded-full text-sm font-semibold transition-all flex items-center gap-2 ${
-                yearly ? "gradient-bg text-primary-foreground shadow-glow" : "text-muted-foreground"
+              className={`px-5 py-2 rounded-full text-sm font-semibold transition-all duration-500 ease-[cubic-bezier(.2,.8,.2,1)] flex items-center gap-2 ${
+                yearly ? "bg-gradient-to-br from-[hsl(249,65%,58%)] to-[hsl(258,75%,64%)] text-white shadow-[0_10px_24px_-10px_hsl(249,70%,40%,0.7)]" : "text-muted-foreground hover:text-foreground"
               }`}
             >
               {t("pricing.yearly")}
-              <span className={`text-[10px] px-1.5 py-0.5 rounded-full ${yearly ? "bg-background/20" : "bg-primary/20 text-primary"}`}>
+              <span className={`text-[10px] px-1.5 py-0.5 rounded-full ${yearly ? "bg-white/20" : "bg-primary/20 text-primary"}`}>
                 {t("pricing.save")}
               </span>
             </button>
           </div>
         </motion.div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-7xl mx-auto perspective-2000">
+
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-5 max-w-7xl mx-auto">
           {plans.map((plan, i) => (
             <motion.div
               key={i}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              initial={{ opacity: 0, y: 24, filter: "blur(6px)" }}
+              whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
               viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: i * 0.1 }}
-              className={`relative glass-card depth-card rounded-3xl p-8 flex flex-col ${
-                plan.popular ? "border-primary/40 shadow-glow scale-100 md:scale-105" : ""
+              transition={{ duration: 0.6, delay: i * 0.08, ease: [0.32, 0.72, 0, 1] }}
+              className={`bento-tile p-7 flex flex-col ${
+                plan.popular ? "!border-primary/40 ring-1 ring-primary/30 shadow-[0_30px_80px_-30px_hsl(249,70%,30%,0.6)]" : ""
               }`}
             >
+
               {plan.popular && (
-                <span className="absolute -top-3 left-1/2 -translate-x-1/2 inline-flex items-center gap-1 px-3 py-1 rounded-full gradient-bg text-primary-foreground text-xs font-bold uppercase tracking-wider shadow-glow">
+                <span className="absolute -top-3 left-6 inline-flex items-center gap-1 px-3 py-1 rounded-full bg-gradient-to-br from-[hsl(249,65%,58%)] to-[hsl(258,75%,64%)] text-white text-[10px] font-bold uppercase tracking-[0.18em] shadow-[0_10px_24px_-8px_hsl(249,70%,40%,0.7)]">
                   <Sparkles className="h-3 w-3" />
                   {t("pricing.popular")}
                 </span>
               )}
+
 
               <h3 className="text-xl font-bold font-display mb-1">{plan.name}</h3>
               <p className="text-sm text-muted-foreground mb-6">{plan.desc}</p>
