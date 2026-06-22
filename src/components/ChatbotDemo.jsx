@@ -1,6 +1,12 @@
 import { useState, useRef, useEffect } from "react";
 
 // ─── NICHE CONFIGURATIONS ────────────────────────────────────────────────────
+// Each niche has:
+//  - bizName / color / emoji / bgLight
+//  - services: list with id, name, price (used for menus, booking, quotes)
+//  - bookingLabel: "cita" | "reserva" | "visita"
+//  - faqs: array of {triggers, response}
+//  - autoWelcome
 const NICHES = {
   restaurante: {
     label: "Restaurante",
@@ -8,48 +14,33 @@ const NICHES = {
     color: "#C0392B",
     bgLight: "#FDF2F0",
     bizName: "La Cocina Tica",
-    flows: {
-      menu: {
-        triggers: ["hola", "menu", "menú", "inicio", "catalogo", "catálogo", "start", "hi", "buenas"],
-        response: `👋 ¡Bienvenido a La Cocina Tica! 🍽️\n\n📋 MENÚ DEL DÍA\n1️⃣ Casado con pollo — ₡4,000\n2️⃣ Casado con carne — ₡4,500\n3️⃣ Casado vegetariano — ₡3,500\n4️⃣ Arroz con pollo — ₡4,000\n5️⃣ Sopa del día — ₡2,500\n6️⃣ Gallo pinto + huevos — ₡2,500\n7️⃣ Empanadas (3 und) — ₡2,000\n8️⃣ Refresco natural — ₡1,000\n\n✍️ Escribe el número del platillo.`,
+    phone: "8888-0000",
+    address: "Curridabat, San José · 200m norte del parque",
+    bookingLabel: "reserva",
+    services: [
+      { id: "1", name: "Casado con pollo", price: "₡4,000" },
+      { id: "2", name: "Casado con carne", price: "₡4,500" },
+      { id: "3", name: "Casado vegetariano", price: "₡3,500" },
+      { id: "4", name: "Arroz con pollo", price: "₡4,000" },
+      { id: "5", name: "Sopa del día", price: "₡2,500" },
+      { id: "6", name: "Gallo pinto + huevos", price: "₡2,500" },
+      { id: "7", name: "Empanadas (3 und)", price: "₡2,000" },
+      { id: "8", name: "Refresco natural", price: "₡1,000" },
+    ],
+    extraFaqs: [
+      {
+        triggers: ["alergia", "alergias", "gluten", "celiaco", "celíaco", "vegano", "vegetariano"],
+        response: `🌱 OPCIONES ESPECIALES\n\n• Vegetariano: casado #3, sopa del día\n• Sin gluten: arroz con pollo, gallo pinto\n• Vegano bajo pedido (avisa al ordenar)\n\nSi tienes una alergia específica, indícamela y la marco en tu pedido.`,
       },
-      producto: {
-        triggers: ["1", "2", "3", "4", "5", "6", "7", "8"],
-        response: (msg) => {
-          const items = {
-            "1": { nombre: "Casado con pollo", precio: "₡4,000" },
-            "2": { nombre: "Casado con carne", precio: "₡4,500" },
-            "3": { nombre: "Casado vegetariano", precio: "₡3,500" },
-            "4": { nombre: "Arroz con pollo", precio: "₡4,000" },
-            "5": { nombre: "Sopa del día", precio: "₡2,500" },
-            "6": { nombre: "Gallo pinto + huevos", precio: "₡2,500" },
-            "7": { nombre: "Empanadas (3 und)", precio: "₡2,000" },
-            "8": { nombre: "Refresco natural", precio: "₡1,000" },
-          };
-          const p = items[msg.trim()];
-          if (!p) return null;
-          return `✅ Seleccionaste: *${p.nombre}* — ${p.precio}\n\n¿Cuántas unidades deseas?`;
-        },
+      {
+        triggers: ["delivery", "domicilio", "envio", "envío", "entrega"],
+        response: `🛵 DELIVERY\n\n• Zona: Curridabat, Sabanilla, San Pedro\n• Tiempo: 25–40 min\n• Envío: ₡1,500 (gratis sobre ₡10,000)\n• Pago: efectivo, SINPE, tarjeta\n\nEscribe *"pedir"* o el número del platillo para ordenar.`,
       },
-      promo: {
-        triggers: ["promo", "descuento", "oferta", "promocion", "promoción"],
-        response: `🎁 PROMOCIÓN DEL DÍA\n\nCupón: *TICA10*\n10% de descuento en tu pedido.\n\nEscribe "menú" para ver los platillos.`,
+      {
+        triggers: ["pago", "tarjeta", "sinpe", "efectivo", "metodo", "método"],
+        response: `💳 FORMAS DE PAGO\n\n• Efectivo (colones / USD)\n• SINPE Móvil · 8888-0000\n• Tarjeta (Visa / Mastercard)\n• Link de pago al WhatsApp\n\n¿Deseas que te envíe la *cotización por SMS*?`,
       },
-      horario: {
-        triggers: ["horario", "hora", "cuando", "cuándo", "abierto", "abren", "cierran"],
-        response: `🕐 HORARIO\n\nLun–Vie: 7am – 8pm\nSáb–Dom: 8am – 6pm\n\nEscribe "menú" para ordenar.`,
-      },
-      ubicacion: {
-        triggers: ["donde", "dónde", "ubicacion", "ubicación", "direccion", "dirección"],
-        response: `📍 UBICACIÓN\n\nCurridabat, San José, 200m norte del parque.\n\nEscribe "menú" para ordenar a domicilio.`,
-      },
-      asesor: {
-        triggers: ["asesor", "humano", "persona", "hablar", "ayuda", "soporte"],
-        response: `👨‍💼 Un asesor te atenderá pronto.\n\nHorario: 7am – 8pm\nTambién puedes llamarnos al 8888-0000.`,
-      },
-    },
-    defaultResponse: `No entendí tu mensaje. 😊\n\nEscribe *"menú"* para ver platillos o *"promo"* para descuentos.`,
-    autoWelcome: `👋 ¡Hola! Soy el asistente de *La Cocina Tica* 🍽️\n\nEscribe *"menú"* para ver nuestros platillos del día.`,
+    ],
   },
 
   salon: {
@@ -58,44 +49,33 @@ const NICHES = {
     color: "#8E44AD",
     bgLight: "#F9F0FF",
     bizName: "Salón Glam",
-    flows: {
-      menu: {
-        triggers: ["hola", "menu", "menú", "servicios", "catalogo", "catálogo", "inicio", "hi", "buenas"],
-        response: `👋 ¡Bienvenida a Salón Glam! 💇\n\n📋 SERVICIOS\n1️⃣ Corte de cabello — ₡8,000\n2️⃣ Tinte completo — ₡25,000\n3️⃣ Mechas / balayage — ₡35,000\n4️⃣ Alisado keratina — ₡45,000\n5️⃣ Manicure — ₡6,000\n6️⃣ Pedicure — ₡8,000\n7️⃣ Manicure + Pedicure — ₡13,000\n8️⃣ Maquillaje profesional — ₡20,000\n\n✍️ Escribe el número del servicio.`,
+    phone: "8777-1234",
+    address: "Escazú, San José · Plaza Itskatzú local 12",
+    bookingLabel: "cita",
+    services: [
+      { id: "1", name: "Corte de cabello", price: "₡8,000" },
+      { id: "2", name: "Tinte completo", price: "₡25,000" },
+      { id: "3", name: "Mechas / balayage", price: "₡35,000" },
+      { id: "4", name: "Alisado keratina", price: "₡45,000" },
+      { id: "5", name: "Manicure", price: "₡6,000" },
+      { id: "6", name: "Pedicure", price: "₡8,000" },
+      { id: "7", name: "Manicure + Pedicure", price: "₡13,000" },
+      { id: "8", name: "Maquillaje profesional", price: "₡20,000" },
+    ],
+    extraFaqs: [
+      {
+        triggers: ["duracion", "duración", "tiempo", "cuanto dura", "cuánto dura"],
+        response: `⏱️ DURACIÓN APROXIMADA\n\n• Corte: 45 min\n• Tinte: 1h 30min\n• Mechas / balayage: 2h – 3h\n• Keratina: 2h\n• Mani + Pedi: 1h 15min\n\n¿Te agendo una *cita*?`,
       },
-      producto: {
-        triggers: ["1", "2", "3", "4", "5", "6", "7", "8"],
-        response: (msg) => {
-          const items = {
-            "1": "Corte de cabello — ₡8,000",
-            "2": "Tinte completo — ₡25,000",
-            "3": "Mechas / balayage — ₡35,000",
-            "4": "Alisado keratina — ₡45,000",
-            "5": "Manicure — ₡6,000",
-            "6": "Pedicure — ₡8,000",
-            "7": "Manicure + Pedicure — ₡13,000",
-            "8": "Maquillaje profesional — ₡20,000",
-          };
-          const p = items[msg.trim()];
-          if (!p) return null;
-          return `✅ Servicio: *${p}*\n\nEscribe *"cita"* para agendar o *"asesor"* para más info.`;
-        },
+      {
+        triggers: ["producto", "productos", "marca", "marcas"],
+        response: `💎 USAMOS PRODUCTOS PROFESIONALES\n\n• L'Oréal Professionnel\n• Wella Koleston\n• OPI / CND para uñas\n• Keratina sin formol\n\nGarantizamos resultados o repetimos el servicio.`,
       },
-      cita: {
-        triggers: ["cita", "agendar", "reservar", "turno", "appointment"],
-        response: `📅 AGENDAR CITA\n\n⏰ Horario: Lun–Sáb 8am – 7pm\n📞 WhatsApp: 8777-1234\n\nO escribe *"asesor"* para que te atendamos aquí.`,
+      {
+        triggers: ["parqueo", "parking", "estacionamiento"],
+        response: `🅿️ PARQUEO\n\nGratis dentro de Plaza Itskatzú.\nValidamos tu ticket en recepción.`,
       },
-      promo: {
-        triggers: ["promo", "descuento", "oferta", "promocion", "promoción"],
-        response: `🎁 PROMO DEL MES\n\nCupón: *BELLA10*\n10% de descuento en cualquier servicio.\n\nEscribe el número del servicio para más info.`,
-      },
-      asesor: {
-        triggers: ["asesor", "humano", "persona", "hablar", "ayuda"],
-        response: `👩‍💼 Una estilista te atenderá pronto.\n\nHorario: Lun–Sáb 8am – 7pm\nWhatsApp: 8777-1234`,
-      },
-    },
-    defaultResponse: `No entendí tu mensaje. 😊\n\nEscribe *"menú"* para ver servicios o *"cita"* para agendar.`,
-    autoWelcome: `👋 ¡Hola! Soy la asistente de *Salón Glam* 💇\n\nEscribe *"menú"* para ver nuestros servicios y precios.`,
+    ],
   },
 
   dental: {
@@ -104,48 +84,33 @@ const NICHES = {
     color: "#2980B9",
     bgLight: "#EBF5FB",
     bizName: "DentalCare CR",
-    flows: {
-      menu: {
-        triggers: ["hola", "menu", "menú", "servicios", "tratamientos", "inicio", "hi", "buenas"],
-        response: `👋 ¡Bienvenido a DentalCare CR! 🦷\n\n📋 SERVICIOS\n1️⃣ Consulta general — ₡15,000\n2️⃣ Limpieza dental — ₡20,000\n3️⃣ Blanqueamiento — ₡60,000\n4️⃣ Extracción simple — ₡25,000\n5️⃣ Empaste (resina) — ₡30,000\n6️⃣ Radiografía — ₡12,000\n7️⃣ Ortodoncia (consulta) — Gratis\n8️⃣ Emergencia dental — ₡35,000\n\n✍️ Escribe el número o tu consulta.`,
-      },
-      producto: {
-        triggers: ["1", "2", "3", "4", "5", "6", "7", "8"],
-        response: (msg) => {
-          const items = {
-            "1": "Consulta general — ₡15,000",
-            "2": "Limpieza dental — ₡20,000",
-            "3": "Blanqueamiento — ₡60,000",
-            "4": "Extracción simple — ₡25,000",
-            "5": "Empaste (resina) — ₡30,000",
-            "6": "Radiografía — ₡12,000",
-            "7": "Ortodoncia — consulta gratuita",
-            "8": "Emergencia dental — ₡35,000",
-          };
-          const p = items[msg.trim()];
-          if (!p) return null;
-          return `✅ Servicio: *${p}*\n\nEscribe *"cita"* para agendar.\n📞 También: 2222-0000\n⏰ Lun–Vie 8am – 6pm`;
-        },
-      },
-      cita: {
-        triggers: ["cita", "agendar", "reservar", "turno", "consulta"],
-        response: `📅 AGENDAR CITA\n\nIndícanos:\n• Tu nombre\n• Servicio que necesitas\n• Día y hora preferida\n\n📞 2222-0000\n⏰ Lun–Vie 8am – 6pm`,
-      },
-      promo: {
-        triggers: ["promo", "descuento", "oferta", "promocion", "promoción"],
-        response: `🎁 PROMOCIÓN\n\nConsulta + Limpieza: *₡30,000* (ahorra ₡5,000)\nVigencia: este mes.\n\nEscribe *"cita"* para aprovecharla.`,
-      },
-      emergencia: {
+    phone: "2222-0000",
+    address: "Sabana Sur, San José · Edificio Médico Torre A, piso 3",
+    bookingLabel: "cita",
+    services: [
+      { id: "1", name: "Consulta general", price: "₡15,000" },
+      { id: "2", name: "Limpieza dental", price: "₡20,000" },
+      { id: "3", name: "Blanqueamiento", price: "₡60,000" },
+      { id: "4", name: "Extracción simple", price: "₡25,000" },
+      { id: "5", name: "Empaste (resina)", price: "₡30,000" },
+      { id: "6", name: "Radiografía", price: "₡12,000" },
+      { id: "7", name: "Ortodoncia (consulta)", price: "Gratis" },
+      { id: "8", name: "Emergencia dental", price: "₡35,000" },
+    ],
+    extraFaqs: [
+      {
         triggers: ["emergencia", "dolor", "urgente", "urgencia", "duele"],
-        response: `🚨 EMERGENCIA DENTAL\n\nTe atendemos hoy mismo.\n📞 Llámanos: 2222-0000\n\nHorario emergencias: 7am – 8pm\nTambién sábados.`,
+        response: `🚨 EMERGENCIA DENTAL\n\nTe atendemos hoy mismo.\n📞 2222-0000 (24/7)\nO escribe *"agendar"* y reservo el siguiente cupo libre.\n\n¿Quieres que un *recepcionista IA te llame ya mismo*? Escribe *"llamada"*.`,
       },
-      asesor: {
-        triggers: ["asesor", "humano", "doctor", "persona", "hablar", "ayuda"],
-        response: `👨‍⚕️ Nuestro equipo te contactará.\n\n⏰ Lun–Vie 8am – 6pm\n📞 2222-0000`,
+      {
+        triggers: ["seguro", "ins", "ccss", "aseguradora", "poliza", "póliza"],
+        response: `🏥 SEGUROS QUE ACEPTAMOS\n\n• INS (Vida + Médico)\n• Assa\n• MAPFRE\n• Sagicor\n\nTramitamos el cobro directo. Indícanos tu aseguradora al agendar.`,
       },
-    },
-    defaultResponse: `No entendí tu mensaje. 😊\n\nEscribe *"menú"* para ver tratamientos o *"cita"* para agendar.`,
-    autoWelcome: `👋 ¡Hola! Soy la asistente de *DentalCare CR* 🦷\n\nEscribe *"menú"* para ver servicios y precios.`,
+      {
+        triggers: ["financiamiento", "cuotas", "plan", "pagar a plazos"],
+        response: `💳 FINANCIAMIENTO\n\n• Hasta 12 cuotas sin intereses con tarjeta\n• Plan interno para ortodoncia (24 meses)\n• Descuento del 5% pago al contado\n\nTe envío la *cotización por SMS* si me das tu número.`,
+      },
+    ],
   },
 
   gym: {
@@ -154,48 +119,33 @@ const NICHES = {
     color: "#E67E22",
     bgLight: "#FEF9F0",
     bizName: "FitZone CR",
-    flows: {
-      menu: {
-        triggers: ["hola", "menu", "menú", "membresias", "membresías", "precios", "inicio", "hi", "buenas"],
-        response: `👋 ¡Bienvenido a FitZone CR! 💪\n\n📋 MEMBRESÍAS Y SERVICIOS\n1️⃣ Mensualidad básica — ₡15,000\n2️⃣ Mensualidad premium — ₡25,000\n3️⃣ Plan trimestral — ₡40,000\n4️⃣ Plan semestral — ₡70,000\n5️⃣ Clase de spinning — ₡4,000\n6️⃣ Clase de yoga — ₡4,000\n7️⃣ Entrenamiento personal — ₡12,000\n8️⃣ Día de visita — ₡2,500\n\n✍️ Escribe el número que te interesa.`,
+    phone: "8555-2000",
+    address: "Curridabat, San José · 100m sur de la Pops",
+    bookingLabel: "visita",
+    services: [
+      { id: "1", name: "Mensualidad básica", price: "₡15,000" },
+      { id: "2", name: "Mensualidad premium", price: "₡25,000" },
+      { id: "3", name: "Plan trimestral", price: "₡40,000" },
+      { id: "4", name: "Plan semestral", price: "₡70,000" },
+      { id: "5", name: "Clase de spinning", price: "₡4,000" },
+      { id: "6", name: "Clase de yoga", price: "₡4,000" },
+      { id: "7", name: "Entrenamiento personal", price: "₡12,000" },
+      { id: "8", name: "Día de visita", price: "₡2,500" },
+    ],
+    extraFaqs: [
+      {
+        triggers: ["clases", "horario clases", "spinning", "yoga", "crossfit", "zumba"],
+        response: `🧘 CLASES GRUPALES\n\n• Spinning: Lun/Mié/Vie 6am, 6pm\n• Yoga: Mar/Jue 7am, 7pm\n• HIIT: Lun–Vie 5:30pm\n• Zumba: Sáb 9am\n\nIncluidas en el plan Premium. Reserva con *"agendar"*.`,
       },
-      producto: {
-        triggers: ["1", "2", "3", "4", "5", "6", "7", "8"],
-        response: (msg) => {
-          const items = {
-            "1": "Mensualidad básica — ₡15,000",
-            "2": "Mensualidad premium — ₡25,000",
-            "3": "Plan trimestral — ₡40,000",
-            "4": "Plan semestral — ₡70,000",
-            "5": "Clase de spinning — ₡4,000",
-            "6": "Clase de yoga — ₡4,000",
-            "7": "Entrenamiento personal — ₡12,000",
-            "8": "Día de visita — ₡2,500",
-          };
-          const p = items[msg.trim()];
-          if (!p) return null;
-          return `🔥 Seleccionaste: *${p}*\n\nEscribe *"inscribir"* para registrarte o *"asesor"* para más info.`;
-        },
+      {
+        triggers: ["congelar", "pausar", "vacaciones", "suspender"],
+        response: `⏸️ CONGELAR MEMBRESÍA\n\nPuedes pausarla hasta 30 días al año sin costo (con aviso de 5 días).\n\nEscribe *"asesor"* para tramitarlo.`,
       },
-      inscribir: {
-        triggers: ["inscribir", "inscripcion", "inscripción", "registrar", "unirme", "empezar"],
-        response: `📝 INSCRIPCIÓN\n\n📍 Curridabat, San José\n📞 WhatsApp: 8555-2000\n⏰ Lun–Sáb 5am – 10pm\n\n🎉 ¡El primer día es gratis!`,
+      {
+        triggers: ["entrenador", "personal trainer", "coach", "rutina"],
+        response: `🏋️ ENTRENAMIENTO PERSONAL\n\n• Sesión individual: ₡12,000\n• Pack 8 sesiones: ₡80,000\n• Plan + nutrición: ₡100,000/mes\n\nIncluye evaluación inicial gratis. ¿Te agendo?`,
       },
-      promo: {
-        triggers: ["promo", "descuento", "oferta", "promocion", "promoción"],
-        response: `🎁 PROMO DEL MES\n\nCupón: *GYM15*\n15% en tu primera mensualidad.\n\nEscribe "menú" para elegir tu plan.`,
-      },
-      horario: {
-        triggers: ["horario", "hora", "cuando", "cuándo", "abierto", "abren"],
-        response: `🕐 HORARIO\n\nLun–Vie: 5am – 10pm\nSábado: 6am – 8pm\nDomingo: 7am – 2pm\n\n¡Te esperamos! 💪`,
-      },
-      asesor: {
-        triggers: ["asesor", "entrenador", "coach", "persona", "hablar", "ayuda"],
-        response: `👨‍💼 Un entrenador te contactará pronto.\n\n⏰ Lun–Sáb 5am – 10pm\n📞 WhatsApp: 8555-2000`,
-      },
-    },
-    defaultResponse: `No entendí tu mensaje. 💪\n\nEscribe *"menú"* para ver planes o *"promo"* para descuentos.`,
-    autoWelcome: `👋 ¡Hola! Soy el asistente de *FitZone CR* 💪\n\nEscribe *"menú"* para ver membresías y precios.`,
+    ],
   },
 
   inmobiliaria: {
@@ -204,87 +154,198 @@ const NICHES = {
     color: "#27AE60",
     bgLight: "#EAFAF1",
     bizName: "PropCR",
-    flows: {
-      menu: {
-        triggers: ["hola", "menu", "menú", "propiedades", "inicio", "hi", "buenas", "ayuda"],
-        response: `👋 ¡Bienvenido a PropCR! 🏠\n\n📋 ¿EN QUÉ TE AYUDAMOS?\n1️⃣ Propiedades en venta\n2️⃣ Propiedades en alquiler\n3️⃣ Agendar visita\n4️⃣ Avalúo de mi propiedad\n5️⃣ Asesoría de crédito\n6️⃣ Publicar mi propiedad\n7️⃣ Hablar con un asesor\n\n✍️ Escribe el número de la opción.`,
+    phone: "2233-4455",
+    address: "Escazú, San José · Avenida Escazú, Torre 1 piso 5",
+    bookingLabel: "visita",
+    services: [
+      { id: "1", name: "Apartamento 2 hab · Escazú", price: "$185,000" },
+      { id: "2", name: "Casa 3 hab · Heredia", price: "$240,000" },
+      { id: "3", name: "Penthouse · Rohrmoser", price: "$420,000" },
+      { id: "4", name: "Lote 500m² · Alajuela", price: "$95,000" },
+      { id: "5", name: "Alquiler apto Sabana", price: "$950/mes" },
+      { id: "6", name: "Alquiler casa Curridabat", price: "$1,400/mes" },
+      { id: "7", name: "Avalúo de propiedad", price: "Gratis" },
+      { id: "8", name: "Asesoría hipotecaria", price: "Gratis" },
+    ],
+    extraFaqs: [
+      {
+        triggers: ["credito", "crédito", "hipoteca", "hipotecario", "banco", "prestamo", "préstamo"],
+        response: `💳 ASESORÍA HIPOTECARIA\n\nTrabajamos con BAC, BCR, Davivienda, Promerica.\n\n• Pre-aprobación en 48h\n• Hasta 90% de financiamiento\n• Plazo hasta 30 años\n\nEscribe *"cotizar"* y te envío simulación por SMS.`,
       },
-      producto: {
-        triggers: ["1", "2", "3", "4", "5", "6", "7"],
-        response: (msg) => {
-          const items = {
-            "1": `🏘️ PROPIEDADES EN VENTA\n\nMás de 50 opciones en San José, Heredia y Alajuela.\n\nEscribe *"asesor"* para recibir el catálogo personalizado.`,
-            "2": `🏡 PROPIEDADES EN ALQUILER\n\nApartamentos desde ₡250,000/mes.\nCasas desde ₡400,000/mes.\n\nEscribe *"asesor"* para ver opciones.`,
-            "3": `📅 AGENDAR VISITA\n\nIndícanos zona y tipo de propiedad.\n📞 También: 2233-4455`,
-            "4": `📊 AVALÚO GRATUITO\n\nEsta semana: avalúo sin costo.\nEscribe *"asesor"* y te contactamos hoy.`,
-            "5": `💳 ASESORÍA DE CRÉDITO\n\nTe ayudamos con crédito hipotecario.\nEscribe *"asesor"* para iniciar.`,
-            "6": `📣 PUBLICAR PROPIEDAD\n\n30 días gratis.\nEscribe *"asesor"* para empezar.`,
-            "7": `👨‍💼 Un asesor te contactará.\n\n⏰ Lun–Sáb 8am – 6pm\n📞 2233-4455`,
-          };
-          return items[msg.trim()] || null;
-        },
+      {
+        triggers: ["zonas", "ubicaciones", "donde", "dónde tienen"],
+        response: `📍 ZONAS CON PROPIEDADES\n\n• Escazú · Santa Ana · Rohrmoser\n• Heredia · Belén · Cariari\n• Curridabat · Sabanilla\n• Alajuela · La Garita\n\n¿En qué zona buscas? Te envío opciones.`,
       },
-      venta: {
-        triggers: ["venta", "comprar", "compra", "casa", "apartamento"],
-        response: `🏘️ PROPIEDADES EN VENTA\n\nMás de 50 opciones disponibles.\n\nEscribe *"asesor"* para recibir el catálogo o llama al 📞 2233-4455.`,
+      {
+        triggers: ["extranjero", "expat", "residencia", "english", "ingles", "inglés"],
+        response: `🌎 ATENCIÓN A EXTRANJEROS\n\nAtendemos en *español, inglés y portugués* — con *intérprete en vivo* por llamada si lo necesitas.\n\nAsesoría completa: residencia, escritura, due diligence.`,
       },
-      alquiler: {
-        triggers: ["alquiler", "alquilar", "arrendar", "renta", "rentar"],
-        response: `🏡 PROPIEDADES EN ALQUILER\n\nApartamentos desde ₡250,000/mes.\nCasas desde ₡400,000/mes.\n\nEscribe *"asesor"* para ver opciones.`,
-      },
-      promo: {
-        triggers: ["promo", "gratis", "oferta", "avaluo", "avalúo"],
-        response: `🎁 AVALÚO GRATUITO\n\nEsta semana valoramos tu propiedad sin costo.\nEscribe *"asesor"* y te contactamos hoy.`,
-      },
-      asesor: {
-        triggers: ["asesor", "agente", "persona", "hablar", "contacto", "llamar"],
-        response: `👨‍💼 Un asesor te contactará pronto.\n\n⏰ Lun–Sáb 8am – 6pm\n📞 2233-4455\n✉️ info@propcr.com`,
-      },
-    },
-    defaultResponse: `No entendí tu mensaje. 🏠\n\nEscribe *"menú"* para ver opciones o *"asesor"* para hablar con alguien.`,
-    autoWelcome: `👋 ¡Hola! Soy la asistente de *PropCR* 🏠\n\nEscribe *"menú"* para explorar propiedades y servicios.`,
+    ],
   },
 };
 
+// ─── UNIVERSAL CROSS-NICHE FLOWS (voice, SMS, interpretation, payment) ───────
+const UNIVERSAL_FLOWS = [
+  {
+    key: "voz",
+    triggers: [
+      "llamada", "llamame", "llámame", "llamar", "voz", "voice", "call",
+      "telefono", "teléfono", "recepcionista", "receptionist", "habla",
+    ],
+    response: (niche) =>
+      `🎙️ RECEPCIONISTA IA POR VOZ\n\nNuestro asistente de voz puede llamarte ahora mismo y:\n\n• Contestar tus preguntas en tiempo real\n• Agendar tu ${niche.bookingLabel} en el calendario\n• Enviarte la *cotización por SMS* al terminar\n• Interpretar la llamada *español ↔ inglés* en vivo\n\n📞 Línea demo: ${niche.phone}\nO escribe *"agendar"* y te llamamos en menos de 1 minuto.`,
+  },
+  {
+    key: "interprete",
+    triggers: [
+      "english", "ingles", "inglés", "interprete", "intérprete",
+      "interpretacion", "interpretación", "traducir", "translate",
+      "idioma", "language", "bilingue", "bilingüe",
+    ],
+    response: (niche) =>
+      `🌐 INTERPRETACIÓN EN VIVO\n\nWe also speak English! 🇺🇸🇪🇸\n\nNuestro asistente IA traduce la llamada en tiempo real:\n• Español ↔ English ↔ Português\n• Latencia < 1 segundo\n• Sin operador humano de por medio\n\nEscribe *"llamada"* para probarlo o *"agendar"* y te contactamos en tu idioma.`,
+  },
+  {
+    key: "cotizar",
+    triggers: [
+      "cotizar", "cotizacion", "cotización", "presupuesto", "precio total",
+      "sms", "mensaje", "quote",
+    ],
+    response: (niche) => {
+      const top = niche.services.slice(0, 3)
+        .map((s) => `• ${s.name} — ${s.price}`).join("\n");
+      return `📲 COTIZACIÓN POR SMS\n\nTe enviamos un resumen al instante a tu celular:\n\n${top}\n\nEscribe *"agendar"* y al final del flujo te llega el SMS con tu cotización personalizada y enlace de pago.`;
+    },
+  },
+];
+
+// ─── BOOKING STATE MACHINE ────────────────────────────────────────────────────
+// Stages: idle → service → date → time → name → phone → done
+const BOOKING_TRIGGERS = [
+  "agendar", "reservar", "reserva", "cita", "turno", "visita",
+  "appointment", "book", "pedir", "ordenar",
+];
+
+function isBookingTrigger(msg) {
+  const m = msg.toLowerCase().trim();
+  return BOOKING_TRIGGERS.some((t) => m === t || m.includes(t));
+}
+
+function bookingPrompt(stage, niche, data) {
+  switch (stage) {
+    case "service":
+      return `📋 AGENDAR ${niche.bookingLabel.toUpperCase()}\n\n¿Qué servicio te interesa?\n\n${niche.services
+        .map((s) => `${s.id}️⃣ ${s.name} — ${s.price}`)
+        .join("\n")}\n\n✍️ Escribe el número.`;
+    case "date":
+      return `📅 Perfecto, *${data.service.name}*.\n\n¿Para qué día? (ej: *mañana*, *viernes*, *15/jun*)`;
+    case "time":
+      return `🕐 ¿A qué hora? (ej: *10am*, *3:30pm*, *en la tarde*)`;
+    case "name":
+      return `📝 Listo. ¿A nombre de quién agendo?`;
+    case "phone":
+      return `📱 Último paso — ¿a qué número te envío la *confirmación + cotización por SMS*?`;
+    default:
+      return null;
+  }
+}
+
+function bookingConfirmation(niche, data) {
+  return (
+    `✅ ¡${data.name.split(" ")[0]}, ${niche.bookingLabel} confirmada!\n\n` +
+    `🗓️ ${data.date} · ${data.time}\n` +
+    `💼 ${data.service.name} — ${data.service.price}\n` +
+    `📍 ${niche.address}\n\n` +
+    `📲 *SMS enviado a ${data.phone}:*\n` +
+    `_"${niche.bizName}: ${data.service.name} ${data.date} ${data.time}. ` +
+    `Total ${data.service.price}. Pagar: pay.qubesight.lat/${data.name
+      .toLowerCase()
+      .replace(/\s+/g, "")
+      .slice(0, 8)}. Responde CANCELAR para anular."_\n\n` +
+    `🎙️ ¿Prefieres que un *recepcionista IA te llame* para confirmar por voz? Escribe *"llamada"*.`
+  );
+}
+
+// ─── QUICK REPLIES ────────────────────────────────────────────────────────────
 const QUICK_REPLIES = {
-  restaurante: ["Menú", "Promo", "Horario", "Dónde están", "Asesor"],
-  salon:       ["Menú", "Cita", "Promo", "Asesor"],
-  dental:      ["Menú", "Cita", "Emergencia", "Promo", "Asesor"],
-  gym:         ["Menú", "Promo", "Horario", "Inscribir", "Asesor"],
-  inmobiliaria:["Menú", "Venta", "Alquiler", "Avalúo", "Asesor"],
+  restaurante: ["Menú", "Reservar", "🎙️ Llamada IA", "📲 Cotizar SMS", "🌐 English"],
+  salon:       ["Servicios", "Agendar cita", "🎙️ Llamada IA", "📲 Cotizar SMS", "🌐 English"],
+  dental:      ["Tratamientos", "Agendar cita", "Emergencia", "🎙️ Llamada IA", "📲 Cotizar SMS"],
+  gym:         ["Membresías", "Agendar visita", "Clases", "🎙️ Llamada IA", "📲 Cotizar SMS"],
+  inmobiliaria:["Propiedades", "Agendar visita", "Crédito", "🎙️ Llamada IA", "🌐 English"],
 };
 
-function getResponse(nicheKey, message) {
-  const niche = NICHES[nicheKey];
-  const msg = message.toLowerCase().trim();
-  for (const [, flow] of Object.entries(niche.flows)) {
-    if (flow.triggers.some((t) => msg === t || msg.includes(t))) {
-      if (typeof flow.response === "function") {
-        const result = flow.response(msg);
-        if (result) return result;
-      } else {
-        return flow.response;
-      }
+// ─── RESPONSE RESOLVER ────────────────────────────────────────────────────────
+function buildMenu(niche) {
+  return (
+    `👋 ¡Bienvenido a *${niche.bizName}*! ${niche.emoji}\n\n` +
+    `📋 ${niche.bookingLabel === "reserva" ? "MENÚ" : "SERVICIOS"}\n` +
+    niche.services.map((s) => `${s.id}️⃣ ${s.name} — ${s.price}`).join("\n") +
+    `\n\n✍️ Escribe el número, o di *"agendar"*, *"llamada"* o *"cotizar"*.`
+  );
+}
+
+function getServiceByNumber(niche, msg) {
+  const m = msg.trim();
+  return niche.services.find((s) => s.id === m) || null;
+}
+
+function matchUniversal(msg, niche) {
+  const m = msg.toLowerCase().trim();
+  for (const flow of UNIVERSAL_FLOWS) {
+    if (flow.triggers.some((t) => m === t || m.includes(t))) {
+      return flow.response(niche);
     }
   }
-  return niche.defaultResponse;
+  return null;
+}
+
+function matchFaq(msg, niche) {
+  const m = msg.toLowerCase().trim();
+  // menu
+  if (["hola", "menu", "menú", "inicio", "start", "hi", "buenas", "servicios", "tratamientos", "membresias", "membresías", "propiedades", "catalogo", "catálogo"].some((t) => m === t || m.includes(t))) {
+    return buildMenu(niche);
+  }
+  // promo
+  if (["promo", "descuento", "oferta", "promocion", "promoción", "cupon", "cupón"].some((t) => m.includes(t))) {
+    return `🎁 PROMO DEL MES\n\nCupón: *QUBE10*\n10% de descuento en tu primer ${niche.bookingLabel}.\nVigencia: este mes.\n\nEscribe *"agendar"* para aplicarla.`;
+  }
+  // horario
+  if (["horario", "hora", "abren", "cierran", "abierto"].some((t) => m.includes(t))) {
+    return `🕐 HORARIO\n\nLun–Vie: 8am – 7pm\nSáb: 8am – 4pm\nDom: cerrado\n\n🤖 Pero el *asistente IA está 24/7* por chat, voz y SMS.`;
+  }
+  // ubicacion
+  if (["donde", "dónde", "ubicacion", "ubicación", "direccion", "dirección", "como llegar", "cómo llegar"].some((t) => m.includes(t))) {
+    return `📍 UBICACIÓN\n\n${niche.address}\n\n📞 ${niche.phone}\n\n¿Te envío el pin de Google Maps por SMS? Escribe *"cotizar"* con tu número.`;
+  }
+  // asesor
+  if (["asesor", "humano", "persona", "hablar con", "agente", "contactar", "llamame", "llámame"].some((t) => m.includes(t))) {
+    return null; // handled separately by lead form
+  }
+  // niche-specific FAQs
+  for (const faq of niche.extraFaqs || []) {
+    if (faq.triggers.some((t) => m.includes(t))) return faq.response;
+  }
+  return null;
 }
 
 // Returns scripted reply if a strong match, otherwise null (fall back to AI)
 function getScriptedReply(nicheKey, message) {
   const niche = NICHES[nicheKey];
-  const msg = message.toLowerCase().trim();
-  for (const [, flow] of Object.entries(niche.flows)) {
-    if (flow.triggers.some((t) => msg === t || msg.includes(t))) {
-      if (typeof flow.response === "function") {
-        const result = flow.response(msg);
-        if (result) return result;
-      } else {
-        return flow.response;
-      }
-    }
+  // service number
+  const svc = getServiceByNumber(niche, message);
+  if (svc) {
+    return `✅ Seleccionaste: *${svc.name}* — ${svc.price}\n\n¿Qué prefieres?\n• Escribe *"agendar"* para reservar\n• *"cotizar"* para recibir SMS con el detalle\n• *"llamada"* para que el asistente IA te llame ahora`;
   }
+  const universal = matchUniversal(message, niche);
+  if (universal) return universal;
+  const faq = matchFaq(message, niche);
+  if (faq) return faq;
   return null;
+}
+
+function getDefaultResponse(niche) {
+  return `No estoy seguro de haber entendido 😊\n\nPuedes:\n• Escribir *"menú"* para ver opciones\n• *"agendar"* para reservar tu ${niche.bookingLabel}\n• *"llamada"* para hablar con el recepcionista IA por voz\n• *"cotizar"* para recibir SMS con precios\n• *"english"* para cambiar a inglés con intérprete en vivo`;
 }
 
 function formatMessage(text) {
@@ -347,190 +408,7 @@ function TypingIndicator({ color }) {
   );
 }
 
-function ChatWidget({ nicheKey }) {
-  const niche = NICHES[nicheKey];
-  const [messages, setMessages] = useState([]);
-  const [input, setInput] = useState("");
-  const [typing, setTyping] = useState(false);
-  const [open, setOpen] = useState(false);
-  const [unread, setUnread] = useState(1);
-  const bottomRef = useRef(null);
-  const hasOpened = useRef(false);
-
-  const now = () =>
-    new Date().toLocaleTimeString("es-CR", { hour: "2-digit", minute: "2-digit" });
-
-  useEffect(() => {
-    if (bottomRef.current) bottomRef.current.scrollIntoView({ behavior: "smooth" });
-  }, [messages, typing]);
-
-  useEffect(() => {
-    if (open && !hasOpened.current) {
-      hasOpened.current = true;
-      setUnread(0);
-      setTimeout(() => {
-        setTyping(true);
-        setTimeout(() => {
-          setTyping(false);
-          setMessages([{ role: "bot", text: niche.autoWelcome, time: now() }]);
-        }, 1200);
-      }, 400);
-    }
-    if (open) setUnread(0);
-  }, [open]);
-
-  const send = (text) => {
-    const msg = (text || input).trim();
-    if (!msg) return;
-    setInput("");
-    setMessages((prev) => [...prev, { role: "user", text: msg, time: now() }]);
-    setTyping(true);
-    setTimeout(() => {
-      const reply = getResponse(nicheKey, msg);
-      setTyping(false);
-      setMessages((prev) => [...prev, { role: "bot", text: reply, time: now() }]);
-    }, 900 + Math.random() * 600);
-  };
-
-  return (
-    <>
-      <style>{`
-        @keyframes bounce {
-          0%,60%,100%{transform:translateY(0)}
-          30%{transform:translateY(-5px)}
-        }
-        @keyframes popIn {
-          from{opacity:0;transform:scale(0.9) translateY(10px)}
-          to{opacity:1;transform:scale(1) translateY(0)}
-        }
-      `}</style>
-
-      <div
-        onClick={() => setOpen((v) => !v)}
-        style={{
-          position: "fixed", bottom: 24, right: 24, zIndex: 9999,
-          width: 56, height: 56, borderRadius: "50%",
-          background: niche.color, color: "#fff",
-          display: "flex", alignItems: "center", justifyContent: "center",
-          fontSize: 24, cursor: "pointer",
-          boxShadow: "0 4px 16px rgba(0,0,0,0.22)",
-          transition: "transform 0.2s",
-        }}
-        onMouseEnter={e => e.currentTarget.style.transform = "scale(1.08)"}
-        onMouseLeave={e => e.currentTarget.style.transform = "scale(1)"}
-      >
-        {open ? "✕" : niche.emoji}
-        {!open && unread > 0 && (
-          <div style={{
-            position: "absolute", top: -3, right: -3,
-            background: "#E74C3C", color: "#fff",
-            width: 18, height: 18, borderRadius: "50%",
-            fontSize: 10, fontWeight: 700,
-            display: "flex", alignItems: "center", justifyContent: "center",
-          }}>{unread}</div>
-        )}
-      </div>
-
-      {open && (
-        <div style={{
-          position: "fixed", bottom: 92, right: 24, zIndex: 9998,
-          width: 340, height: 520, borderRadius: 20,
-          background: "#f5f5f5", display: "flex", flexDirection: "column",
-          boxShadow: "0 8px 40px rgba(0,0,0,0.18)",
-          animation: "popIn 0.25s ease",
-          overflow: "hidden",
-          fontFamily: "'Segoe UI', system-ui, sans-serif",
-        }}>
-          <div style={{
-            background: niche.color, color: "#fff",
-            padding: "14px 16px", display: "flex", alignItems: "center", gap: 10,
-          }}>
-            <div style={{
-              width: 36, height: 36, borderRadius: "50%",
-              background: "rgba(255,255,255,0.25)",
-              display: "flex", alignItems: "center", justifyContent: "center",
-              fontSize: 18,
-            }}>{niche.emoji}</div>
-            <div style={{ flex: 1 }}>
-              <div style={{ fontWeight: 700, fontSize: 14 }}>{niche.bizName}</div>
-              <div style={{ fontSize: 11, opacity: 0.85 }}>
-                <span style={{
-                  display: "inline-block", width: 6, height: 6, borderRadius: "50%",
-                  background: "#4ade80", marginRight: 4, verticalAlign: "middle",
-                }} />
-                En línea ahora
-              </div>
-            </div>
-            <div onClick={() => setOpen(false)} style={{ cursor: "pointer", fontSize: 18, opacity: 0.8 }}>✕</div>
-          </div>
-
-          <div style={{
-            flex: 1, overflowY: "auto", padding: "12px 12px 4px",
-            background: niche.bgLight,
-          }}>
-            {messages.map((msg, i) => <Bubble key={i} msg={msg} color={niche.color} />)}
-            {typing && <TypingIndicator color={niche.color} />}
-            <div ref={bottomRef} />
-          </div>
-
-          {messages.length > 0 && !typing && (
-            <div style={{
-              padding: "6px 10px", background: niche.bgLight,
-              display: "flex", gap: 6, flexWrap: "wrap",
-              borderTop: "1px solid rgba(0,0,0,0.06)",
-            }}>
-              {QUICK_REPLIES[nicheKey].map((q) => (
-                <button
-                  key={q}
-                  onClick={() => send(q.toLowerCase())}
-                  style={{
-                    background: "#fff", border: `1px solid ${niche.color}`,
-                    color: niche.color, borderRadius: 20,
-                    padding: "4px 12px", fontSize: 11.5,
-                    cursor: "pointer", fontWeight: 500,
-                  }}
-                >{q}</button>
-              ))}
-            </div>
-          )}
-
-          <div style={{
-            display: "flex", padding: "10px 12px",
-            background: "#fff", borderTop: "1px solid #e8e8e8",
-            gap: 8, alignItems: "center",
-          }}>
-            <input
-              value={input}
-              onChange={(e) => setInput(e.target.value)}
-              onKeyDown={(e) => e.key === "Enter" && send()}
-              placeholder="Escribe tu mensaje..."
-              style={{
-                flex: 1, border: "1.5px solid #e0e0e0",
-                borderRadius: 24, padding: "8px 14px",
-                fontSize: 13.5, background: "#fafafa",
-                outline: "none",
-              }}
-              onFocus={e => e.target.style.borderColor = niche.color}
-              onBlur={e => e.target.style.borderColor = "#e0e0e0"}
-            />
-            <button
-              onClick={() => send()}
-              style={{
-                width: 38, height: 38, borderRadius: "50%",
-                background: niche.color, border: "none",
-                color: "#fff", cursor: "pointer", fontSize: 16,
-                display: "flex", alignItems: "center", justifyContent: "center",
-                flexShrink: 0,
-              }}
-            >➤</button>
-          </div>
-        </div>
-      )}
-    </>
-  );
-}
-
-// ─── EMBEDDED (INLINE) CHAT — full chat window rendered directly on page ──────
+// ─── EMBEDDED (INLINE) CHAT — full chat window rendered directly on page ─────
 export function ChatEmbedded({ nicheKey }) {
   const niche = NICHES[nicheKey];
   const [messages, setMessages] = useState([]);
@@ -538,6 +416,7 @@ export function ChatEmbedded({ nicheKey }) {
   const [typing, setTyping] = useState(false);
   const [showLeadForm, setShowLeadForm] = useState(false);
   const [leadSubmitted, setLeadSubmitted] = useState(false);
+  const [booking, setBooking] = useState({ stage: "idle", data: {} });
   const bottomRef = useRef(null);
   const hasWelcomed = useRef(false);
 
@@ -548,22 +427,29 @@ export function ChatEmbedded({ nicheKey }) {
     if (bottomRef.current) bottomRef.current.scrollIntoView({ behavior: "smooth" });
   }, [messages, typing, showLeadForm]);
 
-  // Auto-welcome on mount
+  // Auto-welcome with capability intro
   useEffect(() => {
     if (hasWelcomed.current) return;
     hasWelcomed.current = true;
+    const welcome =
+      `👋 ¡Hola! Soy el asistente IA de *${niche.bizName}* ${niche.emoji}\n\n` +
+      `Atiendo 24/7 por:\n` +
+      `💬 Chat · 🎙️ Llamada de voz · 📲 SMS\n` +
+      `🌐 Con interpretación en vivo *español ↔ english*\n\n` +
+      `Puedo responder dudas, agendar tu ${niche.bookingLabel} y enviarte la cotización por SMS en segundos.\n\n` +
+      `Escribe *"menú"* para empezar o prueba: *agendar*, *llamada*, *cotizar*.`;
     const t1 = setTimeout(() => {
       setTyping(true);
       const t2 = setTimeout(() => {
         setTyping(false);
-        setMessages([{ role: "bot", text: niche.autoWelcome, time: now() }]);
+        setMessages([{ role: "bot", text: welcome, time: now() }]);
       }, 1200);
       return () => clearTimeout(t2);
     }, 400);
     return () => clearTimeout(t1);
-  }, [niche.autoWelcome]);
+  }, [niche]);
 
-  const HUMAN_TRIGGERS = ["asesor", "humano", "persona", "hablar con", "agente", "contactar", "llamame", "llámame"];
+  const HUMAN_TRIGGERS = ["asesor", "humano", "persona", "hablar con", "agente", "contactar"];
   const looksLikeHumanRequest = (msg) => {
     const m = msg.toLowerCase();
     return HUMAN_TRIGGERS.some((t) => m.includes(t));
@@ -601,14 +487,79 @@ export function ChatEmbedded({ nicheKey }) {
     }
   };
 
+  const botSay = (text, delay = 700) => {
+    setTyping(true);
+    setTimeout(() => {
+      setTyping(false);
+      setMessages((prev) => [...prev, { role: "bot", text, time: now() }]);
+    }, delay + Math.random() * 400);
+  };
+
+  const advanceBooking = (userMsg) => {
+    const { stage, data } = booking;
+
+    if (stage === "service") {
+      // accept number or natural mention
+      const svc = getServiceByNumber(niche, userMsg) ||
+        niche.services.find((s) => userMsg.toLowerCase().includes(s.name.toLowerCase().split(" ")[0]));
+      if (!svc) {
+        botSay(`Mmm, no encontré ese servicio 😊\n\n${niche.services.map((s) => `${s.id}️⃣ ${s.name}`).join("\n")}\n\nEscribe el número.`);
+        return true;
+      }
+      const next = { stage: "date", data: { ...data, service: svc } };
+      setBooking(next);
+      botSay(bookingPrompt("date", niche, next.data));
+      return true;
+    }
+    if (stage === "date") {
+      const next = { stage: "time", data: { ...data, date: userMsg } };
+      setBooking(next);
+      botSay(bookingPrompt("time", niche, next.data));
+      return true;
+    }
+    if (stage === "time") {
+      const next = { stage: "name", data: { ...data, time: userMsg } };
+      setBooking(next);
+      botSay(bookingPrompt("name", niche, next.data));
+      return true;
+    }
+    if (stage === "name") {
+      const next = { stage: "phone", data: { ...data, name: userMsg } };
+      setBooking(next);
+      botSay(bookingPrompt("phone", niche, next.data));
+      return true;
+    }
+    if (stage === "phone") {
+      const phone = userMsg.replace(/[^\d+\s-]/g, "").trim() || userMsg;
+      const finalData = { ...data, phone };
+      setBooking({ stage: "idle", data: {} });
+      botSay(bookingConfirmation(niche, finalData), 1100);
+      return true;
+    }
+    return false;
+  };
+
   const send = async (text) => {
     const msg = (text || input).trim();
     if (!msg) return;
     setInput("");
     setMessages((prev) => [...prev, { role: "user", text: msg, time: now() }]);
-    setTyping(true);
 
-    // Hybrid: try scripted first
+    // 1) inside booking flow?
+    if (booking.stage !== "idle") {
+      advanceBooking(msg);
+      return;
+    }
+
+    // 2) start booking?
+    if (isBookingTrigger(msg)) {
+      const next = { stage: "service", data: {} };
+      setBooking(next);
+      botSay(bookingPrompt("service", niche, next.data));
+      return;
+    }
+
+    setTyping(true);
     const scripted = getScriptedReply(nicheKey, msg);
     const wantsHuman = looksLikeHumanRequest(msg);
 
@@ -620,7 +571,6 @@ export function ChatEmbedded({ nicheKey }) {
       return;
     }
 
-    // If wants human → trigger lead form
     if (wantsHuman) {
       setTimeout(() => {
         setTyping(false);
@@ -628,7 +578,7 @@ export function ChatEmbedded({ nicheKey }) {
           ...prev,
           {
             role: "bot",
-            text: `¡Claro! Déjame tus datos y un asesor humano de *${niche.bizName}* te contactará por WhatsApp en minutos.`,
+            text: `¡Claro! Déjame tus datos y un asesor humano de *${niche.bizName}* te contactará por WhatsApp en minutos.\n\n💡 O escribe *"llamada"* para que el recepcionista IA te llame *ahora mismo* por voz.`,
             time: now(),
           },
         ]);
@@ -637,13 +587,12 @@ export function ChatEmbedded({ nicheKey }) {
       return;
     }
 
-    // Otherwise → fallback to AI
     const aiReply = await callAI(messages, msg);
     setTyping(false);
     if (aiReply) {
       setMessages((prev) => [...prev, { role: "bot", text: aiReply, time: now() }]);
     } else {
-      setMessages((prev) => [...prev, { role: "bot", text: niche.defaultResponse, time: now() }]);
+      setMessages((prev) => [...prev, { role: "bot", text: getDefaultResponse(niche), time: now() }]);
     }
   };
 
@@ -652,11 +601,7 @@ export function ChatEmbedded({ nicheKey }) {
     setLeadSubmitted(true);
     setMessages((prev) => [
       ...prev,
-      {
-        role: "user",
-        text: `📋 Soy ${name} · 📱 ${phone}`,
-        time: now(),
-      },
+      { role: "user", text: `📋 Soy ${name} · 📱 ${phone}`, time: now() },
       {
         role: "bot",
         text: `¡Listo, ${name.split(" ")[0]}! ✅ Te abriré WhatsApp para que un asesor humano te atienda directamente.`,
@@ -671,7 +616,6 @@ export function ChatEmbedded({ nicheKey }) {
     }, 1200);
   };
 
-  // Slightly darker shade of niche.color for gradient
   const darken = (hex, amt = 0.18) => {
     const h = hex.replace("#", "");
     const r = Math.max(0, Math.round(parseInt(h.slice(0, 2), 16) * (1 - amt)));
@@ -684,296 +628,142 @@ export function ChatEmbedded({ nicheKey }) {
   return (
     <>
       <style>{`
-        @keyframes bounce {
-          0%,60%,100%{transform:translateY(0)}
-          30%{transform:translateY(-5px)}
-        }
-        @keyframes qs-pulse {
-          0%,100% { box-shadow: 0 0 0 0 rgba(74,222,128,0.55); }
-          50% { box-shadow: 0 0 0 6px rgba(74,222,128,0); }
-        }
-        @keyframes qs-float {
-          0%,100% { transform: translateY(0); }
-          50% { transform: translateY(-4px); }
-        }
-        .qs-embedded-shell {
-          width: 100%;
-          max-width: 480px;
-          height: 600px;
-        }
-        @media (min-width: 1280px) {
-          .qs-embedded-shell {
-            max-width: 560px;
-            height: 700px;
-          }
-        }
-        .qs-quick-btn {
-          background: #fff;
-          border-radius: 999px;
-          padding: 7px 14px;
-          font-size: 12.5px;
-          cursor: pointer;
-          font-weight: 600;
-          transition: all .18s ease;
-          box-shadow: 0 1px 2px rgba(0,0,0,0.04);
-        }
-        .qs-quick-btn:hover {
-          transform: translateY(-1px);
-          box-shadow: 0 4px 12px rgba(0,0,0,0.10);
-        }
-        .qs-send-btn {
-          transition: transform .15s ease, box-shadow .15s ease;
-        }
-        .qs-send-btn:hover {
-          transform: scale(1.06);
-        }
-        .qs-send-btn:active {
-          transform: scale(0.96);
-        }
+        @keyframes bounce { 0%,60%,100%{transform:translateY(0)} 30%{transform:translateY(-5px)} }
+        @keyframes qs-pulse { 0%,100% { box-shadow: 0 0 0 0 rgba(74,222,128,0.55); } 50% { box-shadow: 0 0 0 6px rgba(74,222,128,0); } }
+        @keyframes qs-float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-4px); } }
+        .qs-embedded-shell { width: 100%; max-width: 480px; height: 640px; }
+        @media (min-width: 1280px) { .qs-embedded-shell { max-width: 560px; height: 720px; } }
+        .qs-quick-btn { background: #fff; border-radius: 999px; padding: 7px 14px; font-size: 12.5px; cursor: pointer; font-weight: 600; transition: all .18s ease; box-shadow: 0 1px 2px rgba(0,0,0,0.04); }
+        .qs-quick-btn:hover { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(0,0,0,0.10); }
+        .qs-send-btn { transition: transform .15s ease, box-shadow .15s ease; }
+        .qs-send-btn:hover { transform: scale(1.06); }
+        .qs-send-btn:active { transform: scale(0.96); }
         .qs-input::placeholder { color: #9ca3af; }
       `}</style>
 
       <div style={{ position: "relative", width: "100%", display: "flex", justifyContent: "center" }}>
-        {/* Glow halo */}
-        <div
-          aria-hidden
-          style={{
-            position: "absolute",
-            inset: "-40px",
-            background: `radial-gradient(60% 50% at 50% 40%, ${niche.color}55 0%, transparent 70%)`,
-            filter: "blur(40px)",
-            opacity: 0.7,
-            pointerEvents: "none",
-            zIndex: 0,
-          }}
-        />
+        <div aria-hidden style={{
+          position: "absolute", inset: "-40px",
+          background: `radial-gradient(60% 50% at 50% 40%, ${niche.color}55 0%, transparent 70%)`,
+          filter: "blur(40px)", opacity: 0.7, pointerEvents: "none", zIndex: 0,
+        }} />
 
-        <div
-          className="qs-embedded-shell"
-          style={{
-            position: "relative",
-            zIndex: 1,
-            margin: "0 auto",
-            borderRadius: 28,
-            background: "#f5f5f7",
-            display: "flex",
-            flexDirection: "column",
-            boxShadow:
-              "0 30px 80px -20px rgba(0,0,0,0.55), 0 8px 24px -8px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.06)",
-            overflow: "hidden",
-            fontFamily: "'Segoe UI', system-ui, -apple-system, sans-serif",
-            border: "1px solid rgba(255,255,255,0.10)",
-          }}
-        >
+        <div className="qs-embedded-shell" style={{
+          position: "relative", zIndex: 1, margin: "0 auto", borderRadius: 28,
+          background: "#f5f5f7", display: "flex", flexDirection: "column",
+          boxShadow: "0 30px 80px -20px rgba(0,0,0,0.55), 0 8px 24px -8px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.06)",
+          overflow: "hidden", fontFamily: "'Segoe UI', system-ui, -apple-system, sans-serif",
+          border: "1px solid rgba(255,255,255,0.10)",
+        }}>
           {/* Header */}
-          <div
-            style={{
-              background: headerGradient,
-              color: "#fff",
-              padding: "18px 20px",
-              display: "flex",
-              alignItems: "center",
-              gap: 14,
-              position: "relative",
-              overflow: "hidden",
-            }}
-          >
-            {/* Subtle shine overlay */}
-            <div
-              aria-hidden
-              style={{
-                position: "absolute",
-                top: 0,
-                left: 0,
-                right: 0,
-                height: "60%",
-                background:
-                  "linear-gradient(180deg, rgba(255,255,255,0.18) 0%, rgba(255,255,255,0) 100%)",
-                pointerEvents: "none",
-              }}
-            />
-            <div
-              style={{
-                position: "relative",
-                width: 48,
-                height: 48,
-                borderRadius: "50%",
-                background: "rgba(255,255,255,0.22)",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                fontSize: 22,
-                border: "1.5px solid rgba(255,255,255,0.35)",
-                animation: "qs-float 4s ease-in-out infinite",
-              }}
-            >
+          <div style={{
+            background: headerGradient, color: "#fff", padding: "18px 20px",
+            display: "flex", alignItems: "center", gap: 14, position: "relative", overflow: "hidden",
+          }}>
+            <div aria-hidden style={{
+              position: "absolute", top: 0, left: 0, right: 0, height: "60%",
+              background: "linear-gradient(180deg, rgba(255,255,255,0.18) 0%, rgba(255,255,255,0) 100%)",
+              pointerEvents: "none",
+            }} />
+            <div style={{
+              position: "relative", width: 48, height: 48, borderRadius: "50%",
+              background: "rgba(255,255,255,0.22)", display: "flex", alignItems: "center",
+              justifyContent: "center", fontSize: 22, border: "1.5px solid rgba(255,255,255,0.35)",
+              animation: "qs-float 4s ease-in-out infinite",
+            }}>
               {niche.emoji}
-              <span
-                style={{
-                  position: "absolute",
-                  bottom: 1,
-                  right: 1,
-                  width: 12,
-                  height: 12,
-                  borderRadius: "50%",
-                  background: "#4ade80",
-                  border: "2px solid #fff",
-                  animation: "qs-pulse 2s ease-out infinite",
-                }}
-              />
+              <span style={{
+                position: "absolute", bottom: 1, right: 1, width: 12, height: 12,
+                borderRadius: "50%", background: "#4ade80", border: "2px solid #fff",
+                animation: "qs-pulse 2s ease-out infinite",
+              }} />
             </div>
             <div style={{ flex: 1, position: "relative" }}>
-              <div style={{ fontWeight: 700, fontSize: 16, letterSpacing: "-0.01em" }}>
-                {niche.bizName}
-              </div>
-              <div style={{ fontSize: 12.5, opacity: 0.92, marginTop: 2 }}>
-                En línea ahora · Responde al instante
+              <div style={{ fontWeight: 700, fontSize: 16, letterSpacing: "-0.01em" }}>{niche.bizName}</div>
+              <div style={{ fontSize: 12, opacity: 0.92, marginTop: 2 }}>
+                💬 Chat · 🎙️ Voz · 📲 SMS · 🌐 Bilingüe — 24/7
               </div>
             </div>
-            <div
-              style={{
-                position: "relative",
-                fontSize: 11,
-                fontWeight: 600,
-                padding: "5px 10px",
-                borderRadius: 999,
-                background: "rgba(255,255,255,0.18)",
-                border: "1px solid rgba(255,255,255,0.25)",
-                letterSpacing: "0.04em",
-                textTransform: "uppercase",
-              }}
-            >
-              Demo
-            </div>
+            <div style={{
+              position: "relative", fontSize: 11, fontWeight: 600, padding: "5px 10px",
+              borderRadius: 999, background: "rgba(255,255,255,0.18)",
+              border: "1px solid rgba(255,255,255,0.25)", letterSpacing: "0.04em", textTransform: "uppercase",
+            }}>Demo IA</div>
+          </div>
+
+          {/* Capability strip */}
+          <div style={{
+            display: "flex", gap: 6, padding: "8px 12px",
+            background: "rgba(255,255,255,0.6)", borderBottom: "1px solid rgba(0,0,0,0.05)",
+            fontSize: 10.5, fontWeight: 600, color: "#475569", flexWrap: "wrap",
+          }}>
+            <span style={{ padding: "3px 8px", borderRadius: 999, background: "#fff", border: "1px solid #e2e8f0" }}>📞 Contesta llamadas</span>
+            <span style={{ padding: "3px 8px", borderRadius: 999, background: "#fff", border: "1px solid #e2e8f0" }}>📅 Agenda {niche.bookingLabel}s</span>
+            <span style={{ padding: "3px 8px", borderRadius: 999, background: "#fff", border: "1px solid #e2e8f0" }}>📲 Cotiza por SMS</span>
+            <span style={{ padding: "3px 8px", borderRadius: 999, background: "#fff", border: "1px solid #e2e8f0" }}>🌐 ES ↔ EN en vivo</span>
           </div>
 
           {/* Messages */}
-          <div
-            style={{
-              flex: 1,
-              overflowY: "auto",
-              padding: "18px 16px 8px",
-              background: `linear-gradient(180deg, ${niche.bgLight} 0%, #ffffff 100%)`,
-            }}
-          >
-            {messages.map((msg, i) => (
-              <Bubble key={i} msg={msg} color={niche.color} />
-            ))}
+          <div style={{
+            flex: 1, overflowY: "auto", padding: "18px 16px 8px",
+            background: `linear-gradient(180deg, ${niche.bgLight} 0%, #ffffff 100%)`,
+          }}>
+            {messages.map((msg, i) => <Bubble key={i} msg={msg} color={niche.color} />)}
             {typing && <TypingIndicator color={niche.color} />}
             <div ref={bottomRef} />
           </div>
 
-          {/* Lead form */}
           {showLeadForm && (
-            <LeadForm
-              color={niche.color}
-              gradient={headerGradient}
-              onSubmit={submitLead}
-              onCancel={() => setShowLeadForm(false)}
-            />
+            <LeadForm color={niche.color} gradient={headerGradient}
+              onSubmit={submitLead} onCancel={() => setShowLeadForm(false)} />
           )}
 
-          {/* Quick replies */}
-          {messages.length > 0 && !typing && !showLeadForm && (
-            <div
-              style={{
-                padding: "10px 14px",
-                background: "rgba(255,255,255,0.7)",
-                backdropFilter: "blur(8px)",
-                display: "flex",
-                gap: 8,
-                flexWrap: "wrap",
-                borderTop: "1px solid rgba(0,0,0,0.05)",
-              }}
-            >
+          {messages.length > 0 && !typing && !showLeadForm && booking.stage === "idle" && (
+            <div style={{
+              padding: "10px 14px", background: "rgba(255,255,255,0.7)",
+              backdropFilter: "blur(8px)", display: "flex", gap: 8, flexWrap: "wrap",
+              borderTop: "1px solid rgba(0,0,0,0.05)",
+            }}>
               {QUICK_REPLIES[nicheKey].map((q) => (
-                <button
-                  key={q}
-                  className="qs-quick-btn"
-                  onClick={() => send(q.toLowerCase())}
-                  style={{
-                    border: `1.5px solid ${niche.color}`,
-                    color: niche.color,
-                  }}
-                >
+                <button key={q} className="qs-quick-btn"
+                  onClick={() => send(q.replace(/^[^\p{L}]+/u, "").toLowerCase())}
+                  style={{ border: `1.5px solid ${niche.color}`, color: niche.color }}>
                   {q}
                 </button>
               ))}
               {!leadSubmitted && (
-                <button
-                  className="qs-quick-btn"
-                  onClick={() => setShowLeadForm(true)}
-                  style={{
-                    border: `1.5px solid ${niche.color}`,
-                    background: niche.color,
-                    color: "#fff",
-                  }}
-                >
-                  💬 Contactar asesor
+                <button className="qs-quick-btn" onClick={() => setShowLeadForm(true)}
+                  style={{ border: `1.5px solid ${niche.color}`, background: niche.color, color: "#fff" }}>
+                  💬 Hablar con humano
                 </button>
               )}
             </div>
           )}
 
           {/* Input */}
-          <div
-            style={{
-              display: "flex",
-              padding: "14px 16px",
-              background: "#fff",
-              borderTop: "1px solid #ececec",
-              gap: 10,
-              alignItems: "center",
-            }}
-          >
-            <input
-              className="qs-input"
-              value={input}
+          <div style={{
+            display: "flex", padding: "14px 16px", background: "#fff",
+            borderTop: "1px solid #ececec", gap: 10, alignItems: "center",
+          }}>
+            <input className="qs-input" value={input}
               onChange={(e) => setInput(e.target.value)}
               onKeyDown={(e) => e.key === "Enter" && send()}
-              placeholder="Escribe tu mensaje..."
+              placeholder={booking.stage !== "idle" ? "Responde aquí..." : "Escribe tu mensaje..."}
               style={{
-                flex: 1,
-                border: "1.5px solid #e5e7eb",
-                borderRadius: 999,
-                padding: "12px 18px",
-                fontSize: 14,
-                background: "#f9fafb",
-                outline: "none",
-                color: "#111827",
+                flex: 1, border: "1.5px solid #e5e7eb", borderRadius: 999,
+                padding: "12px 18px", fontSize: 14, background: "#f9fafb",
+                outline: "none", color: "#111827",
                 transition: "border-color .15s ease, background .15s ease",
               }}
-              onFocus={(e) => {
-                e.target.style.borderColor = niche.color;
-                e.target.style.background = "#fff";
-              }}
-              onBlur={(e) => {
-                e.target.style.borderColor = "#e5e7eb";
-                e.target.style.background = "#f9fafb";
-              }}
+              onFocus={(e) => { e.target.style.borderColor = niche.color; e.target.style.background = "#fff"; }}
+              onBlur={(e) => { e.target.style.borderColor = "#e5e7eb"; e.target.style.background = "#f9fafb"; }}
             />
-            <button
-              className="qs-send-btn"
-              onClick={() => send()}
-              style={{
-                width: 46,
-                height: 46,
-                borderRadius: "50%",
-                background: headerGradient,
-                border: "none",
-                color: "#fff",
-                cursor: "pointer",
-                fontSize: 18,
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                flexShrink: 0,
-                boxShadow: `0 6px 18px -4px ${niche.color}88`,
-              }}
-              aria-label="Enviar"
-            >
-              ➤
-            </button>
+            <button className="qs-send-btn" onClick={() => send()} style={{
+              width: 46, height: 46, borderRadius: "50%", background: headerGradient,
+              border: "none", color: "#fff", cursor: "pointer", fontSize: 18,
+              display: "flex", alignItems: "center", justifyContent: "center",
+              flexShrink: 0, boxShadow: `0 6px 18px -4px ${niche.color}88`,
+            }} aria-label="Enviar">➤</button>
           </div>
         </div>
       </div>
@@ -981,7 +771,7 @@ export function ChatEmbedded({ nicheKey }) {
   );
 }
 
-// ─── LEAD FORM (inline, used by ChatEmbedded) ────────────────────────────────
+// ─── LEAD FORM ────────────────────────────────────────────────────────────────
 function LeadForm({ color, gradient, onSubmit, onCancel }) {
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
@@ -994,100 +784,49 @@ function LeadForm({ color, gradient, onSubmit, onCancel }) {
   };
 
   return (
-    <form
-      onSubmit={handle}
-      style={{
-        padding: "14px 16px",
-        background: "rgba(255,255,255,0.92)",
-        backdropFilter: "blur(8px)",
-        borderTop: `2px solid ${color}`,
-        display: "flex",
-        flexDirection: "column",
-        gap: 8,
-      }}
-    >
+    <form onSubmit={handle} style={{
+      padding: "14px 16px", background: "rgba(255,255,255,0.92)",
+      backdropFilter: "blur(8px)", borderTop: `2px solid ${color}`,
+      display: "flex", flexDirection: "column", gap: 8,
+    }}>
       <div style={{ fontSize: 12.5, fontWeight: 600, color: "#374151" }}>
         Déjanos tus datos y un asesor te contactará
       </div>
-      <input
-        autoFocus
-        value={name}
-        onChange={(e) => setName(e.target.value)}
-        placeholder="Tu nombre"
-        maxLength={60}
-        style={{
-          border: "1.5px solid #e5e7eb",
-          borderRadius: 12,
-          padding: "10px 14px",
-          fontSize: 13.5,
-          background: "#f9fafb",
-          outline: "none",
-          color: "#111827",
-        }}
+      <input autoFocus value={name} onChange={(e) => setName(e.target.value)}
+        placeholder="Tu nombre" maxLength={60}
+        style={{ border: "1.5px solid #e5e7eb", borderRadius: 12, padding: "10px 14px",
+          fontSize: 13.5, background: "#f9fafb", outline: "none", color: "#111827" }}
         onFocus={(e) => (e.target.style.borderColor = color)}
-        onBlur={(e) => (e.target.style.borderColor = "#e5e7eb")}
-      />
-      <input
-        value={phone}
+        onBlur={(e) => (e.target.style.borderColor = "#e5e7eb")} />
+      <input value={phone}
         onChange={(e) => setPhone(e.target.value.replace(/[^\d+\s-]/g, ""))}
-        placeholder="WhatsApp / Teléfono"
-        maxLength={20}
-        type="tel"
-        style={{
-          border: "1.5px solid #e5e7eb",
-          borderRadius: 12,
-          padding: "10px 14px",
-          fontSize: 13.5,
-          background: "#f9fafb",
-          outline: "none",
-          color: "#111827",
-        }}
+        placeholder="WhatsApp / Teléfono" maxLength={20} type="tel"
+        style={{ border: "1.5px solid #e5e7eb", borderRadius: 12, padding: "10px 14px",
+          fontSize: 13.5, background: "#f9fafb", outline: "none", color: "#111827" }}
         onFocus={(e) => (e.target.style.borderColor = color)}
-        onBlur={(e) => (e.target.style.borderColor = "#e5e7eb")}
-      />
+        onBlur={(e) => (e.target.style.borderColor = "#e5e7eb")} />
       <div style={{ display: "flex", gap: 8 }}>
-        <button
-          type="button"
-          onClick={onCancel}
-          style={{
-            flex: "0 0 auto",
-            padding: "10px 14px",
-            borderRadius: 999,
-            border: "1.5px solid #e5e7eb",
-            background: "#fff",
-            color: "#6b7280",
-            fontSize: 13,
-            fontWeight: 500,
-            cursor: "pointer",
-          }}
-        >
-          Cancelar
-        </button>
-        <button
-          type="submit"
-          disabled={!valid}
-          style={{
-            flex: 1,
-            padding: "10px 14px",
-            borderRadius: 999,
-            border: "none",
-            background: valid ? gradient : "#cbd5e1",
-            color: "#fff",
-            fontSize: 13.5,
-            fontWeight: 700,
-            cursor: valid ? "pointer" : "not-allowed",
-            boxShadow: valid ? `0 6px 18px -4px ${color}88` : "none",
-            transition: "transform .15s ease",
-          }}
-        >
-          Enviar y abrir WhatsApp →
-        </button>
+        <button type="button" onClick={onCancel} style={{
+          flex: "0 0 auto", padding: "10px 14px", borderRadius: 999,
+          border: "1.5px solid #e5e7eb", background: "#fff", color: "#6b7280",
+          fontSize: 13, fontWeight: 500, cursor: "pointer",
+        }}>Cancelar</button>
+        <button type="submit" disabled={!valid} style={{
+          flex: 1, padding: "10px 14px", borderRadius: 999, border: "none",
+          background: valid ? gradient : "#cbd5e1", color: "#fff",
+          fontSize: 13.5, fontWeight: 700, cursor: valid ? "pointer" : "not-allowed",
+          boxShadow: valid ? `0 6px 18px -4px ${color}88` : "none",
+          transition: "transform .15s ease",
+        }}>Enviar y abrir WhatsApp →</button>
       </div>
     </form>
   );
 }
 
-// Floating widget exports (kept intact)
+// ─── Floating widget (legacy) — minimal re-export ────────────────────────────
+function ChatWidget({ nicheKey }) {
+  return <ChatEmbedded nicheKey={nicheKey} />;
+}
 export function ChatRestaurante()  { return <ChatWidget nicheKey="restaurante" />; }
 export function ChatSalon()        { return <ChatWidget nicheKey="salon" />; }
 export function ChatDental()       { return <ChatWidget nicheKey="dental" />; }
