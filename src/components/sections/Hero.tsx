@@ -20,18 +20,8 @@ const Hero = () => {
 
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden gradient-hero-bg pt-24 pb-16">
-      {/* Cinematic background video */}
+      {/* Background overlays for depth */}
       <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
-        <video
-          src={heroBgVideo}
-          autoPlay
-          loop
-          muted
-          playsInline
-          preload="auto"
-          className="w-full h-full object-cover opacity-70"
-        />
-        {/* Cinematic dark overlay for legibility */}
         <div className="absolute inset-0 bg-background/50" />
         <div className="absolute inset-0 bg-gradient-to-b from-background/70 via-background/20 to-background" />
         <div className="absolute inset-0 bg-gradient-to-r from-background/60 via-transparent to-background/60" />
