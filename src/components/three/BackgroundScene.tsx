@@ -7,8 +7,9 @@ function Cubes() {
   const cubes = useMemo(() => {
     return Array.from({ length: 18 }).map((_, i) => {
       const size = 0.5 + Math.random() * 2;
-      const hue = 0.7 + Math.random() * 0.15;
-      const color = new THREE.Color().setHSL(hue, 0.7, 0.55);
+      const hue = 0.68 + Math.random() * 0.05; // tight indigo band only
+      const color = new THREE.Color().setHSL(hue, 0.45, 0.5);
+
       return {
         position: [
           (Math.random() - 0.5) * 20,
