@@ -19,8 +19,10 @@ import Footer from "@/components/sections/Footer";
 import WhatsAppButton from "@/components/WhatsAppButton";
 import BackgroundScene from "@/components/three/BackgroundScene";
 import ParticleNetwork from "@/components/three/ParticleNetwork";
+import { useScrollReveal } from "@/hooks/useScrollReveal";
 
 const Index = () => {
+  useScrollReveal();
   return (
     <div className="min-h-screen relative">
       <BackgroundScene />
