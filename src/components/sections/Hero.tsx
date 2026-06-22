@@ -127,6 +127,10 @@ const Hero = () => {
             ))}
           </motion.div>
         </div>
+        <div className="hidden lg:block">
+          <HeroCube />
+        </div>
+        </div>
       </div>
     </section>
   );
