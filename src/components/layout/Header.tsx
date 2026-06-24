@@ -45,7 +45,7 @@ const Header = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const whatsappUrl = `https://wa.me/50686425281?text=${encodeURIComponent(
+  const whatsappUrl = `https://wa.me/50646009140?text=${encodeURIComponent(
     language === "es"
       ? "Hola, quiero empezar con QubeSight."
       : "Hi, I want to get started with QubeSight."

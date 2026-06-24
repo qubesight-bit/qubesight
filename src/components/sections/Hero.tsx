@@ -7,7 +7,7 @@ import AnimatedCounter from "@/components/AnimatedCounter";
 
 const Hero = () => {
   const { t, language } = useTranslation();
-  const whatsappUrl = `https://wa.me/50686425281?text=${encodeURIComponent(
+  const whatsappUrl = `https://wa.me/50646009140?text=${encodeURIComponent(
     language === "es"
       ? "Hola, quiero empezar a responder automáticamente con QubeSight."
       : "Hi, I want to start replying automatically with QubeSight."

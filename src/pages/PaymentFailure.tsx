@@ -25,7 +25,7 @@ const PaymentFailure = () => {
             <Link to="/#pricing">{language === "es" ? "Reintentar" : "Try again"}</Link>
           </Button>
           <Button asChild variant="outline" size="lg" className="flex-1">
-            <a href="https://wa.me/50686425281" target="_blank" rel="noopener noreferrer">
+            <a href="https://wa.me/50646009140" target="_blank" rel="noopener noreferrer">
               WhatsApp
             </a>
           </Button>

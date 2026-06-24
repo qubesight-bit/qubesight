@@ -640,7 +640,7 @@ export function ChatEmbedded({ nicheKey }) {
       `Hola, soy ${name} (${phone}). Me interesa ${niche.bizName} (demo desde QubeSight).`
     );
     setTimeout(() => {
-      window.open(`https://wa.me/50686425281?text=${text}`, "_blank", "noopener,noreferrer");
+      window.open(`https://wa.me/50646009140?text=${text}`, "_blank", "noopener,noreferrer");
     }, 1200);
   };
 
