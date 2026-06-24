@@ -4,7 +4,7 @@ import { useTranslation } from "@/hooks/useTranslation";
 
 const Assistant = () => {
   const { t, language } = useTranslation();
-  const whatsappUrl = `https://wa.me/50686425281?text=${encodeURIComponent(
+  const whatsappUrl = `https://wa.me/50646009140?text=${encodeURIComponent(
     language === "es" ? "Hola, quiero mi QubeSight Assistant." : "Hi, I want my QubeSight Assistant."
   )}`;
 

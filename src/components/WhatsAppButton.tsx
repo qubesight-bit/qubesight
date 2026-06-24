@@ -4,7 +4,7 @@ import { useTranslation } from "@/hooks/useTranslation";
 
 const WhatsAppButton = () => {
   const { t } = useTranslation();
-  const whatsappNumber = "50686425281";
+  const whatsappNumber = "50646009140";
   const whatsappMessage = encodeURIComponent(t('whatsapp.message'));
   const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${whatsappMessage}`;
 

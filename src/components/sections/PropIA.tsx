@@ -5,7 +5,7 @@ import { useTranslation } from "@/hooks/useTranslation";
 
 const PropIA = () => {
   const { t, language } = useTranslation();
-  const whatsappUrl = `https://wa.me/50686425281?text=${encodeURIComponent(
+  const whatsappUrl = `https://wa.me/50646009140?text=${encodeURIComponent(
     language === "es" ? "Hola, quiero activar PropIA." : "Hi, I want to activate PropIA."
   )}`;
 

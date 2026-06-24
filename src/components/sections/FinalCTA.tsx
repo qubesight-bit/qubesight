@@ -5,7 +5,7 @@ import { useTranslation } from "@/hooks/useTranslation";
 
 const FinalCTA = () => {
   const { t, language } = useTranslation();
-  const whatsappUrl = `https://wa.me/50686425281?text=${encodeURIComponent(
+  const whatsappUrl = `https://wa.me/50646009140?text=${encodeURIComponent(
     language === "es"
       ? "Hola, quiero hablar con un experto de QubeSight."
       : "Hi, I want to talk to a QubeSight expert."

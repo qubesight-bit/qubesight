@@ -32,7 +32,7 @@ const CaseStudyPage = () => {
 
   const cs = getCaseStudyBySlug(slug || "");
 
-  const whatsappNumber = "50686425281";
+  const whatsappNumber = "50646009140";
   const whatsappMessage = encodeURIComponent(
     lang === "es"
       ? "Hola, me interesa una solución similar para mi negocio."

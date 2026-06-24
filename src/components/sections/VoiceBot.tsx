@@ -17,7 +17,7 @@ import { useTranslation } from "@/hooks/useTranslation";
 const VoiceBot = () => {
   const { t, language } = useTranslation();
 
-  const whatsappUrl = `https://wa.me/50686425281?text=${encodeURIComponent(
+  const whatsappUrl = `https://wa.me/50646009140?text=${encodeURIComponent(
     language === "es"
       ? "Hola, quiero información sobre el Voice Bot AI de QubeSight."
       : "Hi, I want info about QubeSight's Voice Bot AI."

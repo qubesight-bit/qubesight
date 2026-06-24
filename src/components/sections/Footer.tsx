@@ -6,7 +6,7 @@ import { useTranslation } from "@/hooks/useTranslation";
 const Footer = () => {
   const currentYear = new Date().getFullYear();
   const { t } = useTranslation();
-  const whatsappUrl = "https://wa.me/50686425281";
+  const whatsappUrl = "https://wa.me/50646009140";
 
   const productLinks = [
     { href: "#assistant", label: "QubeSight Assistant" },
