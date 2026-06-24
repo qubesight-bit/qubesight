@@ -41,6 +41,7 @@ const Index = () => {
           <Multichannel />
           <VoiceBot />
           <PropIA />
+          <QubeOps />
           <Industries />
           <DemoNiches />
           <Testimonials />
