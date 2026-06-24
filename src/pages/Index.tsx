@@ -6,6 +6,7 @@ import Assistant from "@/components/sections/Assistant";
 import Multichannel from "@/components/sections/Multichannel";
 import VoiceBot from "@/components/sections/VoiceBot";
 import PropIA from "@/components/sections/PropIA";
+import QubeOps from "@/components/sections/QubeOps";
 import Industries from "@/components/sections/Industries";
 import DemoNiches from "@/components/sections/DemoNiches";
 import Testimonials from "@/components/sections/Testimonials";
