@@ -33,10 +33,23 @@ const Hero = () => {
         <div className="grid lg:grid-cols-[1.05fr_0.95fr] gap-12 lg:gap-16 items-center">
           {/* Left: editorial copy block */}
           <div className="text-left max-w-2xl">
+            <motion.div
+              initial={{ opacity: 0, y: 8, scale: 0.95 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              transition={{ duration: 0.5 }}
+              className="inline-flex items-center gap-2 mb-4 px-3 py-1.5 rounded-full bg-emerald-500/15 border border-emerald-400/40 text-emerald-300 text-xs font-semibold shadow-[0_0_24px_-4px_hsl(150,80%,45%,0.45)]"
+            >
+              <span className="relative flex h-1.5 w-1.5">
+                <span className="absolute inset-0 rounded-full bg-emerald-400 animate-ping opacity-70" />
+                <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-emerald-400" />
+              </span>
+              {language === "es" ? "🎁 Primer mes gratis en Plan Inicio" : "🎁 First month free on Starter Plan"}
+            </motion.div>
+
             <motion.span
               initial={{ opacity: 0, y: 8 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
+              transition={{ duration: 0.5, delay: 0.1 }}
               className="eyebrow mb-8"
             >
               <span className="relative flex h-1.5 w-1.5">
@@ -45,6 +58,7 @@ const Hero = () => {
               </span>
               {t("hero.badge")}
             </motion.span>
+
 
             <motion.h1
               initial={{ opacity: 0, y: 18 }}
