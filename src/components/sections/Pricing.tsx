@@ -192,6 +192,48 @@ const Pricing = () => {
           ))}
         </div>
 
+        {/* Channel add-ons */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
+          className="max-w-5xl mx-auto mt-10 glass-card rounded-3xl p-6 sm:p-8"
+        >
+          <div className="text-center mb-6">
+            <h4 className="text-lg sm:text-2xl font-bold font-display">
+              {t("pricing.channels.title")}
+            </h4>
+            <p className="text-sm text-muted-foreground mt-1">
+              {t("pricing.channels.subtitle")}
+            </p>
+          </div>
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
+            {[
+              { label: t("pricing.channels.ig"), price: 19 },
+              { label: t("pricing.channels.fb"), price: 19 },
+              { label: t("pricing.channels.web"), price: 29 },
+              { label: t("pricing.channels.all"), price: 49, highlight: true },
+            ].map((ch, i) => (
+              <div
+                key={i}
+                className={`rounded-2xl p-4 border flex flex-col items-center text-center ${
+                  ch.highlight
+                    ? "border-primary/50 bg-primary/10"
+                    : "border-white/10 bg-white/[0.03]"
+                }`}
+              >
+                <span className="text-xs sm:text-sm font-semibold">{ch.label}</span>
+                <span className="mt-2 text-2xl font-bold font-display gradient-text">
+                  +${ch.price}
+                </span>
+                <span className="text-[11px] text-muted-foreground">{t("pricing.month")}</span>
+              </div>
+            ))}
+          </div>
+        </motion.div>
+
+
         {/* Voice Bot AI plans */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
