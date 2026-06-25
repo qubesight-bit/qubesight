@@ -211,6 +211,12 @@ const Pricing = () => {
           ))}
         </div>
 
+        <p className="max-w-3xl mx-auto mt-6 text-center text-xs sm:text-sm text-muted-foreground italic px-4">
+          {t("pricing.note")}
+        </p>
+
+
+
         {/* Channel add-ons */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
