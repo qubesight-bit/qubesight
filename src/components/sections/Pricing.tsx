@@ -30,7 +30,14 @@ const Pricing = () => {
       suffix: t("pricing.month"),
       popular: false,
       setup: 80,
-      features: [t("pricing.starter.f1"), t("pricing.starter.f2"), t("pricing.starter.f3")],
+      features: [
+        t("pricing.starter.f1"),
+        t("pricing.starter.f2"),
+        t("pricing.starter.f3"),
+        t("pricing.starter.f4"),
+        t("pricing.starter.f5"),
+        t("pricing.starter.f6"),
+      ],
     },
     {
       id: "assistant_bronze",
@@ -39,7 +46,15 @@ const Pricing = () => {
       price: fmt(49),
       suffix: t("pricing.month"),
       popular: false,
-      features: [t("pricing.basic.f1"), t("pricing.basic.f2"), t("pricing.basic.f3"), t("pricing.basic.f4"), t("pricing.basic.f5")],
+      features: [
+        t("pricing.basic.f1"),
+        t("pricing.basic.f2"),
+        t("pricing.basic.f3"),
+        t("pricing.basic.f4"),
+        t("pricing.basic.f5"),
+        t("pricing.basic.f6"),
+        t("pricing.basic.f7"),
+      ],
     },
     {
       id: "assistant_silver",
@@ -54,6 +69,9 @@ const Pricing = () => {
         t("pricing.growth.f3"),
         t("pricing.growth.f4"),
         t("pricing.growth.f5"),
+        t("pricing.growth.f6"),
+        t("pricing.growth.f7"),
+        t("pricing.growth.f8"),
       ],
     },
     {
@@ -69,6 +87,7 @@ const Pricing = () => {
         t("pricing.propia.f3"),
         t("pricing.propia.f4"),
         t("pricing.propia.f5"),
+        t("pricing.propia.f6"),
       ],
     },
   ];
