@@ -10,7 +10,7 @@ const Footer = () => {
 
   const productLinks = [
     { href: "#assistant", label: "QubeSight Assistant" },
-    { href: "#propia", label: "PropIA" },
+    
     { href: "#pricing", label: t("nav.pricing") },
   ];
 
