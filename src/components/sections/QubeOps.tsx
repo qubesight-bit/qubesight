@@ -34,8 +34,8 @@ const QubeOps = () => {
       icon: BarChart3,
       title: isES ? "Cierre contable mensual" : "Monthly accounting close",
       desc: isES
-        ? "Reporte automático de ingresos, gastos y balance para gerencia."
-        : "Automatic report of income, expenses and balance for management.",
+        ? "Reportás ingresos y gastos por WhatsApp y el sistema genera el reporte en Excel automáticamente."
+        : "Report income and expenses via WhatsApp and the system automatically generates an Excel report.",
       emoji: "📊",
     },
     {
