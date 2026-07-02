@@ -370,7 +370,7 @@ const Pricing = () => {
                 t("pricing.voice.gold.f6"),
               ],
             },
-
+          ].map((plan, i) => (
             <motion.div
               key={i}
               initial={{ opacity: 0, y: 30 }}
