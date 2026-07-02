@@ -316,10 +316,11 @@ const Pricing = () => {
         <div className="grid md:grid-cols-3 gap-6 lg:gap-8 max-w-6xl mx-auto perspective-2000 items-stretch">
           {[
             {
-              id: "voice_bronze",
+              id: "voice_starter",
               name: t("pricing.voice.bronze.name"),
               desc: t("pricing.voice.bronze.desc"),
-              price: fmt(49),
+              price: fmt(79),
+              setup: 149,
               tier: "bronze" as const,
               popular: false,
               variant: "outline" as const,
@@ -333,10 +334,11 @@ const Pricing = () => {
               ],
             },
             {
-              id: "voice_silver",
+              id: "voice_bronze",
               name: t("pricing.voice.silver.name"),
               desc: t("pricing.voice.silver.desc"),
-              price: fmt(99),
+              price: fmt(149),
+              setup: 249,
               tier: "silver" as const,
               popular: true,
               variant: "hero" as const,
@@ -350,10 +352,11 @@ const Pricing = () => {
               ],
             },
             {
-              id: "voice_gold",
+              id: "voice_silver",
               name: t("pricing.voice.gold.name"),
               desc: t("pricing.voice.gold.desc"),
-              price: fmt(199),
+              price: fmt(299),
+              setup: 399,
               tier: "gold" as const,
               popular: false,
               variant: "secondary" as const,
@@ -367,7 +370,7 @@ const Pricing = () => {
                 t("pricing.voice.gold.f6"),
               ],
             },
-          ].map((plan, i) => (
+
             <motion.div
               key={i}
               initial={{ opacity: 0, y: 30 }}
