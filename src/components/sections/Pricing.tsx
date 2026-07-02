@@ -26,10 +26,10 @@ const Pricing = () => {
       id: "assistant_starter",
       name: t("pricing.starter.name"),
       desc: t("pricing.starter.desc"),
-      price: fmt(20),
+      price: fmt(29),
       suffix: t("pricing.month"),
       popular: false,
-      setup: 80,
+      setup: 99,
       features: [
         t("pricing.starter.f1"),
         t("pricing.starter.f2"),
@@ -43,27 +43,30 @@ const Pricing = () => {
       id: "assistant_bronze",
       name: t("pricing.basic.name"),
       desc: t("pricing.basic.desc"),
-      price: fmt(49),
+      price: fmt(79),
       suffix: t("pricing.month"),
       popular: false,
+      setup: 149,
       features: [
+        t("pricing.basic.f7"),
         t("pricing.basic.f1"),
         t("pricing.basic.f2"),
         t("pricing.basic.f3"),
         t("pricing.basic.f4"),
         t("pricing.basic.f5"),
         t("pricing.basic.f6"),
-        t("pricing.basic.f7"),
       ],
     },
     {
       id: "assistant_silver",
       name: t("pricing.growth.name"),
       desc: t("pricing.growth.desc"),
-      price: fmt(89),
+      price: fmt(149),
       suffix: t("pricing.month"),
       popular: true,
+      setup: 199,
       features: [
+        t("pricing.growth.f8"),
         t("pricing.growth.f1"),
         t("pricing.growth.f2"),
         t("pricing.growth.f3"),
@@ -71,16 +74,16 @@ const Pricing = () => {
         t("pricing.growth.f5"),
         t("pricing.growth.f6"),
         t("pricing.growth.f7"),
-        t("pricing.growth.f8"),
       ],
     },
     {
       id: "assistant_gold",
       name: t("pricing.propia.name"),
       desc: t("pricing.propia.desc"),
-      price: fmt(159),
+      price: fmt(249),
       suffix: t("pricing.month"),
       popular: false,
+      setup: 299,
       features: [
         t("pricing.propia.f1"),
         t("pricing.propia.f2"),
@@ -88,6 +91,41 @@ const Pricing = () => {
         t("pricing.propia.f4"),
         t("pricing.propia.f5"),
         t("pricing.propia.f6"),
+      ],
+    },
+  ];
+
+  const suitePlans = [
+    {
+      id: "suite_business",
+      name: t("pricing.suite.business.name"),
+      desc: t("pricing.suite.business.desc"),
+      price: fmt(399),
+      setup: 499,
+      popular: true,
+      features: [
+        t("pricing.suite.business.f1"),
+        t("pricing.suite.business.f2"),
+        t("pricing.suite.business.f3"),
+        t("pricing.suite.business.f4"),
+        t("pricing.suite.business.f5"),
+        t("pricing.suite.business.f6"),
+      ],
+    },
+    {
+      id: "suite_enterprise",
+      name: t("pricing.suite.enterprise.name"),
+      desc: t("pricing.suite.enterprise.desc"),
+      price: fmt(599),
+      setup: 699,
+      popular: false,
+      features: [
+        t("pricing.suite.enterprise.f1"),
+        t("pricing.suite.enterprise.f2"),
+        t("pricing.suite.enterprise.f3"),
+        t("pricing.suite.enterprise.f4"),
+        t("pricing.suite.enterprise.f5"),
+        t("pricing.suite.enterprise.f6"),
       ],
     },
   ];
@@ -137,6 +175,9 @@ const Pricing = () => {
           </div>
         </motion.div>
 
+        <div className="max-w-7xl mx-auto mb-6 text-center">
+          <span className="eyebrow">{t("pricing.section.chat")}</span>
+        </div>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-5 max-w-7xl mx-auto">
           {plans.map((plan, i) => (
@@ -267,6 +308,7 @@ const Pricing = () => {
           transition={{ duration: 0.6 }}
           className="max-w-3xl mx-auto text-center mt-24 mb-10"
         >
+          <span className="eyebrow mb-4">{t("pricing.section.voice")}</span>
           <h3 className="text-2xl sm:text-4xl font-bold font-display leading-tight">
             {t("pricing.voice.title")}
           </h3>
@@ -278,10 +320,11 @@ const Pricing = () => {
         <div className="grid md:grid-cols-3 gap-6 lg:gap-8 max-w-6xl mx-auto perspective-2000 items-stretch">
           {[
             {
-              id: "voice_bronze",
+              id: "voice_starter",
               name: t("pricing.voice.bronze.name"),
               desc: t("pricing.voice.bronze.desc"),
-              price: fmt(49),
+              price: fmt(79),
+              setup: 149,
               tier: "bronze" as const,
               popular: false,
               variant: "outline" as const,
@@ -295,10 +338,11 @@ const Pricing = () => {
               ],
             },
             {
-              id: "voice_silver",
+              id: "voice_bronze",
               name: t("pricing.voice.silver.name"),
               desc: t("pricing.voice.silver.desc"),
-              price: fmt(99),
+              price: fmt(149),
+              setup: 249,
               tier: "silver" as const,
               popular: true,
               variant: "hero" as const,
@@ -312,10 +356,11 @@ const Pricing = () => {
               ],
             },
             {
-              id: "voice_gold",
+              id: "voice_silver",
               name: t("pricing.voice.gold.name"),
               desc: t("pricing.voice.gold.desc"),
-              price: fmt(199),
+              price: fmt(299),
+              setup: 399,
               tier: "gold" as const,
               popular: false,
               variant: "secondary" as const,
@@ -366,6 +411,11 @@ const Pricing = () => {
 
               {/* 2. Price */}
               <div className="mb-1">
+                {plan.setup && (
+                  <div className="text-sm text-muted-foreground mb-1">
+                    ${plan.setup} {t("pricing.oneTime")}
+                  </div>
+                )}
                 <div className="flex items-baseline gap-1">
                   <span className="text-5xl font-bold font-display">${plan.price}</span>
                   <span className="text-muted-foreground">{t("pricing.month")}</span>
@@ -513,6 +563,104 @@ const Pricing = () => {
             ⚡ {t("pricing.voice.overage")}
           </span>
         </div>
+
+        {/* AI Suite (Chat + Voice) */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="max-w-3xl mx-auto text-center mt-24 mb-10"
+        >
+          <span className="eyebrow mb-4">{t("pricing.section.suite")}</span>
+          <h3 className="text-2xl sm:text-4xl font-bold font-display leading-tight mt-4">
+            {t("pricing.suite.title")}
+          </h3>
+          <p className="mt-3 text-muted-foreground">{t("pricing.suite.subtitle")}</p>
+        </motion.div>
+
+        <div className="grid md:grid-cols-2 gap-6 lg:gap-8 max-w-5xl mx-auto items-stretch">
+          {suitePlans.map((plan, i) => (
+            <motion.div
+              key={plan.id}
+              initial={{ opacity: 0, y: 24, filter: "blur(6px)" }}
+              whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: i * 0.08, ease: [0.32, 0.72, 0, 1] }}
+              className={`bento-tile p-8 flex flex-col ${
+                plan.popular ? "!border-primary/40 ring-1 ring-primary/30 shadow-[0_30px_80px_-30px_hsl(249,70%,30%,0.6)]" : ""
+              }`}
+            >
+              {plan.popular && (
+                <span className="absolute -top-3 left-6 inline-flex items-center gap-1 px-3 py-1 rounded-full bg-gradient-to-br from-[hsl(249,65%,58%)] to-[hsl(258,75%,64%)] text-white text-[10px] font-bold uppercase tracking-[0.18em] shadow-[0_10px_24px_-8px_hsl(249,70%,40%,0.7)]">
+                  <Sparkles className="h-3 w-3" />
+                  {t("pricing.popular")}
+                </span>
+              )}
+              <h3 className="text-2xl font-bold font-display mb-1">AI Suite {plan.name}</h3>
+              <p className="text-sm text-muted-foreground mb-6">{plan.desc}</p>
+              <div className="mb-6">
+                <div className="text-sm text-muted-foreground mb-1">
+                  ${plan.setup} {t("pricing.oneTime")}
+                </div>
+                <div className="flex items-baseline gap-1">
+                  <span className="text-5xl font-bold font-display">${plan.price}</span>
+                  <span className="text-muted-foreground">{t("pricing.month")}</span>
+                </div>
+                <div className="mt-2 text-sm text-muted-foreground">
+                  <span className="text-foreground font-semibold">${plan.price * 12}</span>{" "}
+                  {t("pricing.annualTotal")}
+                  {yearly && (
+                    <span className="text-primary"> ({t("pricing.youSave")} ${(plan.price * 12) / 4})</span>
+                  )}
+                </div>
+              </div>
+              <ul className="space-y-3 mb-8 flex-grow">
+                {plan.features.map((f, idx) => (
+                  <li key={idx} className="flex items-start gap-3 text-sm">
+                    <Check className="h-4 w-4 text-primary flex-shrink-0 mt-0.5" />
+                    <span>{f}</span>
+                  </li>
+                ))}
+              </ul>
+              <Button
+                variant={plan.popular ? "hero" : "outline"}
+                size="lg"
+                onClick={() => openCheckout(plan.id, plan.price, `AI Suite ${plan.name}`)}
+                className="w-full min-h-[48px]"
+              >
+                {t("pricing.cta")}
+              </Button>
+            </motion.div>
+          ))}
+        </div>
+
+        {/* Universal features */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
+          className="max-w-5xl mx-auto mt-16 glass-card rounded-3xl p-6 sm:p-8"
+        >
+          <h4 className="text-center text-sm font-bold uppercase tracking-[0.2em] text-primary mb-6">
+            {t("pricing.universal.title")}
+          </h4>
+          <div className="grid grid-cols-2 md:grid-cols-5 gap-3 text-sm">
+            {[
+              t("pricing.universal.f1"),
+              t("pricing.universal.f2"),
+              t("pricing.universal.f3"),
+              t("pricing.universal.f4"),
+              t("pricing.universal.f5"),
+            ].map((f, i) => (
+              <div key={i} className="flex items-start gap-2 rounded-2xl border border-white/10 bg-white/[0.03] p-3">
+                <Check className="h-4 w-4 text-primary flex-shrink-0 mt-0.5" />
+                <span>{f}</span>
+              </div>
+            ))}
+          </div>
+        </motion.div>
       </div>
 
       <CheckoutDialog
