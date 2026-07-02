@@ -422,9 +422,42 @@ export const translations: Translations = {
   'pricing.compare.human.2': { es: 'Horario limitado', en: 'Limited hours' },
   'pricing.compare.human.3': { es: '1 llamada a la vez', en: '1 call at a time' },
   'pricing.compare.qs': { es: 'QubeSight', en: 'QubeSight' },
-  'pricing.compare.qs.1': { es: 'Desde $49', en: 'From $49' },
+  'pricing.compare.qs.1': { es: 'Desde $79', en: 'From $79' },
   'pricing.compare.qs.2': { es: '24/7 sin descansos', en: '24/7 no breaks' },
   'pricing.compare.qs.3': { es: 'Llamadas simultáneas ilimitadas', en: 'Unlimited concurrent calls' },
+
+  // AI Suite (Chat + Voice)
+  'pricing.suite.title': { es: 'AI Suite — Chat + Voz', en: 'AI Suite — Chat + Voice' },
+  'pricing.suite.subtitle': { es: 'Todo integrado en un solo sistema: chat + voz + CRM + agenda.', en: 'Everything integrated in one system: chat + voice + CRM + scheduling.' },
+  'pricing.suite.business.name': { es: 'Business', en: 'Business' },
+  'pricing.suite.business.desc': { es: 'Chat Bot + Voice Bot con todo incluido.', en: 'Chat Bot + Voice Bot with everything included.' },
+  'pricing.suite.business.f1': { es: 'WhatsApp + Instagram + Facebook + Telegram + Web Chat', en: 'WhatsApp + Instagram + Facebook + Telegram + Web Chat' },
+  'pricing.suite.business.f2': { es: 'Voice Bot con recepcionista IA', en: 'Voice Bot with AI receptionist' },
+  'pricing.suite.business.f3': { es: 'CRM integrado + agenda automática', en: 'Integrated CRM + auto scheduling' },
+  'pricing.suite.business.f4': { es: 'Catálogo interactivo + memoria de conversación', en: 'Interactive catalog + conversation memory' },
+  'pricing.suite.business.f5': { es: 'Multiidioma + handoff a humano', en: 'Multilingual + human handoff' },
+  'pricing.suite.business.f6': { es: 'Reportes, analíticas y soporte prioritario', en: 'Reports, analytics and priority support' },
+  'pricing.suite.enterprise.name': { es: 'Enterprise', en: 'Enterprise' },
+  'pricing.suite.enterprise.desc': { es: 'Para operaciones multi-sucursal con flujos a medida.', en: 'For multi-branch operations with custom flows.' },
+  'pricing.suite.enterprise.f1': { es: 'Todo lo del plan Business', en: 'Everything in Business' },
+  'pricing.suite.enterprise.f2': { es: 'Flujos personalizados', en: 'Custom flows' },
+  'pricing.suite.enterprise.f3': { es: 'Integraciones API a la medida', en: 'Custom API integrations' },
+  'pricing.suite.enterprise.f4': { es: 'Dashboard de métricas', en: 'Metrics dashboard' },
+  'pricing.suite.enterprise.f5': { es: 'Múltiples sucursales', en: 'Multiple locations' },
+  'pricing.suite.enterprise.f6': { es: 'Automatizaciones avanzadas + soporte dedicado', en: 'Advanced automations + dedicated support' },
+
+  // Section titles
+  'pricing.section.chat': { es: '💬 AI Chat Bots', en: '💬 AI Chat Bots' },
+  'pricing.section.voice': { es: '📞 AI Voice Bots', en: '📞 AI Voice Bots' },
+  'pricing.section.suite': { es: '🚀 AI Suite', en: '🚀 AI Suite' },
+
+  // Universal features
+  'pricing.universal.title': { es: 'Todos los planes incluyen', en: 'All plans include' },
+  'pricing.universal.f1': { es: 'Activación en 48 horas', en: 'Activation in 48 hours' },
+  'pricing.universal.f2': { es: 'Sin contratos de permanencia', en: 'No long-term contracts' },
+  'pricing.universal.f3': { es: 'Garantía de 14 días', en: '14-day guarantee' },
+  'pricing.universal.f4': { es: 'Soporte técnico', en: 'Technical support' },
+  'pricing.universal.f5': { es: 'Actualizaciones continuas', en: 'Continuous updates' },
 };
 
 interface TranslationContextType {
