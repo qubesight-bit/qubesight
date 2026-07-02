@@ -339,7 +339,7 @@ export const translations: Translations = {
   // Voice Bot capacity
   'pricing.voice.bronze.capacity': { es: '2,000 minutos (~400 llamadas)', en: '2,000 minutes (~400 calls)' },
   'pricing.voice.silver.capacity': { es: '5,000 minutos (~1,000 llamadas)', en: '5,000 minutes (~1,000 calls)' },
-  'pricing.voice.gold.capacity': { es: '12,000 minutos (~2,400 llamadas)', en: '12,000 minutes (~2,400 calls)' },
+  'pricing.voice.gold.capacity': { es: '12,000 minutos', en: '12,000 minutes' },
   'pricing.voice.overage': { es: 'Uso adicional: $0.10 por minuto', en: 'Overage usage: $0.10 per minute' },
 
   // PropIA repositioning
