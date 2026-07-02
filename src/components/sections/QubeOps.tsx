@@ -144,7 +144,7 @@ const QubeOps = () => {
               {isES ? "Desde" : "From"}
             </span>
             <span className="text-sm font-bold gradient-text">
-              $80 setup + $20/{isES ? "mes" : "mo"}
+              $149 setup + $79/{isES ? "mes" : "mo"}
             </span>
           </div>
           <div>
