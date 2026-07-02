@@ -407,6 +407,11 @@ const Pricing = () => {
 
               {/* 2. Price */}
               <div className="mb-1">
+                {plan.setup && (
+                  <div className="text-sm text-muted-foreground mb-1">
+                    ${plan.setup} {t("pricing.oneTime")}
+                  </div>
+                )}
                 <div className="flex items-baseline gap-1">
                   <span className="text-5xl font-bold font-display">${plan.price}</span>
                   <span className="text-muted-foreground">{t("pricing.month")}</span>
