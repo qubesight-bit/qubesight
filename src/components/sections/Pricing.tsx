@@ -563,6 +563,104 @@ const Pricing = () => {
             ⚡ {t("pricing.voice.overage")}
           </span>
         </div>
+
+        {/* AI Suite (Chat + Voice) */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="max-w-3xl mx-auto text-center mt-24 mb-10"
+        >
+          <span className="eyebrow mb-4">{t("pricing.section.suite")}</span>
+          <h3 className="text-2xl sm:text-4xl font-bold font-display leading-tight mt-4">
+            {t("pricing.suite.title")}
+          </h3>
+          <p className="mt-3 text-muted-foreground">{t("pricing.suite.subtitle")}</p>
+        </motion.div>
+
+        <div className="grid md:grid-cols-2 gap-6 lg:gap-8 max-w-5xl mx-auto items-stretch">
+          {suitePlans.map((plan, i) => (
+            <motion.div
+              key={plan.id}
+              initial={{ opacity: 0, y: 24, filter: "blur(6px)" }}
+              whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: i * 0.08, ease: [0.32, 0.72, 0, 1] }}
+              className={`bento-tile p-8 flex flex-col ${
+                plan.popular ? "!border-primary/40 ring-1 ring-primary/30 shadow-[0_30px_80px_-30px_hsl(249,70%,30%,0.6)]" : ""
+              }`}
+            >
+              {plan.popular && (
+                <span className="absolute -top-3 left-6 inline-flex items-center gap-1 px-3 py-1 rounded-full bg-gradient-to-br from-[hsl(249,65%,58%)] to-[hsl(258,75%,64%)] text-white text-[10px] font-bold uppercase tracking-[0.18em] shadow-[0_10px_24px_-8px_hsl(249,70%,40%,0.7)]">
+                  <Sparkles className="h-3 w-3" />
+                  {t("pricing.popular")}
+                </span>
+              )}
+              <h3 className="text-2xl font-bold font-display mb-1">AI Suite {plan.name}</h3>
+              <p className="text-sm text-muted-foreground mb-6">{plan.desc}</p>
+              <div className="mb-6">
+                <div className="text-sm text-muted-foreground mb-1">
+                  ${plan.setup} {t("pricing.oneTime")}
+                </div>
+                <div className="flex items-baseline gap-1">
+                  <span className="text-5xl font-bold font-display">${plan.price}</span>
+                  <span className="text-muted-foreground">{t("pricing.month")}</span>
+                </div>
+                <div className="mt-2 text-sm text-muted-foreground">
+                  <span className="text-foreground font-semibold">${plan.price * 12}</span>{" "}
+                  {t("pricing.annualTotal")}
+                  {yearly && (
+                    <span className="text-primary"> ({t("pricing.youSave")} ${(plan.price * 12) / 4})</span>
+                  )}
+                </div>
+              </div>
+              <ul className="space-y-3 mb-8 flex-grow">
+                {plan.features.map((f, idx) => (
+                  <li key={idx} className="flex items-start gap-3 text-sm">
+                    <Check className="h-4 w-4 text-primary flex-shrink-0 mt-0.5" />
+                    <span>{f}</span>
+                  </li>
+                ))}
+              </ul>
+              <Button
+                variant={plan.popular ? "hero" : "outline"}
+                size="lg"
+                onClick={() => openCheckout(plan.id, plan.price, `AI Suite ${plan.name}`)}
+                className="w-full min-h-[48px]"
+              >
+                {t("pricing.cta")}
+              </Button>
+            </motion.div>
+          ))}
+        </div>
+
+        {/* Universal features */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
+          className="max-w-5xl mx-auto mt-16 glass-card rounded-3xl p-6 sm:p-8"
+        >
+          <h4 className="text-center text-sm font-bold uppercase tracking-[0.2em] text-primary mb-6">
+            {t("pricing.universal.title")}
+          </h4>
+          <div className="grid grid-cols-2 md:grid-cols-5 gap-3 text-sm">
+            {[
+              t("pricing.universal.f1"),
+              t("pricing.universal.f2"),
+              t("pricing.universal.f3"),
+              t("pricing.universal.f4"),
+              t("pricing.universal.f5"),
+            ].map((f, i) => (
+              <div key={i} className="flex items-start gap-2 rounded-2xl border border-white/10 bg-white/[0.03] p-3">
+                <Check className="h-4 w-4 text-primary flex-shrink-0 mt-0.5" />
+                <span>{f}</span>
+              </div>
+            ))}
+          </div>
+        </motion.div>
       </div>
 
       <CheckoutDialog
