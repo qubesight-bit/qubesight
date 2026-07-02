@@ -175,6 +175,9 @@ const Pricing = () => {
           </div>
         </motion.div>
 
+        <div className="max-w-7xl mx-auto mb-6 text-center">
+          <span className="eyebrow">{t("pricing.section.chat")}</span>
+        </div>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-5 max-w-7xl mx-auto">
           {plans.map((plan, i) => (
