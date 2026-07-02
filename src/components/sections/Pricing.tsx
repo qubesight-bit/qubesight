@@ -309,7 +309,6 @@ const Pricing = () => {
           className="max-w-3xl mx-auto text-center mt-24 mb-10"
         >
           <span className="eyebrow mb-4">{t("pricing.section.voice")}</span>
-        >
           <h3 className="text-2xl sm:text-4xl font-bold font-display leading-tight">
             {t("pricing.voice.title")}
           </h3>
